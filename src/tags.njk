@@ -1,6 +1,6 @@
 ---
 pagination:
-  data: collections
+  data: collections.tagList
   size: 1
   alias: tag
   filter:
@@ -11,8 +11,8 @@ pagination:
 layout: page
 eleventyComputed:
   title: "Tagged '{{ tag }}'"
-  description: "All posts tagged with '{{ tag }}' on William Zujkowski's blog"
-permalink: /tags/{{ tag | slugify }}/
+  description: "All posts tagged with '{{ tag }}' on Predrag Tasevski's blog"
+permalink: /tags/{{ tag | normalizeTag | slugify }}/
 ---
 
 <div class="prose prose-lg prose-gray dark:prose-invert lg:prose-xl max-w-none mb-12">
@@ -23,7 +23,8 @@ permalink: /tags/{{ tag | slugify }}/
 </div>
 
 <div class="space-y-8">
-  {%- for post in collections[tag] | reverse %}
+  {% set normalizedTag = tag | normalizeTag %}
+  {% for post in collections[normalizedTag] | reverse %}
   <article class="glass dark:glass-dark rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300">
     <header>
       <h2 class="text-2xl font-bold mb-2">

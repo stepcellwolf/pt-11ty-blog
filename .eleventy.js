@@ -31,6 +31,18 @@ module.exports = function(eleventyConfig) {
       imageAttributes.class = className;
     }
 
+    eleventyConfig.addCollection("projects", function(collectionApi) {
+      return require("./_data/projects.json")
+    })
+    return {
+      dir: {
+        input: ".",
+        includes: "_includes",
+        data: "_data",
+        output: "_site"
+      }
+    }
+
     return Image.generateHTML(metadata, imageAttributes);
   }
 
@@ -106,18 +118,18 @@ module.exports = function(eleventyConfig) {
   // Reading time filter
   eleventyConfig.addFilter("readingTime", (content) => {
     if (!content) return 0;
-    
+
     // Strip HTML tags and get plain text
     const plainText = content.replace(/<[^>]*>/g, '');
-    
+
     // Count words (split by whitespace)
     const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length;
-    
+
     // Average reading speed is 200-250 words per minute
     // Using 225 as a middle ground
     const wordsPerMinute = 225;
     const readingTime = Math.ceil(wordCount / wordsPerMinute);
-    
+
     return readingTime;
   });
 
@@ -129,10 +141,15 @@ module.exports = function(eleventyConfig) {
     return new Date(Math.max(...collection.map(item => item.date)));
   });
 
+  // Normilize tags on posts
+  eleventyConfig.addFilter("normalizeTag", tag =>
+    tag.trim().toLowerCase()
+  );
+
   // Convert URLs to absolute URLs for RSS
   eleventyConfig.addFilter("htmlToAbsoluteUrls", (htmlContent, base) => {
     if (!htmlContent) return '';
-    
+
     // Simple regex to convert relative URLs to absolute
     return htmlContent
       .replace(/src="\/([^"]+)"/g, `src="${base}/$1"`)
@@ -142,7 +159,7 @@ module.exports = function(eleventyConfig) {
   // Add rel="noopener noreferrer" to external links for security
   eleventyConfig.addFilter("externalLinks", (content) => {
     if (!content) return '';
-    
+
     // Add rel attribute to external links
     return content.replace(
       /<a\s+href="https?:\/\/(?!williamzujkowski\.github\.io)[^"]+"/g,
@@ -160,7 +177,7 @@ module.exports = function(eleventyConfig) {
   // Add lazy loading and responsive attributes to images
   eleventyConfig.addFilter("lazyImages", (content) => {
     if (!content) return '';
-    
+
     // Add loading="lazy" and responsive classes to img tags
     return content.replace(
       /<img\s+(?![^>]*\sloading=)[^>]*>/gi,
@@ -169,7 +186,7 @@ module.exports = function(eleventyConfig) {
         if (match.includes('data:') || match.includes('.svg')) {
           return match;
         }
-        
+
         // Add responsive classes if not already present
         let updatedMatch = match;
         if (!match.includes('class=')) {
@@ -177,7 +194,7 @@ module.exports = function(eleventyConfig) {
         } else if (!match.includes('max-w-full')) {
           updatedMatch = match.replace(/class="([^"]*)"/, 'class="$1 max-w-full h-auto"');
         }
-        
+
         // Add loading="lazy" before the closing >
         return updatedMatch.replace(/>$/, ' loading="lazy">');
       }
@@ -188,27 +205,27 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("gitLastModified", (inputPath) => {
     try {
       if (!inputPath) return null;
-      
+
       // Remove the leading ./ and src/ if present
       let cleanPath = inputPath.replace(/^\.\//, '');
       if (cleanPath.startsWith('src/')) {
         cleanPath = cleanPath.substring(4);
       }
-      
+
       // Construct the full file path
       const filePath = path.join(__dirname, 'src', cleanPath);
-      
+
       // Get the last commit date for this file
       const gitCommand = `git log -1 --format=%cI -- "${filePath}"`;
       const result = execSync(gitCommand, { encoding: 'utf-8' }).trim();
-      
+
       if (result) {
         return new Date(result);
       }
     } catch (error) {
       console.error(`Error getting git date for ${inputPath}:`, error.message);
     }
-    
+
     return null;
   });
 
@@ -278,3 +295,4 @@ module.exports = function(eleventyConfig) {
     dataTemplateEngine: "njk"
   };
 };
+

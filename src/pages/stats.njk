@@ -2,10 +2,10 @@
 title: "Blog Statistics"
 layout: base
 permalink: /stats/
-description: "Comprehensive statistics and visualizations for williamzujkowski.github.io blog posts"
+description: "Comprehensive statistics and visualizations for Predrag Tasevski blog posts"
 eleventyNavigation:
   key: Stats
-  order: 5
+  order: 9
 eleventyComputed:
   stats: "{{ blogStats }}"
 ---
@@ -34,6 +34,36 @@ eleventyComputed:
         role="button"
       >
         All Time
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2022"
+        onclick="switchYear('2019')"
+        aria-label="Show statistics for 2019"
+        aria-pressed="false"
+        role="button"
+      >
+        2019
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2021"
+        onclick="switchYear('2021')"
+        aria-label="Show statistics for 2021"
+        aria-pressed="false"
+        role="button"
+      >
+        2021
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2023"
+        onclick="switchYear('2023')"
+        aria-label="Show statistics for 2023"
+        aria-pressed="false"
+        role="button"
+      >
+        2023
       </button>
       <button
         class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"

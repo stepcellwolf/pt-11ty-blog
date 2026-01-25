@@ -1,0 +1,19 @@
+---
+title: Cyber Security overview of 2016 and 2017 predictions (Macedonian language)
+date: 2017-01-02
+author: Predrag Tasevski
+tags:
+- macedonia
+- cyber security
+- it security
+- prediction
+- interview
+- ransomware
+- data breaches
+- botnet
+- awareness
+- privacy
+- encryption
+---
+
+Interview in Macedonian IT news portal only available in Macedonian language, [link](https://www.it.mk/it-bezbednost/)

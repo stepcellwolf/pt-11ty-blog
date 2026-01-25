@@ -1,277 +1,327 @@
 {
-  "total_posts": 70,
-  "total_words": 145086,
-  "average_words": 2072.7,
-  "average_reading_time": 9.2,
+  "total_posts": 72,
+  "total_words": 47409,
+  "average_words": 658.5,
+  "average_reading_time": 3.2,
   "posts_by_year": {
-    "2024": 32,
-    "2025": 38
+    "2011": 12,
+    "2012": 19,
+    "2013": 11,
+    "2014": 7,
+    "2015": 8,
+    "2016": 1,
+    "2017": 2,
+    "2019": 1,
+    "2021": 2,
+    "2023": 4,
+    "2024": 3,
+    "2025": 2
   },
   "words_by_year": {
-    "2024": 86874,
-    "2025": 58212
+    "2011": 13812,
+    "2012": 16664,
+    "2013": 7238,
+    "2014": 3246,
+    "2015": 1979,
+    "2016": 165,
+    "2017": 121,
+    "2019": 1124,
+    "2021": 868,
+    "2023": 978,
+    "2024": 574,
+    "2025": 640
   },
-  "posts_by_month": {
-    "2025-01": 3,
-    "2025-02": 2,
-    "2025-03": 2,
-    "2025-04": 2,
-    "2025-05": 1,
-    "2025-06": 1,
-    "2025-07": 5,
-    "2025-08": 4,
-    "2025-09": 6,
-    "2025-10": 5,
-    "2025-11": 4,
-    "2025-12": 3
-  },
+  "posts_by_month": {},
   "top_tags": [
     {
+      "tag": "cyber security",
+      "count": 32
+    },
+    {
       "tag": "security",
-      "count": 39
+      "count": 22
     },
     {
-      "tag": "homelab",
-      "count": 29
+      "tag": "internet",
+      "count": 14
     },
     {
-      "tag": "ai",
-      "count": 26
+      "tag": "online",
+      "count": 11
     },
     {
-      "tag": "llm",
-      "count": 12
-    },
-    {
-      "tag": "programming",
-      "count": 10
-    },
-    {
-      "tag": "machine-learning",
-      "count": 10
-    },
-    {
-      "tag": "cryptography",
+      "tag": "macedonia",
       "count": 9
     },
     {
-      "tag": "automation",
-      "count": 9
-    },
-    {
-      "tag": "networking",
-      "count": 9
-    },
-    {
-      "tag": "privacy",
+      "tag": "ddos",
       "count": 8
     },
     {
-      "tag": "python",
+      "tag": "awareness",
+      "count": 8
+    },
+    {
+      "tag": "networking",
+      "count": 7
+    },
+    {
+      "tag": "interview",
+      "count": 7
+    },
+    {
+      "tag": "attacks",
       "count": 6
     },
     {
-      "tag": "open-source",
+      "tag": "malware",
       "count": 6
     },
     {
-      "tag": "devops",
+      "tag": "balkan",
       "count": 6
     },
     {
-      "tag": "vulnerability-management",
+      "tag": "conference",
+      "count": 6
+    },
+    {
+      "tag": "cybersecurity",
+      "count": 6
+    },
+    {
+      "tag": "network",
       "count": 5
     },
     {
-      "tag": "computational-science",
+      "tag": "privacy",
       "count": 5
     },
     {
-      "tag": "monitoring",
-      "count": 5
-    },
-    {
-      "tag": "ethics",
+      "tag": "cyber",
       "count": 4
     },
     {
-      "tag": "architecture",
+      "tag": "freedom",
       "count": 4
     },
     {
-      "tag": "sustainability",
+      "tag": "running",
       "count": 4
     },
     {
-      "tag": "docker",
-      "count": 4
+      "tag": "network crime",
+      "count": 3
     }
   ],
   "recent_posts": [
     {
-      "title": "Building a Private Cloud in Your Homelab with Proxmox and Security Best Practices",
-      "date": "2025-12-24",
-      "reading_time": 8,
+      "title": "Open Source is NOT Dead: A Talk in Berlin",
+      "date": "2025-02-27",
+      "reading_time": 2,
       "tags": [
+        "opensource",
+        "foss",
+        "businessmodel",
+        "techinnovation",
+        "cybersecurity",
+        "berlintech",
+        "startup",
+        "devcommunity",
+        "ai",
+        "saas",
+        "cloudcomputing",
+        "linux",
+        "kubernetes",
+        "mongodb",
+        "gitlab",
+        "redhat",
+        "hashicorp",
+        "softwaredevelopment",
+        "entrepreneurship",
+        "techtalk",
+        "communitydriven",
+        "digitaltransformation",
+        "unicistech"
+      ]
+    },
+    {
+      "title": "Running 2024 results",
+      "date": "2025-02-17",
+      "reading_time": 1,
+      "tags": [
+        "running",
+        "challenge",
+        "half-marathon",
+        "marathon",
+        "run"
+      ]
+    },
+    {
+      "title": "DecapCMS and GitLab integration without Netlify",
+      "date": "2024-04-21",
+      "reading_time": 1,
+      "tags": [
+        "decapcms",
+        "cms",
+        "gitlab",
+        "docusaurus",
+        "ci/cd",
+        "gitlab pages",
+        "netlify",
+        "hugo",
+        "nextjs",
+        "workflow"
+      ]
+    },
+    {
+      "title": "Running 2023 results",
+      "date": "2024-04-15",
+      "reading_time": 1,
+      "tags": [
+        "running",
+        "challenge",
+        "half-marathon",
+        "marathon",
+        "run"
+      ]
+    },
+    {
+      "title": "Shifting Left and Right: A Comprehensive Guide to Bolstering Security",
+      "date": "2024-01-02",
+      "reading_time": 1,
+      "tags": [
+        "shift-left",
+        "shift-right",
+        "cybersecurity",
+        "iac",
+        "training",
+        "code-review",
+        "security testing",
+        "sdlc",
+        "development",
+        "owasp",
+        "ci/cd",
+        "siem",
+        "skf",
+        "securityculture"
+      ]
+    },
+    {
+      "title": "Learning to adapt: From Python puzzles to Next.js adventures.",
+      "date": "2023-11-28",
+      "reading_time": 1,
+      "tags": [
+        "python",
+        "nextjs",
+        "blog",
+        "pelican",
+        "design",
+        "react",
+        "startup",
+        "jamstack",
+        "static-site",
+        "java",
+        "minimalist",
+        "serverless",
+        "framework",
+        "websites",
+        "blogposts",
+        "sideproject",
+        "code",
+        "markdown",
+        "github-pages"
+      ]
+    },
+    {
+      "title": "Interview - Indeed Career Guide Tips",
+      "date": "2023-06-21",
+      "reading_time": 1,
+      "tags": [
+        "interview",
+        "career",
+        "guide",
+        "tips",
         "cloud",
-        "security",
-        "homelab",
-        "virtualization",
-        "proxmox",
-        "networking",
-        "backup"
+        "software",
+        "engineer",
+        "cybersecurity",
+        "tester"
       ]
     },
     {
-      "title": "Hardening Docker Containers in Your Homelab: A Defense-in-Depth Approach",
-      "date": "2025-12-17",
-      "reading_time": 5,
+      "title": "Podcasts for: Security, Startup, learning German and whatever",
+      "date": "2023-01-25",
+      "reading_time": 2,
       "tags": [
+        "running",
+        "cybersecurity",
         "security",
-        "docker",
-        "homelab",
-        "containers",
-        "defense-in-depth",
-        "hardening",
-        "network-security"
+        "german",
+        "macedonian",
+        "podcast",
+        "startup"
       ]
     },
     {
-      "title": "Building a Homelab Security Dashboard with Grafana and Prometheus",
-      "date": "2025-12-10",
-      "reading_time": 7,
+      "title": "Running. Results of 2021 & 2022 and challenge for 2023",
+      "date": "2023-01-09",
+      "reading_time": 2,
       "tags": [
-        "security",
-        "monitoring",
-        "grafana",
-        "prometheus",
-        "homelab",
-        "observability",
-        "alerting",
-        "dashboard"
+        "running",
+        "challenge",
+        "half-marathon",
+        "marathon",
+        "run",
+        "writing",
+        "blog",
+        "life style"
       ]
     },
     {
-      "title": "NodeShield: Runtime SBOM Enforcement Stops 98% of Supply Chain Attacks",
-      "date": "2025-11-23",
-      "reading_time": 8,
-      "tags": [
-        "supply-chain",
-        "sbom",
-        "nodejs",
-        "security",
-        "docker",
-        "homelab",
-        "container-security"
-      ]
-    },
-    {
-      "title": "PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms",
-      "date": "2025-11-19",
+      "title": "Vision of security in Canonical products",
+      "date": "2021-07-09",
       "reading_time": 3,
       "tags": [
-        "prometheus",
-        "monitoring",
-        "observability",
-        "performance",
-        "grafana",
-        "homelab",
-        "optimization"
-      ]
-    },
-    {
-      "title": "Quantum Error Correction Breakthrough: How Google's Willow Chip Changes Everything",
-      "date": "2025-11-12",
-      "reading_time": 5,
-      "tags": [
-        "quantum-computing",
-        "research",
-        "breakthrough",
-        "future-technology"
-      ]
-    },
-    {
-      "title": "SIEM for Homelab: Wazuh vs Graylog Performance Comparison",
-      "date": "2025-11-05",
-      "reading_time": 7,
-      "tags": [
-        "siem",
-        "wazuh",
-        "graylog",
         "security",
-        "monitoring",
-        "homelab",
-        "python",
-        "observability"
-      ]
-    },
-    {
-      "title": "Preparing Your Homelab for the Quantum Future: Post-Quantum Cryptography Migration",
-      "date": "2025-10-29",
-      "reading_time": 20,
-      "tags": [
-        "computational-science",
-        "cryptography",
-        "homelab",
-        "networking",
         "privacy",
-        "security"
-      ]
-    },
-    {
-      "title": "Building a Privacy-First AI Lab: Deploying Local LLMs Without Sacrificing Ethics",
-      "date": "2025-10-29",
-      "reading_time": 11,
-      "tags": [
-        "ethics",
-        "homelab",
-        "llm",
-        "machine-learning",
-        "privacy",
-        "security"
-      ]
-    },
-    {
-      "title": "From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows",
-      "date": "2025-10-17",
-      "reading_time": 10,
-      "tags": [
-        "ai",
-        "devops",
-        "llm",
-        "mcp"
+        "canonical",
+        "ubuntu",
+        "default",
+        "design",
+        "vision"
       ]
     }
   ],
   "longest_post": {
-    "title": "Designing Resilient Systems for an Uncertain World",
-    "word_count": 5910,
-    "reading_time": 25
+    "title": "Information society and information warfare",
+    "word_count": 1835,
+    "reading_time": 8
   },
   "shortest_post": {
-    "title": "PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms",
-    "word_count": 484,
-    "reading_time": 3
+    "title": "Cyber Security overview of 2016 and 2017 predictions (Macedonian language)",
+    "word_count": 12,
+    "reading_time": 1
   },
-  "posts_with_images": 58,
-  "posts_with_images_percentage": 82.9,
+  "posts_with_images": 0,
+  "posts_with_images_percentage": 0.0,
   "reading_time_distribution": {
-    "1-3 min": 6,
-    "4-6 min": 17,
-    "7-9 min": 18,
-    "10+ min": 29
+    "1-3 min": 42,
+    "4-6 min": 24,
+    "7-9 min": 6,
+    "10+ min": 0
   },
   "citation_stats": {
-    "total_external_links": 996,
-    "total_internal_links": 391,
-    "average_citation_density": 9.17,
-    "average_external_links_per_post": 14.2
+    "total_external_links": 401,
+    "total_internal_links": 4,
+    "average_citation_density": 17.23,
+    "average_external_links_per_post": 5.6
   },
   "code_stats": {
-    "average_code_to_content_ratio": 10.8,
-    "posts_with_code": 63,
-    "posts_with_code_percentage": 90.0
+    "average_code_to_content_ratio": 4.2,
+    "posts_with_code": 16,
+    "posts_with_code_percentage": 22.2
   },
-  "generated_at": "2025-12-08T23:18:56.630099",
+  "generated_at": "2026-01-25T21:08:14.900013",
   "reading_speed_wpm": 238
 }

@@ -1,4 +1,4 @@
-# williamzujkowski.github.io
+# stepcellwolf.github.io
 
 **Version:** 2.7.0  
 **Last Updated:** 2025-08-08  
@@ -6,6 +6,8 @@
 **Type:** Personal Website
 
 Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 44 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search functionality, social sharing, reading progress indicator, hero images, and PWA support.
+
+cloned from: https://github.com/williamzujkowski/williamzujkowski.github.io
 
 > **📌 IMPORTANT:** [CLAUDE.md](CLAUDE.md) is the **AUTHORITATIVE DOCUMENTATION** for this repository.
 >

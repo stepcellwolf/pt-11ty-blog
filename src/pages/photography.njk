@@ -1,0 +1,99 @@
+---
+title: "Photography"
+layout: page
+permalink: /photography/
+eleventyNavigation:
+  key: Photography
+  order: 6
+---
+
+<div class="divide-y divide-gray-200 dark:divide-gray-700">
+  <div class="space-y-2 pt-6 pb-8 md:space-y-5">
+    <p class="text-lg leading-7 text-gray-500 dark:text-gray-400">
+      Photographing by Predrag Tasevski is licensed under a
+      <a
+        href="https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1"
+        class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400
+               text-base leading-6 font-medium"
+        target="_blank"
+        rel="noopener noreferrer">
+        CC BY-NC 4.0 DEED</a>.
+      Based on a work at
+      <a
+        href="https://predragtasevski.com/"
+        class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400
+               text-base leading-6 font-medium"
+        target="_blank"
+        rel="noopener noreferrer">
+        predragtasevski.com</a>.
+      <br />
+      Permissions beyond the scope of this license or contact me at
+      <span class="font-medium">pece at predragtasevski.com</span>
+    </p>
+  </div>
+
+  <div class="container py-12">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      id="static-thumbnails">
+
+      {% set photos = [
+        "12_predragtasevski1paroviweb_15092351143_o.jpg",
+        "b1-tpredrag_15526797160_o.jpg",
+        "b3-tpredrag_15091705774_o.jpg",
+        "b4-tpredrag_15525728959_o.jpg",
+        "bastille-day1_16741496687_o.jpg",
+        "demarble1_15709651241_o.png",
+        "germany1_15713221532_o.jpg",
+        "germany2_15526467367_o.jpg",
+        "germany3_15092217243_o.jpg",
+        "germany4_15092267393_o.jpg",
+        "germany5_15711592755_o.jpg",
+        "germany6_15711588575_o.jpg",
+        "germany7_15709673561_o.jpg",
+        "germany8_15687914366_o.jpg",
+        "gishe_15687834836_o.png",
+        "isola-france_16761378940_o.jpg",
+        "lefkada1_15711609885_o.jpg",
+        "meteori1_15526429527_o.jpg",
+        "meteori3_15525742099_o.jpg",
+        "milena_15091621514_o.png",
+        "mongasque_16948856085_o.jpg",
+        "path_16922910286_o.jpg",
+        "predrag-tasevski---resting_15713214412_o.jpg",
+        "predrag-tasevski---step-up_15526475227_o.jpg",
+        "predrag-tasevski---two-generations_15526442517_o.jpg",
+        "predragtasevski-tour-de-france---st_malo-amour_15709656531_o.jpg",
+        "predragtasevski-tour-de-france---st_malo-chemin_15526358907_o.jpg",
+        "predragtasevski-tour-de-france---st_malo-la-nuit_15525695339_o.jpg",
+        "predragtasevski-tour-de-france---st_malo-seul_15711559345_o.jpg",
+        "predragtasevski-tour-de-france--bordeaux-miroir_15525693359_o.jpg",
+        "predragtasevski-tour-de-france--st-tropez-7_15091633224_o.jpg",
+        "predragtasevski-tour-de-france-005_15526136908_o.jpg",
+        "predragtasevski-tour-de-france-015_15091626564_o.jpg",
+        "profa_15526142568_o.png",
+        "rjeka1_15711598085_o.jpg",
+        "shkola_15526367387_o.png",
+        "stockholm1_16922915086_o.jpg",
+        "stockholm2_16947522212_o.jpg",
+        "tallin01_15709705351_o.jpg"
+      ] %}
+
+      {% for photo in photos %}
+        <a
+          href="/assets/images/photography/{{ photo }}"
+          class="group block overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800"
+          target="_blank"
+          rel="noopener noreferrer">
+
+          <img
+            src="/assets/images/photography/{{ photo }}"
+            alt="Photography by Predrag Tasevski"
+            loading="lazy"
+            class="h-full w-full object-cover transition-transform duration-300
+                   group-hover:scale-105" />
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
-# robots.txt for https://williamzujkowski.github.io
+# robots.txt for https://stepcellwolf.github.io
 
 User-agent: *
 Allow: /
 
-Sitemap: https://williamzujkowski.github.io/sitemap.xml
+Sitemap: https://stepcellwolf.github.io/sitemap.xml

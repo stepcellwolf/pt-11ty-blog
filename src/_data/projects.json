@@ -1,0 +1,95 @@
+[
+    {
+        "title": "SAFE SPORT",
+        "date": "October 2025",
+        "description": "EU Project The SAFE SPORT project enhances digital safety for female athletes, tackling cyberbullying, identity theft, and harassment, with Predrag creating the core cybersecurity toolkit content and delivering training, policies, and guidance aligned with EU regulations and Erasmus+ Sport priorities.",
+        "imgSrc": "/assets/images/projects/safe-sport-hor-2.png",
+        "href": "https://safesportproject.org/"
+    },
+    {
+        "title": "Virtual Innovation Consortium",
+        "date": "July 2025",
+        "description": "EU Project The Virtual Innovation Consortium (VIC) project bridges Europe’s digital skills gap through XR education, with Unicis leading cybersecurity and GDPR-compliant infrastructure to ensure safe, immersive learning across a Master’s programme, advanced training, and Summer School.",
+        "imgSrc": "/assets/images/projects/vic_logo.webp",
+        "href": "https://vic-eu.com/"
+    },
+    {
+      "title": "CyberSec4OT",
+      "date": "November 2024",
+      "description": "EU Project The CyberSec4OT project addresses the pressing challenges arising from the convergence of Information Technology (IT) and Operational Technology (OT) within the framework of Industry 4.0.",
+      "imgSrc": "/assets/images/projects/cybersec4ot.jpg",
+      "href": "https://cysecsurveys.com/cybersec4ot/en/"
+    },
+    {
+      "title": "OSCRAT",
+      "date": "December 2024",
+      "description": "EU Project Open-Source Cyber Resilience Act Tools (OSCRAT). Empowering SMEs with open-source tools for Cyber Resilience Act compliance.",
+      "imgSrc": "/assets/images/projects/OSCRAT-logo-hor.png",
+      "href": "https://oscrat.eu/"
+    },
+    {
+      "title": "Unicis.Tech OÜ",
+      "date": "September 2022",
+      "description": "Founder of an open source startup project that develops SaaS Platform and Atlassian applications for compliance, privacy, and legal teams.",
+      "imgSrc": "/assets/images/projects/logo-unicis.png",
+      "href": "https://www.unicis.tech"
+    },
+    {
+      "title": "CertNexus: Committee for CyberSec First Responder (CFR-410)",
+      "date": "2022",
+      "description": "Industry expert and programme committee on the CyberSec First Responder (CFR-410)",
+      "imgSrc": "/assets/images/projects/cfr-cert.png",
+      "href": "https://certnexus.com/certification/cybersec-first-responder/"
+    },
+    {
+      "title": "NATO: Fundamental readiness in Cyber Defence in the Balkans",
+      "date": "17-19 October 2018",
+      "description": "Co-director of Advanced Research Workshop (ISEG.EAP.ARW.G5515). Write and design the project, and collect and gather a scientists and well-known Subject-matter experts from: government, military, NGOs, research and development, education and public and private sector from NATO members and partner countries.",
+      "imgSrc": "/assets/images/projects/NATOhor_RGB.jpg"
+    },
+    {
+      "title": "NATO: Benchmarking Telemedicine: Improving Health Security in the Balkans",
+      "date": "15-17 November 2016",
+      "description": "Co-director of Advanced Research Workshop (IISEG.EAP.ARW.985183), supported by NATO Science for Peace and Security programme, Skopje, Macedonia.",
+      "imgSrc": "/assets/images/projects/NATOhor_RGB.jpg"
+    },
+    {
+      "title": "Cybersecurity in the Western Balkans: Policy gaps and cooperation opportunities (Researcher)",
+      "date": "12 August 2016",
+      "description": "Author on the report on cybersecurity cooperation in the Western Balkans implemented with the support of the Federal Department of Foreign Affairs of Switzerland, in partnership with the Geneva Centre for the Democratic Control of Armed Forces (DCAF).",
+      "imgSrc": "/assets/images/projects/diplo.jpg",
+      "href": "https://www.diplomacy.edu/resource/cybersecurity-in-the-western-balkans-policy-gaps-and-cooperation-opportunities/"
+    },
+    {
+      "title": "NATO: Encouraging Cyber Security Awareness in the Balkans",
+      "date": "17-19 March 2015",
+      "description": "Co-director of Advanced Research Workshop (ISEG.EAP.ARW.984799), supported by NATO Science for Peace and Security programme. The main purpose of this workshop was to boost awareness in cyber security, cyber defence, strategy, frameworks and agencies.",
+      "imgSrc": "/assets/images/projects/NATOhor_RGB.jpg"
+    },
+    {
+      "title": "Study and Improvement of Risk Assessment Techniques",
+      "date": "2015",
+      "description": "Research as part of a post-master’s degree in EURECOM on cyber risk and large-scale analysis of vulnerabilities.",
+      "imgSrc": ""
+    },
+    {
+      "title": "Security Guru",
+      "date": "2013",
+      "description": "Security Guru is an awareness wizard application delivering security solutions for mobile and portable devices.",
+      "imgSrc": "/assets/images/projects/security_guru.png",
+      "href": "https://www.behance.net/gallery/7142707/Security-Guru"
+    },
+    {
+      "title": "Interactive Cyber Security Program",
+      "date": "2012",
+      "description": "CMS/LMS prototype for training program management built with CodeIgniter and MySQL.",
+      "imgSrc": ""
+    },
+    {
+      "title": "Messenger-Pigeon",
+      "date": "2009",
+      "description": "Java-based LAN chat application with easy setup and cross-platform support.",
+      "imgSrc": ""
+    }
+  ]
+  

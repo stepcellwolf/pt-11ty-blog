@@ -1,14 +1,17 @@
 {
-  "title": "William Zujkowski",
-  "description": "Senior Information Security Engineer with 15+ years experience in cybersecurity, AI security, and Zero-Trust architectures. Sharing insights on security, homelab automation, and the intersection of AI and cybersecurity.",
-  "url": "https://williamzujkowski.github.io",
-  "author": "William Zujkowski",
-  "currentYear": 2025,
-  "defaultImage": "/assets/images/og/default-og.png",
+  "title": "Predrag Tasevski",
+  "description": "Senior Cybersecurity and Privacy Expert specializing in Security and Privacy by Design, Governance, Risk and Compliance, cloud security, and human-centric security systems. Founder of Unicis.Tech, author, researcher, and cybersecurity mentor.",
+  "resume": "Predrag brings over 15 years of experience in cyber and IT security, with a strong emphasis on implementing security and privacy by design and by default. He has served in leadership and technical roles, including Director, Head of IT Security, ISO, and Cloud Security Engineer. He holds numerous industry-recognized certifications, including ISO/IEC 27001 & 42001, CISO, DPO, CPSP v2.0, PMP, and CyberSec First Responder. He has also contributed as a subject matter expert to CertNexus certification programs, including CFR and CSSD. Predrag holds a Master’s degree in Cyber Security and a postgraduate degree in Security in Computer Systems and Communications.",
+  "url": "https://predragtasevski.com",
+  "author": "Predrag Tasevski",
+  "currentYear": 2026,
+  "defaultImage": "/assets/images/avatar.png",
   "social": {
-    "github": "https://github.com/williamzujkowski",
-    "linkedin": "https://www.linkedin.com/in/williamzujkowski"
+    "linkedin": "https://www.linkedin.com/in/tpredrag",
+    "github": "https://github.com/stepcellwolf/",
+    "twitter": "https://twitter.com/stepcellwolf",
+    "mastodon": "https://mastodon.social/@stepcellwolf"
   },
-  "jobTitle": "Senior Information Security Engineer",
-  "keywords": "cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security"
+  "jobTitle": "Senior Cybersecurity and Privacy Expert",
+  "keywords": "cybersecurity, privacy by design, governance risk and compliance, GRC, cloud security, cyber defence, data protection, ISO 27001, DPO, risk management, security awareness, AI in security"
 }
