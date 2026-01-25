@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.">
+    <meta name="author" content="William Zujkowski">
+    <meta name="keywords" content="cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security">
+    
+    <title>GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill - William Zujkowski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://williamzujkowski.github.io/posts/gpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="William Zujkowski Feed" href="https://williamzujkowski.github.io/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/icon-192.svg">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/icon-512.svg">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill">
+    <meta property="og:description" content="Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://williamzujkowski.github.io/posts/gpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill/">
+    <meta property="og:image" content="https://williamzujkowski.github.io/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="William Zujkowski">
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="article:author" content="William Zujkowski">
+    <meta property="article:published_time" content="2024-11-15">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        
+        "headline": "GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill",
+        "description": "Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.",
+        "datePublished": "2024-11-15",
+        "dateModified": "2025-11-15",
+        "author": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io/about/",
+            "sameAs": [
+                "https://github.com/williamzujkowski",
+                "https://www.linkedin.com/in/williamzujkowski"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://williamzujkowski.github.io/assets/images/headshot.png"
+            }
+        },
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://williamzujkowski.github.io/assets/images/og-image.jpg"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://williamzujkowski.github.io/posts/gpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill/"
+        },
+        "url": "https://williamzujkowski.github.io/posts/gpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill/"
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        William Zujkowski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <!-- Enhanced Breadcrumbs for Blog Posts -->
+<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+  <ol class="flex items-center space-x-2 text-sm flex-wrap">
+    <li>
+      <a href="/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        <svg class="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Home
+      </a>
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href="/posts/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        Blog
+      </a>
+    </li>
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+      
+      <li class="flex items-center">
+        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/tags/ai/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+          ai
+        </a>
+      </li>
+      
+    
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-gray-900 dark:text-gray-100 font-medium truncate max-w-xs">GPU Power Monitoring in My Homelab: When Machine L...</span>
+    </li>
+  </ol>
+</nav>
+
+<article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12">
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm font-medium">
+                        <time datetime="2024-11-15" class="text-primary-600 dark:text-primary-400">
+                            November 15, 2024
+                        </time>
+                        <span class="text-gray-400 dark:text-gray-600">•</span>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            13 min read
+                        </span>
+                    </div>
+                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                        GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill
+                    </h1>
+                    
+                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                        Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.
+                    </p>
+                    
+                </div>
+                
+                
+                <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
+                    
+                        
+                    
+                        
+                        <a href="/tags/ai/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            ai
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/hardware/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            hardware
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/homelab/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            homelab
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/sustainability/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            sustainability
+                        </a>
+                        
+                    
+                </div>
+                
+            </header>
+
+            <!-- Table of Contents Accordion -->
+            <nav aria-label="Table of contents" class="toc-accordion mb-8 animate-fade-in-up animation-delay-500">
+                <details class="group">
+                    <summary class="cursor-pointer select-none font-medium flex items-center justify-between">
+                        <span>Table of Contents</span>
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="toc-content mt-4" id="toc-content">
+                        <!-- ToC will be generated here by JavaScript -->
+                    </div>
+                </details>
+            </nav>
+
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
+                <p>I opened my October 2024 electricity bill: $187, a $43 jump from September's $144. I'd been running <a href="/posts/2025-06-25-local-llm-deployment-privacy-first">Ollama</a> on my RTX 3090 for a month. That shock sparked a three-month deep dive into GPU power consumption. I instrumented my entire <a href="/posts/2025-04-24-building-secure-homelab-adventure">homelab</a> with monitoring gear and spent evenings staring at Grafana dashboards. My assumptions about AI workload efficiency were mostly wrong. For those exploring similar setups, <a href="/posts/2025-05-10-llm-fine-tuning-homelab-guide/">fine-tuning LLMs in the homelab</a> provides guidance on optimizing model performance while <a href="/posts/2025-04-10-securing-personal-ai-experiments/">securing AI experiments</a> covers essential safety practices for home deployments. The lessons on <a href="/posts/2024-07-16-sustainable-computing-carbon-footprint/">sustainable computing</a> helped me understand the broader environmental implications of my power consumption patterns.</p>
+<p>The 312W average power draw during LLM inference wasn't shocking. I knew the RTX 3090 was power-hungry. The massive variability caught me off guard: idle Ollama consumed 87W, fine-tuning a LoRA adapter spiked to 394W before power limits kicked in. These weren't abstract spec sheet numbers. Real watts flowing through my Kill-A-Watt P4400 meter, translating to dollars at $0.12/kWh.</p>
+<h2>Why Power Monitoring Matters</h2>
+<p>I've been running a homelab for years, but 2024 changed everything. Large language model democratization meant I could run GPT-3-class models on my hardware. Ollama made it trivially easy: <code>ollama pull llama3.1:8b</code> and I had a capable LLM in under 90 seconds. Ease of deployment masked an inconvenient truth: running AI at home isn't cheap.</p>
+<p>A <a href="https://arxiv.org/abs/2311.16863">2023 University of Massachusetts Amherst study</a> found training a single large language model can emit as much carbon as five cars over their lifetimes. I wasn't training from scratch, but inference isn't free. A <a href="https://www.cell.com/joule/fulltext/S2542-4351(24)00094-7">2024 Joule analysis</a> estimated ChatGPT's energy consumption could reach 1 TWh annually, roughly equivalent to 100,000 U.S. homes' yearly electricity. Scaling to homelab levels still means real environmental and financial impact.</p>
+<p>I needed data. Not vendor claims or theoretical calculations, but actual measurements from my hardware running my workloads.</p>
+<p><strong>But here's the catch</strong>: This data revealed uncomfortable truths. Home AI isn't sustainable by default. It requires intentional optimization, constant monitoring, and accepting trade-offs between convenience and cost.</p>
+<h2>The Experiment Setup</h2>
+<p><strong>My <a href="/posts/2025-09-29-proxmox-high-availability-homelab">homelab</a> GPU rig:</strong></p>
+<ul>
+<li>GPU: NVIDIA RTX 3090 (24GB VRAM)</li>
+<li>CPU: Intel i9-9900K (8 cores, 16 threads)</li>
+<li>RAM: 64GB DDR4-3200</li>
+<li>Storage: 2TB NVMe SSD</li>
+<li>Power Supply: EVGA 850W 80+ Gold</li>
+<li>OS: Proxmox VE 8.1 with Ubuntu 22.04 LXC container for ML</li>
+</ul>
+<p><strong>Power monitoring approach:</strong></p>
+<p>Hardware Level:</p>
+<ul>
+<li>Kill-A-Watt P4400 on wall outlet (total system power)</li>
+<li>Inline monitoring through UPS (APC Back-UPS Pro 1500VA)</li>
+</ul>
+<p>Software Level:</p>
+<ul>
+<li><code>nvidia-smi</code> polling every 2 seconds for GPU metrics</li>
+<li><a href="https://github.com/NVIDIA/dcgm-exporter">DCGM Exporter</a> feeding GPU telemetry to Prometheus</li>
+<li>Custom Python scripts logging power data with timestamps</li>
+<li>Grafana dashboards for visualization</li>
+</ul>
+<p>LLM Stack:</p>
+<ul>
+<li><a href="https://ollama.com/">Ollama 0.3.9</a> as inference server</li>
+<li>Models tested: Llama 3.1 8B, Llama 3.1 70B (quantized), Mistral 7B, Phi-3 Mini</li>
+<li>Workloads: Chat inference, batch processing, continuous generation</li>
+</ul>
+<p>I ran each test for at least 30 minutes to capture steady-state behavior. Repeated critical measurements three times for variability. The methodology isn't publication-worthy, but rigorous enough for decision-making.</p>
+<h2>What I Learned: Five Surprising Findings</h2>
+<h3>1. Idle Power Is Your Silent Wallet Drainer</h3>
+<p>I assumed Ollama's GPU would drop to near-zero power when not generating tokens. Completely wrong.</p>
+<p>Ollama running but idle (model loaded in VRAM, no active requests) drew 87W continuously. That's 2.09 kWh per day, or $7.51/month just to keep the model ready. Over a year, keeping Ollama perpetually ready costs roughly $90, more than a ChatGPT Plus subscription.</p>
+<p>The culprit: GPU memory doesn't sleep. Once you load a model into VRAM, the GPU maintains that state at significant power cost. I verified this by unloading models (<code>ollama stop</code>), which dropped system power to 52W (my baseline idle with GPU present but not loaded).</p>
+<p>The trade-off: Fast response times (model pre-loaded) versus cost efficiency (load on demand). I now use systemd timers to automatically unload models after 15 minutes of inactivity, accepting a 3-4 second cold-start penalty.</p>
+<p>Example: &quot;What's the capital of France?&quot; takes 3.2 seconds to cold-start and respond with &quot;Paris&quot;. With model pre-loaded, same query returns in 0.4 seconds. For most use cases, that 2.8 second difference doesn't justify the $90/year cost.</p>
+<h3>2. Model Size Doesn't Linearly Predict Power Consumption</h3>
+<p>I expected Llama 3.1 70B to consume roughly 8-9x more power than Llama 3.1 8B, scaling with parameter count. Reality proved more nuanced.</p>
+<p><strong>Measurements during active inference:</strong></p>
+<ul>
+<li>Llama 3.1 8B: 312W average (294W-328W range)</li>
+<li>Llama 3.1 70B (Q4 quantized): 347W average (331W-368W range)</li>
+<li>Mistral 7B: 298W average (285W-314W range)</li>
+<li>Phi-3 Mini (3.8B): 276W average (268W-289W range)</li>
+</ul>
+<p>The 70B model only consumed 11% more power than the 8B model despite being nearly 9x larger. Why? The quantized 70B model I ran (Q4_K_M quantization with CPU offloading) required less GPU computational intensity per token than the full-precision 8B model because most inference work happened in system RAM. Memory bandwidth between CPU and GPU became the bottleneck, not raw GPU compute.</p>
+<p><strong>Note:</strong> RTX 3090 has 24GB VRAM, so 70B models (~40GB Q4) require offloading part of the model to system RAM. This explains the slower token generation (4.2 vs 18.7 tokens/second) and lower power consumption—less GPU utilization because the CPU is handling part of the workload.</p>
+<p>However, the catch is that the 70B model generated tokens at only 4.2 tokens/second compared to 18.7 tokens/second for the 8B model. When I calculated efficiency as tokens generated per watt-hour:</p>
+<ul>
+<li>Llama 3.1 8B: 4,820 tokens/Wh</li>
+<li>Llama 3.1 70B: 1,150 tokens/Wh</li>
+</ul>
+<p>The smaller model was 4.2x more energy-efficient per token. For most of my use cases, where the 8B model's quality was sufficient, running the larger model was environmentally and financially wasteful.</p>
+<p>To make this concrete: generating a 500-word blog post summary takes the 70B model about 2.8 minutes and consumes 16.2Wh of energy. The 8B model completes the same task in 0.7 minutes using 3.6Wh. For 80% of my summarization tasks, the 8B output quality is indistinguishable from 70B, making the larger model a 4.5x waste of electricity.</p>
+<h3>3. Batch Processing Is Dramatically More Efficient</h3>
+<p>One of my early mistakes was treating my homelab LLM like ChatGPT: I'd send single questions, wait for responses, then send follow-ups. This interactive pattern turns out to be horrifically inefficient.</p>
+<p>I tested three patterns:</p>
+<ol>
+<li><strong>Interactive mode</strong>: Send query, wait for response, repeat (simulating chat)</li>
+<li><strong>Batch mode</strong>: Submit 50 queries at once, collect all responses</li>
+<li><strong>Continuous generation</strong>: Long-form generation (2000+ tokens)</li>
+</ol>
+<p><strong>Results over 1-hour test periods:</strong></p>
+<p>Interactive mode:</p>
+<ul>
+<li>Total tokens: 12,400</li>
+<li>Average power: 298W</li>
+<li>Energy: 298Wh</li>
+<li>Efficiency: 41.6 tokens/Wh</li>
+</ul>
+<p>Batch mode:</p>
+<ul>
+<li>Total tokens: 28,900</li>
+<li>Average power: 315W</li>
+<li>Energy: 315Wh</li>
+<li>Efficiency: 91.7 tokens/Wh</li>
+</ul>
+<p>Continuous generation:</p>
+<ul>
+<li>Total tokens: 34,200</li>
+<li>Average power: 319W</li>
+<li>Energy: 319Wh</li>
+<li>Efficiency: 107.2 tokens/Wh</li>
+</ul>
+<p>Batching queries more than doubled efficiency. The reason seems to be reduced overhead: interactive mode involved constant model state changes, while batch processing kept the GPU consistently loaded. This discovery changed how I structure my workflows. I now accumulate questions and process them together rather than one-by-one.</p>
+<p>For instance, when writing blog posts, I used to ask the LLM to review each paragraph individually as I wrote it. Now I write the entire draft, then submit all paragraphs in a single batch request. This reduced my average &quot;blog editing&quot; power consumption from 42Wh per post to 18Wh, a 57% improvement.</p>
+<h3>4. Temperature Throttling Destroyed My Benchmark Results</h3>
+<p>In early September, I ran a series of what I thought were controlled experiments measuring inference speed. My numbers were all over the place: the same prompt would take 12 seconds one run and 19 seconds the next. I blamed measurement error or background processes.</p>
+<p>Then I checked my GPU temperature logs in Grafana. During extended runs, my RTX 3090 would climb from 68°C to 82°C, at which point NVIDIA's thermal management would throttle the GPU clock from 1,950 MHz down to 1,710 MHz (a 12% reduction). This directly impacted token generation speed and made my measurements inconsistent.</p>
+<p>The fix was embarrassingly simple: I improved case airflow by adding two 140mm intake fans ($28 on Amazon) and repositioning my GPU's orientation for better cooling. Post-modification, temperatures stayed below 74°C even during hour-long runs, and my benchmark variance dropped from ±23% to ±4%.</p>
+<p><strong>Lesson learned:</strong> Environmental factors matter. Power consumption and performance are interlinked through thermal dynamics in ways that bench test specs don't capture.</p>
+<h3>5. The &quot;Set and Forget&quot; Failure That Cost Me $17</h3>
+<p>My most expensive mistake happened in late September. I started a batch processing job for 200 PDF documents using Llama 3.1 70B. I estimated it would take 4-5 hours based on my earlier benchmarks, kicked it off around 10 PM, and went to bed.</p>
+<p>I woke up at 7 AM to discover the job was still running. A bug in my script had caused it to re-process documents that failed extraction, creating an infinite retry loop. For 9 hours, my GPU churned at 347W, consuming 3.12 kWh and costing me roughly $0.37. Not catastrophic for one night, but I let it run for another day before noticing. Total damage: approximately 28 kWh and $17 in electricity.</p>
+<p>This failure taught me to add:</p>
+<ul>
+<li>Timeout limits on all batch jobs</li>
+<li>Monitoring alerts via Grafana (now I get a Telegram notification if GPU power exceeds 300W for more than 2 hours)</li>
+<li>Better job state checkpointing</li>
+</ul>
+<p>These safeguards probably seem obvious to DevOps professionals, but they weren't part of my homelab muscle memory until this expensive lesson.</p>
+<h2>Optimization Strategies That Actually Worked</h2>
+<h3>Strategy 1: Dynamic Model Loading</h3>
+<p>Instead of keeping models perpetually loaded, I created a lightweight API layer that:</p>
+<ol>
+<li>Checks if the requested model is loaded</li>
+<li>Loads it on-demand if needed (3-4 second penalty)</li>
+<li>Unloads after 15 minutes of inactivity</li>
+</ol>
+<p>This reduced my average daily GPU power consumption from 2.09 kWh to 0.84 kWh, a 60% decrease. For workloads where I need instant response, I can still pre-load models manually.</p>
+<h3>Strategy 2: Smarter Model Selection</h3>
+<p>I created a simple decision tree:</p>
+<ul>
+<li><strong>Simple queries</strong> (summarization, basic Q&amp;A): Phi-3 Mini (276W)</li>
+<li><strong>General chat</strong> (most use cases): Llama 3.1 8B (312W)</li>
+<li><strong>Complex reasoning</strong> (code generation, analysis): Llama 3.1 70B (347W)</li>
+</ul>
+<p>Previously, I defaulted to the 70B model for everything, thinking &quot;bigger is better.&quot; By right-sizing model selection, I cut average power per task by roughly 18% without noticeable quality degradation for simple queries.</p>
+<h3>Strategy 3: CPU Offloading for Tiny Tasks</h3>
+<p>For queries under 100 tokens (yes/no questions, simple classifications), I route them to <code>llama.cpp</code> running on my i9-9900K instead of spinning up the GPU. CPU-only inference draws about 95W total system power versus 312W for GPU inference.</p>
+<p>The trade-off: CPU inference is slower (2.3 tokens/second vs 18.7), but for tiny tasks, total time is comparable.</p>
+<ul>
+<li>CPU: 100 tokens at 2.3 tok/s = 43 seconds, 1.13Wh energy</li>
+<li>GPU: 100 tokens at 18.7 tok/s = 5.3 seconds, 4.59Wh energy</li>
+</ul>
+<p>For these micro-tasks, CPU is 4x more energy-efficient despite being slower. I'm not sure this would scale to longer queries, but for quick lookups, it's a clear win.</p>
+<h2>Cost-Benefit Analysis</h2>
+<p>Let me be honest: for many people, running LLMs at home doesn't make financial sense.</p>
+<p><strong>My monthly costs with optimizations:</strong></p>
+<ul>
+<li>GPU power: 25.2 kWh at $0.12/kWh = $3.02</li>
+<li>Total system power (CPU, cooling, networking): 18.7 kWh = $2.24</li>
+<li>Total: $5.26/month</li>
+</ul>
+<p><strong>Cloud alternatives:</strong></p>
+<ul>
+<li>ChatGPT Plus: $20/month (unlimited GPT-4, faster responses, no hardware maintenance)</li>
+<li>Claude Pro: $20/month (similar capabilities)</li>
+<li>Groq API: roughly $0.001/1k tokens (about $8-12/month for my usage)</li>
+</ul>
+<p><strong>Advantages of home AI:</strong></p>
+<ul>
+<li>Privacy: My queries never leave my network</li>
+<li>Customization: I can fine-tune models for specific tasks</li>
+<li>Learning: Deep understanding of how LLMs work</li>
+<li>Data sovereignty: Complete control over my data</li>
+<li>Fixed costs: No surprise bills for high-volume months</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Upfront investment: RTX 3090 cost me $1,200 (used)</li>
+<li>Maintenance: 3-4 hours monthly managing the setup</li>
+<li>Capability ceiling: I can't run frontier models like GPT-4 or Claude 3.5 Sonnet</li>
+<li>Reliability: No SLA if my GPU dies</li>
+<li>Depreciation: Hardware loses value over time</li>
+</ul>
+<p>For me, privacy and learning justify the cost. If you're purely optimizing for dollars per token, cloud services win, especially if you don't own high-end GPU hardware.</p>
+<p><strong>But here's the reality</strong>: Home AI is for enthusiasts who value control over convenience. If you just want to use AI, stick with ChatGPT. If you want to understand AI, run it yourself.</p>
+<h2>Environmental Impact: The Carbon Math</h2>
+<p>This part made me uncomfortable. I consider myself environmentally conscious, but running AI at home has a real carbon footprint.</p>
+<p>My calculations (approximate, using EPA averages):</p>
+<ul>
+<li>43.9 kWh/month GPU power</li>
+<li>U.S. grid average: 0.92 lbs CO2/kWh (<a href="https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references">EPA, 2023</a>)</li>
+<li><strong>Monthly emissions: 40.4 lbs CO2 (18.3 kg)</strong></li>
+<li><strong>Annual emissions: 484 lbs CO2 (220 kg)</strong></li>
+</ul>
+<p>To put this in perspective, 220 kg CO2 is roughly equivalent to:</p>
+<ul>
+<li>Driving 550 miles in an average gasoline car</li>
+<li>37% of the average American's annual household electricity emissions</li>
+<li>The carbon footprint of flying from New York to Miami (one-way)</li>
+</ul>
+<p>These numbers are probably on the high side since I'm in a region with relatively clean grid power (mix of natural gas and renewables), but they're sobering nonetheless. Running AI at home isn't environmentally neutral.</p>
+<p><strong>Mitigation strategies I've added:</strong></p>
+<ol>
+<li><strong>Time-shifting</strong>: I schedule batch jobs for 2-6 AM when grid demand is lowest and renewable energy percentage is typically higher</li>
+<li><strong>Efficiency optimization</strong>: All the strategies above reduce total energy consumption</li>
+<li><strong>Carbon-aware computing</strong>: I'm experimenting with <a href="https://www.electricitymaps.com/">carbon intensity APIs</a> to run workloads when the grid is cleanest</li>
+</ol>
+<p>However, the most effective strategy is simply using AI less. Not every task needs an LLM. Sometimes a regex, a traditional search, or (gasp) thinking through a problem myself is sufficient. The greenest watt is the one you don't use.</p>
+<h2>Practical Recommendations</h2>
+<p>After three months of measurement and optimization, here's what I'd tell someone considering running LLMs at home:</p>
+<h3>Do It If:</h3>
+<ul>
+<li>You already own suitable GPU hardware (RTX 3090/4090, AMD 7900 XTX)</li>
+<li>Privacy is paramount for your use case</li>
+<li>You want to learn how LLMs work under the hood</li>
+<li>Your usage patterns involve high volumes where cloud costs would exceed $50/month</li>
+<li>You enjoy homelab experimentation for its own sake</li>
+</ul>
+<h3>Skip It If:</h3>
+<ul>
+<li>You'd need to buy a GPU specifically for this ($1,000-2,000)</li>
+<li>Your usage is intermittent (less than 2 hours/week)</li>
+<li>You prioritize convenience over control</li>
+<li>You need access to the latest frontier models like GPT-4 or Claude 3.5 Sonnet</li>
+<li>Electricity costs exceed $0.15/kWh in your area</li>
+</ul>
+<h3>If You Proceed:</h3>
+<ol>
+<li><strong>Measure everything</strong>: You can't optimize what you don't measure</li>
+<li><strong>Start small</strong>: Test with 7B models before scaling to 70B+</li>
+<li><strong>Set up auto-unloading</strong>: Don't pay for idle GPU time (saved me $7.51/month)</li>
+<li><strong>Monitor temperatures</strong>: Thermal throttling will skew your benchmarks (my variance dropped from ±23% to ±4% after adding $28 in fans)</li>
+<li><strong>Right-size model selection</strong>: Bigger isn't always better (I cut power by 18% using smaller models for simple tasks)</li>
+<li><strong>Use batch processing</strong>: 2x+ efficiency gains are possible (91.7 vs 41.6 tokens/Wh in my testing)</li>
+<li><strong>Set cost alerts</strong>: Use monitoring to avoid runaway jobs (learned this the hard way at $17)</li>
+<li><strong>Consider hybrid approach</strong>: Home for sensitive tasks, cloud for occasional heavy lifting</li>
+</ol>
+<h2>Conclusion: A Balanced Perspective</h2>
+<p>My $43 electricity spike taught me that home AI requires intentionality. The technology is incredible. I can run models that would have required data center resources just three years ago. But that capability comes with real costs: financial, environmental, and time invested in optimization.</p>
+<p>After creating monitoring and optimizations, I've stabilized my monthly AI power costs at around $5-6. That feels sustainable for my use case, though I'm acutely aware that every query has a carbon footprint I'm choosing to accept.</p>
+<p>The most valuable outcome wasn't the specific power measurements. Those will change as I upgrade hardware or switch models. It was developing intuition for the energy-quality-cost trade-offs inherent in running AI. Now when I reach for an LLM, I pause to consider: Is this the right tool? Is the environmental cost worth the benefit? Could a smaller model suffice?</p>
+<p>These aren't questions I asked in September when I first started running Ollama. Now they're automatic.</p>
+<p>If you're running AI at home or considering it, I'd encourage you to instrument your setup and measure your actual costs. You might be surprised, and those surprises, uncomfortable as they can be, lead to better decisions.</p>
+<hr>
+<h2>Further Reading</h2>
+<ul>
+<li><strong><a href="https://arxiv.org/abs/1906.02243">Energy and Policy Considerations for Deep Learning in NLP</a></strong> - Foundational paper on ML energy consumption</li>
+<li><strong><a href="https://arxiv.org/abs/2204.05149">The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink</a></strong> - Optimistic take on future efficiency improvements</li>
+<li><strong><a href="https://www.electricitymaps.com/">Electricity Maps</a></strong> - Real-time grid carbon intensity data</li>
+<li><strong><a href="https://github.com/ollama/ollama">Ollama Documentation</a></strong> - Official docs for the inference server I used</li>
+<li><strong><a href="https://github.com/NVIDIA/dcgm-exporter">NVIDIA DCGM Exporter</a></strong> - GPU monitoring for Prometheus</li>
+<li><strong><a href="https://www.nature.com/articles/s42256-023-00673-3">Sustainable AI</a></strong> - Nature Machine Intelligence review of AI sustainability challenges</li>
+</ul>
+<p><em>Have you measured power consumption in your homelab? I'd love to hear what you've discovered, especially if your findings contradict mine. The comment section below is open, or reach out on social media.</em></p>
+
+            </div>
+            
+            <!-- Related Posts -->
+            
+            
+            
+            
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+            
+            
+            
+            <section aria-label="Content section" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Related Posts</h2>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/building-a-private-cloud-in-your-homelab-with-proxmox-and-security-best-practices/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Building a Private Cloud in Your Homelab with Proxmox and Security Best Practices
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Learn to build and secure a production-grade private cloud using Proxmox VE. Covers network segmenta...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-12-24">
+                                    December 24, 2025
+                                </time>
+                                <span>10 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/hardening-docker-containers-in-your-homelab-a-defense-in-depth-approach/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Hardening Docker Containers in Your Homelab: A Defense-in-Depth Approach
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Eight security layers that stopped real attacks in homelab testing: minimal base images, user namesp...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-12-17">
+                                    December 17, 2025
+                                </time>
+                                <span>9 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/building-a-homelab-security-dashboard-with-grafana-and-prometheus/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Building a Homelab Security Dashboard with Grafana and Prometheus
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Real-world guide to monitoring security events in your homelab. Covers Prometheus configuration, Gra...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-12-10">
+                                    December 10, 2025
+                                </time>
+                                <span>10 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <a href="/posts/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to all posts
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://williamzujkowski.github.io%2Fposts%2Fgpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill%2F" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#0077b5] dark:hover:text-[#0077b5] transition-colors duration-200"
+                           aria-label="Share on LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Hacker News -->
+                        <a href="https://news.ycombinator.com/submitlink?u=https://williamzujkowski.github.io%2Fposts%2Fgpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill%2F&t=GPU%20Power%20Monitoring%20in%20My%20Homelab%3A%20When%20Machine%20Learning%20Met%20My%20Electricity%20Bill" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff6600] dark:hover:text-[#ff6600] transition-colors duration-200"
+                           aria-label="Share on Hacker News">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M0 0v24h24v-24h-24zm12.8 8.7l2.3-4.3h1.4l-3.1 5.5v3.5h-1.2v-3.5l-3-5.5h1.4l2.2 4.3z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Reddit -->
+                        <a href="https://reddit.com/submit?url=https://williamzujkowski.github.io%2Fposts%2Fgpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill%2F&title=GPU%20Power%20Monitoring%20in%20My%20Homelab%3A%20When%20Machine%20Learning%20Met%20My%20Electricity%20Bill" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff4500] dark:hover:text-[#ff4500] transition-colors duration-200"
+                           aria-label="Share on Reddit">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Copy Link -->
+                        <button onclick="copyToClipboard('https://williamzujkowski.github.io/posts/gpu-power-monitoring-in-my-homelab-when-machine-learning-met-my-electricity-bill/')" 
+                                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                                aria-label="Copy link to clipboard">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</article>
+
+<!-- Blog JavaScript Bundle (reading-progress, table-of-contents) -->
+<script src="/assets/js/blog.min.js"></script>
+
+<!-- Collapsible Code Blocks - loaded in base.njk -->
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of William Zujkowski, exploring technology and sharing knowledge. All opinions and views expressed are my own and do not reflect those of my employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="/feed.xml" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.858 5.1 3.429 5.1zm0 4.8v2.4c3.924 0 7.114 3.206 7.114 7.142h2.4c0-5.256-4.276-9.542-9.514-9.542zM6.171 16.386c-.756 0-1.371.615-1.371 1.371 0 .756.615 1.371 1.371 1.371.756 0 1.371-.615 1.371-1.371 0-.756-.615-1.371-1.371-1.371z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    &copy; 2025 William Zujkowski. All rights reserved.
+                    Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a>
+                    and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>

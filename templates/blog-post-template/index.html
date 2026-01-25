@@ -1,0 +1,353 @@
+<!--
+✅ HUMANIZATION CHECKLIST - Aim for 80-90/100 on first draft
+
+This checklist ensures your post sounds authentically human, not AI-generated.
+Target: ≥75/100 (passing), Excellent: ≥90/100
+
+REQUIRED ELEMENTS (Must have at least 1 of each):
+□ First-person narrative ("I discovered", "I learned", "I tried", "my homelab")
+  Examples: "I tested this approach", "In my experience", "I found that..."
+
+□ Uncertainty markers ("I think", "probably", "likely", "might", "in my experience")
+  Examples: "probably", "depends on", "your mileage may vary", "seems to"
+
+□ Specific measurements (numbers, percentages, timeframes, versions)
+  Examples: "v2.3.1", "2025-07-15", "64GB RAM", "took 3 hours", "340ms"
+
+□ Trade-off discussion (pros/cons, comparisons, balanced perspective)
+  Examples: "trade-off", "downside", "limitation", "but", "however"
+
+□ Concrete details ("Here's what happened", "For example", "In practice")
+  Examples: Code blocks, specific commands, configuration files
+
+BONUS SCORING (+5 to +10 points):
+□ 10+ concrete measurements (dates, percentages, metrics, hardware specs)
+  Examples: "73% improvement", "2.1x faster", "48,000 lines of code", "RTX 3090"
+  Why: Rich quantitative data signals real-world testing and experience
+
+□ Failure narratives (honest mistakes, debugging stories, lessons learned)
+  Examples: "I spent 6 hours debugging", "forgot to check", "learned the hard way"
+  Why: Vulnerability and honesty are uniquely human traits
+
+□ Deep trade-off analysis (multi-option evaluation with quantified outcomes)
+  Examples: "tested 4, 8, 12, 16 heads", "A: 2x faster but 50% more memory"
+  Why: Demonstrates real experimentation and nuanced understanding
+
+AVOID (AI-tells that reduce score):
+✗ Em dashes (—) - use commas, periods, or parentheses instead
+✗ Semicolons in narrative text (okay in code blocks)
+✗ Generic conclusions ("In conclusion", "Looking ahead", "Overall")
+✗ Hype words ("revolutionary", "game-changer", "cutting-edge") without specifics
+✗ Overly positive tone - balance with challenges and trade-offs
+✗ Corporate buzzwords ("leverage", "utilize", "facilitate") - use simpler words
+
+QUICK VALIDATION:
+Run validator before committing:
+$ python scripts/blog-content/humanization-validator.py --post src/posts/YYYY-MM-DD-your-slug.md
+
+Target: ≥75/100 (passing), Excellent: ≥90/100
+-->
+<h2>Opening Hook: Start with a Story</h2>
+<p>[Start with a compelling personal story, a specific challenge you faced, or an interesting discovery that draws readers in. Make it concrete and relatable.]</p>
+<p><strong>Example pattern:</strong>
+&quot;Years ago, I made a costly mistake while configuring [system]. I spent 6 hours debugging before discovering I'd completely overlooked [specific detail]. This painful lesson changed how I approach [topic]. Here's what I learned...&quot;</p>
+<p><strong>Why it works:</strong></p>
+<ul>
+<li>Personal vulnerability builds trust</li>
+<li>Specific details (6 hours, exact mistake) prove authenticity</li>
+<li>Sets up a learning narrative</li>
+</ul>
+<hr>
+<h2>Context: Why This Matters Now</h2>
+<p>[Explain why you're writing about this topic at this specific time. What recent experience, discovery, or challenge prompted this post? Connect to your homelab or personal projects.]</p>
+<p><strong>Example patterns:</strong></p>
+<ul>
+<li>&quot;After [time period] of testing [approach] in my homelab, I discovered...&quot;</li>
+<li>&quot;While experimenting with [technology], I ran into [specific problem] that...&quot;</li>
+<li>&quot;I recently upgraded my [hardware/software] and learned that...&quot;</li>
+</ul>
+<p><strong>Key elements:</strong></p>
+<ul>
+<li>Time specificity (&quot;3 months&quot;, &quot;last week&quot;, &quot;over the summer&quot;)</li>
+<li>Personal context (your homelab, your setup, your constraints)</li>
+<li>Clear connection to the hook</li>
+</ul>
+<hr>
+<h2>Core Content Section 1: [Descriptive Heading]</h2>
+<p>[Main technical content with concrete examples. Break into multiple sections as needed.]</p>
+<h3>Include Measurements Where Relevant</h3>
+<p><strong>Performance metrics:</strong></p>
+<ul>
+<li>Specific numbers: &quot;reduced from 340ms to 85ms&quot;</li>
+<li>Percentages: &quot;73% improvement in throughput&quot;</li>
+<li>Comparisons: &quot;2.1x faster than baseline&quot;</li>
+</ul>
+<p><strong>Hardware/Software specs:</strong></p>
+<ul>
+<li>Equipment: &quot;Intel i9-9900K&quot;, &quot;64GB RAM&quot;, &quot;RTX 3090&quot;</li>
+<li>Versions: &quot;Python 3.11.2&quot;, &quot;Docker v24.0.5&quot;</li>
+<li>Dates: &quot;as of 2025-07-15&quot;</li>
+</ul>
+<p><strong>Time measurements:</strong></p>
+<ul>
+<li>Duration: &quot;took 3 hours to debug&quot;</li>
+<li>Periods: &quot;over 6 months of testing&quot;</li>
+<li>Frequency: &quot;ran every 15 minutes&quot;</li>
+</ul>
+<p><strong>Example paragraph structure:</strong></p>
+<pre><code>In my homelab, I tested [specific approach]. The initial results were
+disappointing—[specific failure metric]. I spent [time period] debugging
+and discovered [root cause]. After implementing [solution], I saw
+[specific improvement]: latency dropped from [X] to [Y], a [Z]% reduction.
+</code></pre>
+<h3>Use Mermaid Diagrams for Architecture</h3>
+<pre><code class="language-mermaid">graph TB
+    A[Component A] --&gt; B[Component B]
+    B --&gt; C[Component C]
+    C --&gt; D[Component D]
+
+    style A fill:#4caf50
+    style D fill:#f44336
+</code></pre>
+<p>[Explain the diagram in plain language, pointing out key decision points or interesting interactions.]</p>
+<hr>
+<h2>Trade-offs &amp; Considerations: The Real Complexity</h2>
+<p>[This section is CRITICAL for humanization scores. Discuss multiple approaches tested, their pros/cons, and context-dependent recommendations.]</p>
+<h3>Multi-Option Evaluation</h3>
+<p><strong>Example structure:</strong>
+I tested four different configurations:</p>
+<ol>
+<li><strong>With 4 workers</strong>: Fastest startup (12s) but lowest throughput (340 req/s)</li>
+<li><strong>With 8 workers</strong>: Balanced performance (18s startup, 520 req/s)</li>
+<li><strong>With 12 workers</strong>: Best throughput (680 req/s) but 2x memory usage (8GB vs 4GB)</li>
+<li><strong>With 16 workers</strong>: Diminishing returns (710 req/s) and stability issues</li>
+</ol>
+<p><strong>The trade-off:</strong></p>
+<ul>
+<li>For memory-constrained systems (&lt;16GB): stick with 8 workers</li>
+<li>For high-traffic scenarios: 12 workers is the sweet spot</li>
+<li>Beyond 16 workers: you're hitting network I/O limits, not CPU</li>
+</ul>
+<h3>Performance vs. X Comparisons</h3>
+<p><strong>Speed vs. Accuracy example:</strong>
+Fast mode completes in 2 minutes but misses 15% of edge cases. Thorough mode
+takes 8 minutes (4x slower) but catches 99% of issues. For CI/CD, I run fast
+mode on every commit and thorough mode nightly.</p>
+<p><strong>Cost vs. Capability example:</strong>
+Solution A costs $0/month (self-hosted) but requires 6 hours/week maintenance.
+Solution B costs $50/month but maintenance drops to 30 minutes/month. At $30/hour
+value of time, Solution B breaks even at 5 hours/month saved.</p>
+<h3>Context-Dependent Recommendations</h3>
+<p>[Provide clear guidance based on different scenarios, constraints, or goals.]</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li><strong>Use approach A when:</strong> You have &lt;4GB RAM and prioritize stability</li>
+<li><strong>Use approach B when:</strong> You need maximum throughput and have memory to spare</li>
+<li><strong>Use approach C when:</strong> You're experimenting and want easy debugging</li>
+</ul>
+<hr>
+<h2>Challenges &amp; Lessons Learned (Optional but Valuable)</h2>
+<p>[Share honest mistakes, debugging stories, and lessons learned. This section dramatically boosts humanization scores.]</p>
+<h3>Failure Narratives</h3>
+<p><strong>Example patterns:</strong></p>
+<ul>
+<li>&quot;I completely forgot to [critical step] which cost me 4 hours of debugging...&quot;</li>
+<li>&quot;Looking back, I should have [better approach] instead of [what I did]...&quot;</li>
+<li>&quot;I underestimated [factor] by 3x, resulting in [consequence]...&quot;</li>
+<li>&quot;After [time period] of trial and error, I discovered that [lesson]...&quot;</li>
+</ul>
+<h3>Specific Debugging Stories</h3>
+<p><strong>Example:</strong>
+I spent an entire Saturday debugging why [system] kept crashing every 6 hours.
+I checked logs, profiled memory usage, and rewrote half the code. Turned out
+I'd misconfigured [specific setting] to [wrong value] instead of [correct value].
+A single typo, 8 hours lost. Now I always [preventive measure].</p>
+<h3>Time Costs and Impact</h3>
+<p><strong>Example patterns:</strong></p>
+<ul>
+<li>&quot;This mistake cost me [X hours/days] of downtime...&quot;</li>
+<li>&quot;Recovery took [X hours] and required [specific actions]...&quot;</li>
+<li>&quot;I had to rebuild [component] from scratch, which took [time period]...&quot;</li>
+</ul>
+<hr>
+<h2>Practical Implementation: How to Actually Do This</h2>
+<p>[Step-by-step guidance with specific commands, configurations, or code examples.]</p>
+<h3>Installation and Setup</h3>
+<pre><code class="language-bash"># Install dependencies
+sudo apt-get update &amp;&amp; sudo apt-get install -y package-name
+
+# Configure the system (specific values from your testing)
+echo &quot;config_key=value&quot; &gt;&gt; /etc/config/file.conf
+
+# Verify installation
+package-name --version
+# Expected: v2.3.1 or higher
+</code></pre>
+<h3>Configuration Example</h3>
+<pre><code class="language-yaml"># config.yaml - Optimized for 64GB RAM system
+workers: 12  # Sweet spot from testing above
+memory_limit: 6GB  # Leaves 2GB buffer
+timeout: 30s  # Prevents runaway processes
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>workers: 12</code> based on my multi-option testing (see Trade-offs section)</li>
+<li><code>memory_limit: 6GB</code> conservative based on observed peak of 5.2GB</li>
+<li><code>timeout: 30s</code> catches most hangs without killing legitimate long operations</li>
+</ul>
+<h3>Code Example (if applicable)</h3>
+<pre><code class="language-python"># Keep code examples concise and focused (5-15 lines)
+def process_item(item, config):
+    &quot;&quot;&quot;Process a single item with error handling.&quot;&quot;&quot;
+    try:
+        result = transform(item)
+        return result
+    except ValueError as e:
+        logger.error(f&quot;Failed to process {item}: {e}&quot;)
+        return None
+</code></pre>
+<p><strong>For longer code:</strong>
+Link to a GitHub gist or repository file instead of pasting 100+ lines.</p>
+<hr>
+<h2>Validation and Testing</h2>
+<p>[Describe how to verify the implementation works. Include specific tests, expected outputs, or metrics.]</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-bash"># Run the test suite
+pytest tests/ -v
+
+# Expected: All 47 tests pass in ~3.2 seconds
+# If you see failures in test_integration.py, check [specific config]
+</code></pre>
+<p><strong>Performance baseline:</strong>
+On my Intel i9-9900K with 64GB RAM, I see:</p>
+<ul>
+<li>Cold start: 12-15 seconds</li>
+<li>Warm requests: 340-520 req/s</li>
+<li>Memory usage: 4-6GB stable</li>
+<li>CPU: 45-60% utilization</li>
+</ul>
+<p>Your numbers will vary based on hardware, but if you're seeing 10x differences,
+something is misconfigured.</p>
+<hr>
+<h2>Conclusion: Key Takeaways</h2>
+<p>[Summarize the main points WITHOUT using &quot;In conclusion&quot;, &quot;Overall&quot;, or &quot;To summarize&quot;.]</p>
+<p><strong>Better heading examples:</strong></p>
+<ul>
+<li>&quot;What I'd Do Differently Next Time&quot;</li>
+<li>&quot;Key Lessons from 6 Months of Testing&quot;</li>
+<li>&quot;Three Things That Actually Matter&quot;</li>
+<li>&quot;The Bottom Line After [X] Tests&quot;</li>
+</ul>
+<p><strong>Example conclusion:</strong>
+After testing [X] different approaches over [time period], here's what actually
+matters:</p>
+<ol>
+<li><strong>[Key insight 1]</strong>: Specific takeaway with metric or example</li>
+<li><strong>[Key insight 2]</strong>: Another concrete lesson learned</li>
+<li><strong>[Key insight 3]</strong>: Actionable recommendation</li>
+</ol>
+<p>The biggest surprise was [unexpected finding]. I expected [X] but found [Y]
+because [reason]. This changed my approach to [practice].</p>
+<p><strong>Next steps:</strong>
+If you're implementing this yourself, start with [specific first step]. Focus
+on [critical factor] before optimizing [less critical factor]. And definitely
+test [specific scenario] early—I learned that the hard way.</p>
+<hr>
+<h2>Further Reading and Resources</h2>
+<p>[Provide links to related resources, documentation, and relevant projects.]</p>
+<h3>Official Documentation</h3>
+<ul>
+<li><a href="https://example.com/docs">Tool/Technology Official Docs</a></li>
+<li><a href="https://example.com/api">API Reference</a></li>
+<li><a href="https://example.com/guide">Best Practices Guide</a></li>
+</ul>
+<h3>Related Blog Posts (Internal)</h3>
+<ul>
+<li><a href="/posts/YYYY-MM-DD-related-slug-1">Link to your related post 1</a></li>
+<li><a href="/posts/YYYY-MM-DD-related-slug-2">Link to your related post 2</a></li>
+</ul>
+<h3>Academic Research (if applicable)</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/XXXX.XXXXX">Paper Title</a> (Year) - Brief description</li>
+<li><a href="https://doi.org/10.XXXX/XXXXX">Another Paper</a> (Year) - What it covers</li>
+</ul>
+<h3>Open Source Projects</h3>
+<ul>
+<li><a href="https://github.com/user/repo">GitHub Repository</a> - What this project does</li>
+<li><a href="https://github.com/user/repo2">Another Tool</a> - Why it's relevant</li>
+</ul>
+<h3>Tutorials and Guides</h3>
+<ul>
+<li><a href="https://example.com/tutorial">External Tutorial</a> - What you'll learn</li>
+<li><a href="https://youtube.com/watch?v=xxx">Video Guide</a> - Duration and focus</li>
+</ul>
+<hr>
+<h2>Discussion and Questions</h2>
+<p>Have you tried this approach? What results did you see? Did you hit different
+trade-offs or discover better configurations? I'd love to hear about your
+experience—drop a comment or reach out on [platform].</p>
+<hr>
+<!--
+POST-WRITING CHECKLIST:
+
+Before committing, verify:
+
+CONTENT QUALITY:
+1. □ Humanization validation score ≥75/100
+2. □ Reading time: 6-9 minutes (1,400-2,100 words)
+3. □ All factual claims have citations with working hyperlinks
+4. □ At least 5 concrete measurements included
+5. □ First-person voice present throughout
+6. □ Uncertainty/caveats included (context-dependent recommendations)
+7. □ Trade-offs discussed with specific metrics
+8. □ At least one failure narrative or debugging story (bonus points!)
+
+TECHNICAL CORRECTNESS:
+9. □ Code examples tested and functional
+10. □ Commands include expected outputs
+11. □ Version numbers specified where relevant
+12. □ Hardware specs from /uses/ page (if mentioned)
+
+STYLE & TONE:
+13. □ No em dashes (—) in narrative text
+14. □ No semicolons outside code blocks
+15. □ No generic conclusions ("In conclusion", "Overall")
+16. □ No unbacked hype words ("revolutionary", "game-changer")
+17. □ Balanced tone (challenges AND successes)
+
+ACCESSIBILITY & SEO:
+18. □ Images optimized and alt text added (descriptive, not generic)
+19. □ Links verified (no 404s)
+20. □ Proper heading hierarchy (H2 → H3 → H4)
+21. □ Meta description compelling and under 160 chars
+
+IMAGES:
+22. □ Hero image exists and is relevant
+23. □ All images have descriptive alt text (not just "image")
+24. □ Image captions provide context (optional but recommended)
+25. □ Screenshots/diagrams enhance understanding
+
+FINAL CHECKS:
+26. □ Spell check completed
+27. □ Read aloud for flow and natural voice
+28. □ Verified uniqueness (no similar titles in last 10 posts)
+29. □ Tags are relevant and consistent with other posts
+
+VALIDATION COMMANDS:
+$ python scripts/blog-content/humanization-validator.py --post src/posts/YYYY-MM-DD-your-slug.md
+$ python scripts/blog-images/update-blog-images.py
+$ python scripts/blog-research/check-citation-hyperlinks.py
+
+COMMIT PROCESS:
+$ git add src/posts/YYYY-MM-DD-your-slug.md
+$ git commit -m "feat: Add post about [specific topic]
+
+- [Brief description of main content]
+- [Key unique angle or contribution]
+- Humanization score: [XX]/100"
+
+$ git push origin main
+
+Note: Pre-commit hooks will automatically validate humanization score and
+citation hyperlinks. Fix any issues before committing.
+-->

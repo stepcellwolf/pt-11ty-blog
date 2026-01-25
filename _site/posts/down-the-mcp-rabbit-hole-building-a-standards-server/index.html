@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build MCP standards server for Claude AI—implement Model Context Protocol for intelligent code standards and context-aware workflows.">
+    <meta name="author" content="William Zujkowski">
+    <meta name="keywords" content="cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security">
+    
+    <title>Down the MCP Rabbit Hole: Building a Standards Server - William Zujkowski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://williamzujkowski.github.io/posts/down-the-mcp-rabbit-hole-building-a-standards-server/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="William Zujkowski Feed" href="https://williamzujkowski.github.io/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/icon-192.svg">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/icon-512.svg">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Down the MCP Rabbit Hole: Building a Standards Server">
+    <meta property="og:description" content="Build MCP standards server for Claude AI—implement Model Context Protocol for intelligent code standards and context-aware workflows.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://williamzujkowski.github.io/posts/down-the-mcp-rabbit-hole-building-a-standards-server/">
+    <meta property="og:image" content="https://williamzujkowski.github.io/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="William Zujkowski">
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="article:author" content="William Zujkowski">
+    <meta property="article:published_time" content="2025-07-29">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        
+        "headline": "Down the MCP Rabbit Hole: Building a Standards Server",
+        "description": "Build MCP standards server for Claude AI—implement Model Context Protocol for intelligent code standards and context-aware workflows.",
+        "datePublished": "2025-07-29",
+        "dateModified": "2025-11-14",
+        "author": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io/about/",
+            "sameAs": [
+                "https://github.com/williamzujkowski",
+                "https://www.linkedin.com/in/williamzujkowski"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://williamzujkowski.github.io/assets/images/headshot.png"
+            }
+        },
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://williamzujkowski.github.io/assets/images/og-image.jpg"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://williamzujkowski.github.io/posts/down-the-mcp-rabbit-hole-building-a-standards-server/"
+        },
+        "url": "https://williamzujkowski.github.io/posts/down-the-mcp-rabbit-hole-building-a-standards-server/"
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        William Zujkowski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <!-- Enhanced Breadcrumbs for Blog Posts -->
+<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+  <ol class="flex items-center space-x-2 text-sm flex-wrap">
+    <li>
+      <a href="/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        <svg class="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Home
+      </a>
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href="/posts/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        Blog
+      </a>
+    </li>
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+      
+      <li class="flex items-center">
+        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/tags/ai/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+          ai
+        </a>
+      </li>
+      
+    
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-gray-900 dark:text-gray-100 font-medium truncate max-w-xs">Down the MCP Rabbit Hole: Building a Standards Ser...</span>
+    </li>
+  </ol>
+</nav>
+
+<article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12">
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm font-medium">
+                        <time datetime="2025-07-29" class="text-primary-600 dark:text-primary-400">
+                            July 29, 2025
+                        </time>
+                        <span class="text-gray-400 dark:text-gray-600">•</span>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            11 min read
+                        </span>
+                    </div>
+                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                        Down the MCP Rabbit Hole: Building a Standards Server
+                    </h1>
+                    
+                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                        Build MCP standards server for Claude AI—implement Model Context Protocol for intelligent code standards and context-aware workflows.
+                    </p>
+                    
+                </div>
+                
+                
+                <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
+                    
+                        
+                    
+                        
+                        <a href="/tags/ai/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            ai
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/mcp/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            mcp
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/open-source/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            open-source
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/programming/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            programming
+                        </a>
+                        
+                    
+                </div>
+                
+            </header>
+
+            <!-- Table of Contents Accordion -->
+            <nav aria-label="Table of contents" class="toc-accordion mb-8 animate-fade-in-up animation-delay-500">
+                <details class="group">
+                    <summary class="cursor-pointer select-none font-medium flex items-center justify-between">
+                        <span>Table of Contents</span>
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="toc-content mt-4" id="toc-content">
+                        <!-- ToC will be generated here by JavaScript -->
+                    </div>
+                </details>
+            </nav>
+
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
+                <h2>Bottom Line Up Front</h2>
+<p>I built a standards server that was supposed to be a simple wrapper around my documentation repository. Three weeks later, I had written 6,000 lines of code across 47 components, implementing Redis caching, vector search, six different language analyzers, 88 tests, and a React UI.</p>
+<p>For a read-only documentation server. That I'm the only user of.</p>
+<p>This is a case study in scope creep, premature optimization, and what happens when you let &quot;one more feature&quot; become your guiding principle. The irony? Version 1 worked perfectly fine at 200 lines of code.</p>
+<p>But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between &quot;it works&quot; and &quot;it's production ready.&quot;</p>
+<p><strong>The Numbers</strong>: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.</p>
+<h2>When Good Ideas Get Complicated</h2>
+<p>Remember last week when I was all excited about my standards repository? Well, I made the classic developer mistake: &quot;You know what would make this better? If I rebuilt it from scratch with a completely different architecture!&quot;</p>
+<p>Enter the <a href="https://docs.claude.com/en/docs/mcp">Model Context Protocol (MCP)</a> – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP? This server became a key component of my broader workflow when <a href="/posts/2025-08-07-supercharging-development-claude-flow">supercharging development with Claude-Flow</a>, enabling dynamic standards integration across multiple projects.</p>
+<p>Three weeks and several rewrites later, I have <a href="https://github.com/williamzujkowski/mcp-standards-server">github.com/williamzujkowski/mcp-standards-server</a>. It works! Mostly. When Redis is happy. And the moon is in the right phase.</p>
+<h2>The Original Vision vs Reality</h2>
+<h3>What I Planned (Week 1)</h3>
+<p>&quot;I'll wrap my standards in an MCP server. How hard could it be?&quot;</p>
+<p><strong>Pseudocode - Simplified Initial Vision:</strong></p>
+<pre><code class="language-python"># My naive first attempt
+class StandardsServer:
+    def __init__(self):
+        self.standards = load_standards()  # Easy!
+
+    def get_standard(self, name):
+        return self.standards[name]  # Done!
+</code></pre>
+<h3>The Reality (Week 3)</h3>
+<p>⚠️ <strong>Warning:</strong> This code illustrates over-engineering patterns for educational purposes. Implement security controls and proper authentication for production MCP servers with external access.</p>
+<p><strong>Pseudocode - Simplified Current Architecture:</strong></p>
+<pre><code class="language-python"># Current reality - 6000+ lines of code later
+# Simplified representation showing core components
+class MCPStandardsServer:
+    def __init__(self):
+        self.rule_engine = RuleEngine()
+        self.semantic_search = HybridVectorStorage()
+        self.cache_layer = RedisL1L2Cache()
+        self.analyzers = MultiLanguageAnalyzerFactory()
+        self.compliance_mapper = NISTComplianceEngine()
+        self.token_optimizer = CompressionStrategy()
+        # Plus 47 additional components for full functionality
+</code></pre>
+<p>Yeah, it got away from me a bit.</p>
+<h2>The Architecture Journey</h2>
+<h3>Version 1: &quot;Keep It Simple&quot;</h3>
+<p>I started with stdio communication. Just pipe standards in and out. Clean, simple, working.</p>
+<p>Then I thought: &quot;What about caching?&quot;</p>
+<h3>Version 2: &quot;Add Some Redis&quot;</h3>
+<p>Added Redis for caching. Now I had two problems: cache invalidation and Redis connection management.</p>
+<p>Then I thought: &quot;What about semantic search?&quot;</p>
+<h3>Version 3: &quot;ChromaDB Will Fix Everything&quot;</h3>
+<p>Added ChromaDB for vector search. Now I had three problems: embeddings, vector storage, and &quot;why is my laptop fan screaming?&quot;</p>
+<p>Then I thought: &quot;What about multi-language support?&quot;</p>
+<h3>Version 4: &quot;The Kitchen Sink&quot;</h3>
+<p>Current state. It has:</p>
+<ul>
+<li>6 language analyzers (Python, JS, Go, Java, Rust, TypeScript)</li>
+<li>25 comprehensive standards (up from my original 10)</li>
+<li>Redis L1/L2 caching architecture</li>
+<li>Semantic search with boolean operators</li>
+<li>NIST compliance mapping</li>
+<li>A React web UI (because why not?)</li>
+<li>Performance benchmarking</li>
+<li>88 integration tests</li>
+</ul>
+<p>I may have overdone it.</p>
+<h2>What Actually Works (The Good Parts)</h2>
+<p>Despite my scope creep, some genuinely useful stuff emerged:</p>
+<h3>Intelligent Standard Selection</h3>
+<p>Context-aware rule engine eliminates manual standard selection:</p>
+<p>⚠️ <strong>Warning:</strong> This demonstrates API usage patterns. Implement proper input validation and security controls for production deployments.</p>
+<pre><code class="language-python">context = {
+    &quot;project_type&quot;: &quot;web_application&quot;,
+    &quot;framework&quot;: &quot;react&quot;,
+    &quot;requirements&quot;: [&quot;accessibility&quot;, &quot;performance&quot;]
+}
+
+# Automatically loads: react-18-patterns, wcag-2.1, performance-optimization
+standards = engine.evaluate(context)
+</code></pre>
+<p><strong>Capabilities:</strong></p>
+<ul>
+<li>Analyzes project structure and dependencies</li>
+<li>Maps requirements to relevant standards automatically</li>
+<li>Loads 3-5 standards per project (vs. 25 total available)</li>
+<li>Eliminates guesswork about which standards apply</li>
+<li>Adapts recommendations based on framework versions</li>
+</ul>
+<h3>Multi-Language Code Analysis</h3>
+<p>Automatic language detection with fix generation:</p>
+<pre><code class="language-bash">mcp-standards validate src/ --language auto
+# Detects Python, finds 3 PEP-8 violations
+# Detects JavaScript, suggests ES6 improvements
+# Generates fix patches automatically
+</code></pre>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Supports 6 languages: Python, JavaScript, Go, Java, Rust, TypeScript</li>
+<li>Auto-detects language from file extensions and syntax</li>
+<li>Provides violation explanations with line numbers</li>
+<li>Generates <code>.patch</code> files for automatic fixes</li>
+<li>Integrates with pre-commit hooks</li>
+</ul>
+<h3>Token Optimization That Actually Matters</h3>
+<p>⚠️ <strong>Warning:</strong> This example demonstrates API optimization techniques. Implement proper authentication and rate limiting when exposing MCP servers to untrusted clients.</p>
+<p>Compressed formats reduce LLM token costs by 70-90%. This optimization strategy builds on the principles I discuss in my guide to <a href="/posts/2025-10-17-progressive-context-loading-llm-workflows">progressive context loading for LLM workflows</a>, where efficient token management becomes critical for complex projects:</p>
+<pre><code class="language-python"># Full standard: 5000 tokens
+# Compressed: 500 tokens
+# Reference only: 50 tokens
+
+standard = get_standard(&quot;react-patterns&quot;, format=&quot;compressed&quot;)
+</code></pre>
+<p><strong>Compression strategies:</strong></p>
+<ul>
+<li>Bullet-point summaries (500 tokens, 90% reduction)</li>
+<li>Reference-only mode (50 tokens, 99% reduction)</li>
+<li>Dynamic expansion: Request details only when needed</li>
+<li>Saves ~$0.15 per standard load at current API pricing</li>
+</ul>
+<h2>The Struggles (Learning Moments)</h2>
+<h3>Redis Is Not Your Friend at 3 AM</h3>
+<p>I spent two frustrating days tracking down silent cache failures before I realized I'd configured Redis with a noeviction policy. My &quot;temporary&quot; cache was storing everything indefinitely.</p>
+<p><strong>The Problem:</strong></p>
+<ul>
+<li>Spent 2 days debugging silent cache failures</li>
+<li>Redis exceeded memory limits (maxmemory policy: noeviction)</li>
+<li>&quot;Temporary&quot; cache stored everything indefinitely</li>
+<li>200MB cached data for documentation that changes monthly</li>
+<li>Cache hit rate: 99% (because nothing ever expired)</li>
+</ul>
+<p><strong>The Fix:</strong></p>
+<ul>
+<li>Added 30-minute TTL on all cache entries</li>
+<li>Reduced maxmemory from 512MB to 64MB</li>
+<li>Implemented <a href="https://redis.io/docs/latest/develop/reference/eviction/">LRU eviction policy</a></li>
+<li>Result: Memory usage dropped 87%, performance unchanged</li>
+</ul>
+<p><strong>Lesson learned</strong>: TTLs exist for a reason. Use them.</p>
+<h3>Vector Databases Are Hungry</h3>
+<p><strong>The Absurdity:</strong></p>
+<ul>
+<li><a href="https://docs.trychroma.com">ChromaDB</a> consumed 4GB RAM for 25 markdown documents</li>
+<li>160MB per document for semantic search</li>
+<li>Index generation: 47 seconds</li>
+<li>Query latency: 89ms average</li>
+<li>Alternative: <code>grep -r &quot;pattern&quot; docs/</code> → 12ms</li>
+</ul>
+<p><strong>The Reality Check:</strong></p>
+<ul>
+<li>Total corpus size: 250KB of text</li>
+<li>Vector embeddings: 1,536 dimensions per chunk</li>
+<li>Overhead ratio: 16,000:1 (storage vs. original text)</li>
+<li>Use cases requiring semantic search: 0</li>
+</ul>
+<p><strong>Lesson learned</strong>: Sometimes grep is enough. Not everything needs AI.</p>
+<h3>The MCP Protocol Is Still Evolving</h3>
+<p><strong>The Breaking Change:</strong></p>
+<ul>
+<li>MCP spec 0.3 → 0.4 changed <code>tools</code> structure</li>
+<li>Server worked perfectly on Friday</li>
+<li>Monday: All tool calls failed with cryptic errors</li>
+<li>Anthropic docs: &quot;We simplified the schema!&quot;</li>
+<li>My perfectly working implementation: Broken</li>
+</ul>
+<p><strong>The Recovery:</strong></p>
+<ul>
+<li>6 hours rewriting tool definitions</li>
+<li>Updated SDK dependencies</li>
+<li>Rewrote 88 tests</li>
+<li>Added version checking middleware</li>
+<li>Now: Server checks MCP protocol version on startup</li>
+</ul>
+<p><strong>Lesson learned</strong>: Pin your dependencies when working with beta protocols. Check breaking change logs religiously.</p>
+<h2>Unexpected Discoveries</h2>
+<h3>The Web UI Nobody Asked For</h3>
+<p>&quot;Quick&quot; debugging interface → Full React application:</p>
+<pre><code class="language-bash">cd web &amp;&amp; ./start.sh
+# Full standards browser at localhost:3000
+# Real-time WebSocket updates
+# Rule testing playground
+</code></pre>
+<p><strong>What Started as a 2-Hour Debug Tool:</strong></p>
+<ul>
+<li>Interactive standards browser with search</li>
+<li>Real-time <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">WebSocket</a> updates when standards change</li>
+<li>Rule testing playground with live validation</li>
+<li>Syntax highlighting for code examples</li>
+<li>Mobile-responsive design (because of course)</li>
+<li>Dark mode toggle (essential)</li>
+<li>50+ components, 3,000 lines of <a href="https://react.dev/reference/react/hooks">React</a></li>
+</ul>
+<p><strong>The Irony</strong>: I use this more than the CLI now. Sometimes procrastination produces useful things.</p>
+<h3>Performance Benchmarking Addiction</h3>
+<p>⚠️ <strong>Warning:</strong> This benchmarking code is for development and testing purposes. Never expose benchmarking endpoints in production without proper authentication and rate limiting.</p>
+<p>Built tools to prove server speed. Discovered it was slow. Spent a week optimizing. Now: graphs!</p>
+<pre><code class="language-bash">python benchmarks/run_benchmarks.py
+# Standard retrieval: 12ms average
+# Semantic search: 89ms average
+# Rule evaluation: 3ms average
+</code></pre>
+<p><strong>Optimization Journey:</strong></p>
+<ul>
+<li>Initial measurements: 340ms average retrieval (embarrassing)</li>
+<li>Profiled with cProfile: 85% time in JSON parsing</li>
+<li>Added <a href="https://msgpack.org">msgpack serialization</a>: 180ms (47% faster)</li>
+<li>Implemented response caching: 45ms (75% faster)</li>
+<li>Final optimization: Lazy-load standard details: 12ms (96% faster)</li>
+<li>Time invested: 1 week</li>
+<li>Users who care about 12ms vs 45ms: 0 (only me)</li>
+</ul>
+<p><strong>The Graphs</strong>: Created dashboards tracking latency percentiles, cache hit rates, memory usage over time. Nobody asked for these metrics. But they're pretty.</p>
+<h2>Current State: &quot;It Works on My Machine&quot;</h2>
+<p>The honest status:</p>
+<p>✅ <strong>What's Working:</strong></p>
+<ul>
+<li>MCP server starts and serves standards</li>
+<li>25 standards available and searchable</li>
+<li>CLI works (mostly)</li>
+<li>Tests pass (when Redis is running)</li>
+<li>Web UI loads (in Chrome)</li>
+</ul>
+<p>⚠️ <strong>What's Flaky:</strong></p>
+<ul>
+<li>Redis randomly disconnects</li>
+<li>Web UI websocket reconnection</li>
+<li>Performance under load (untested with &gt;1 user)</li>
+<li>The documentation</li>
+</ul>
+<p>❌ <strong>What's Broken:</strong></p>
+<ul>
+<li>Windows support (WSL2 or suffer)</li>
+<li>The release automation I spent 3 days on</li>
+<li>My sleep schedule</li>
+</ul>
+<h2>Lessons Learned (So Far)</h2>
+<h3>Start Smaller Than You Think</h3>
+<p><strong>The Evolution:</strong></p>
+<ul>
+<li>Week 1: &quot;Simple wrapper&quot; (200 lines, 1 file)</li>
+<li>Week 2: Added caching (1,200 lines, 8 files)</li>
+<li>Week 3: Added vector search (3,800 lines, 23 files, 4GB RAM)</li>
+<li>Week 4: Added web UI (6,000+ lines, 47 components)</li>
+</ul>
+<p><strong>What I Should Have Done:</strong></p>
+<ul>
+<li>Ship Version 1</li>
+<li>Get feedback</li>
+<li>Add features based on actual needs, not hypothetical ones</li>
+<li>Iterate based on real usage</li>
+</ul>
+<p><strong>The Reality</strong>: Built for an audience of one (me). Over-engineered for problems I don't have.</p>
+<h3>Perfect Is the Enemy of Deployed</h3>
+<p><strong>Version Comparison:</strong></p>
+<ul>
+<li><strong>Version 1</strong>: 200 lines, works, deployed, useful</li>
+<li><strong>Version 2</strong>: 1,200 lines, faster caching, zero users noticed</li>
+<li><strong>Version 3</strong>: 3,800 lines, semantic search, solves no real problems</li>
+<li><strong>Version 4</strong>: 6,000 lines, full UI, impressive demos, occasional Redis crashes</li>
+</ul>
+<p><strong>Value Added Per Version:</strong></p>
+<ul>
+<li>V1 → V2: Marginal (caching saves 50ms on repeated queries)</li>
+<li>V2 → V3: Negative (added complexity, solved nothing)</li>
+<li>V3 → V4: Mixed (UI is useful, but could have been separate project)</li>
+</ul>
+<p><strong>Lesson</strong>: Should have shipped V1 three weeks ago. Iterated based on real feedback.</p>
+<h3>Tools Shape Solutions</h3>
+<p><strong>The Pattern I Fell Into:</strong></p>
+<ul>
+<li>Had Redis → Added caching to everything</li>
+<li>Had ChromaDB → Added vector search everywhere</li>
+<li>Had React experience → Built unnecessary UI</li>
+<li>Had time → Spent it adding features instead of shipping</li>
+</ul>
+<p><strong>Tools That Influenced Architecture:</strong></p>
+<ul>
+<li>Redis: L1/L2 cache architecture (for 25 files)</li>
+<li>ChromaDB: Semantic search (for text searchable by grep)</li>
+<li>React: Full web UI (for debugging tool)</li>
+<li><a href="https://docs.python.org/3/library/asyncio.html">Python async</a>: Everything became async (unnecessary complexity)</li>
+</ul>
+<p><strong>The Trap</strong>: &quot;I have this hammer, so everything looks like a nail.&quot; Technology-driven architecture instead of problem-driven. Classic <a href="https://www.pmi.org/learning/library/top-five-causes-scope-creep-6675">scope creep</a> in action.</p>
+<h2>What's Next (The Roadmap I'll Probably Ignore)</h2>
+<p><strong>The Realistic List:</strong></p>
+<ul>
+<li>Fix the Redis connection issues (week 5 of saying this)</li>
+<li>Write actual documentation</li>
+<li>Add integration tests that test integration</li>
+<li>Simplify the architecture (ha!)</li>
+</ul>
+<p><strong>The Dream List:</strong></p>
+<ul>
+<li>VS Code extension</li>
+<li>Direct Claude Desktop integration</li>
+<li>Distributed standards federation</li>
+<li>GraphQL API</li>
+</ul>
+<h2>Try It Yourself (At Your Own Risk)</h2>
+<p>If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to <a href="/posts/2025-07-22-supercharging-claude-cli-with-standards">supercharging Claude CLI with standards</a> that doesn't require Redis or ChromaDB. For insights on <a href="/posts/2025-08-07-supercharging-development-claude-flow">orchestrating multi-agent development workflows with Claude-Flow</a>, I've documented how MCP servers integrate with swarm intelligence for complex engineering tasks.</p>
+<p><strong>AI skepticism note:</strong> MCP is bleeding-edge technology from Anthropic. The spec changes. The libraries break. The examples in the docs don't always work. Building production systems on top of experimental protocols is a recipe for midnight debugging sessions.</p>
+<p>⚠️ <strong>Warning:</strong> These installation commands modify system packages. Use isolated environments (virtual environments, containers) to avoid conflicts.</p>
+<pre><code class="language-bash"># The optimistic quick start
+pip install mcp-standards-server
+mcp-standards serve --stdio
+
+# The realistic setup
+git clone [https://github.com/williamzujkowski/mcp-standards-server.git](https://github.com/williamzujkowski/mcp-standards-server.git)
+cd mcp-standards-server
+python -m venv venv &amp;&amp; source venv/bin/activate
+pip install -e .
+# Fix 17 dependency conflicts
+# Install Redis
+# Sacrifice a keyboard to the demo gods
+python -m src
+</code></pre>
+<p>Fair warning: This is a work in progress. It works, but &quot;works&quot; is doing some heavy lifting here.</p>
+<h2>The Real Talk</h2>
+<p>This project taught me something important: The gap between &quot;working prototype&quot; and &quot;production ready&quot; is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist. For lessons on <a href="/posts/2024-06-25-designing-resilient-systems">building resilient systems that fail gracefully</a>, I've applied similar architectural patterns to ensure my homelab services remain operational even when individual components break.</p>
+<p><strong>The honest assessment:</strong> This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (6,000+ lines) is more impressive and less useful. Sometimes the best code is the code you don't write.</p>
+<p>But I learned a ton:</p>
+<ul>
+<li>How MCP works (and doesn't)</li>
+<li>Redis patterns I'll never use again</li>
+<li>Why simple solutions often win</li>
+<li>That scope creep is my superpower and weakness</li>
+</ul>
+<p>For practical deployment guidance on <a href="/posts/2024-07-09-zero-trust-architecture-implementation">zero trust network architecture</a>, securing MCP servers requires similar VLAN isolation and firewall rules to protect sensitive standards data from unauthorized access.</p>
+<p>Will I keep working on it? Absolutely. Will it ever be &quot;done&quot;? Absolutely not.</p>
+<p>That's the beauty of side projects – they're never finished, only in various states of &quot;good enough for now.&quot;</p>
+<h2>The Bottom Line</h2>
+<p>Building an MCP server for my standards was like using a sledgehammer to hang a picture. It works, the picture is hung, but there's also a hole in the wall and my neighbors are asking questions.</p>
+<p>But hey, it's MY hole in the wall, and I learned how to use a sledgehammer. I tested every feature, broke things multiple times, and rebuilt them better each iteration.</p>
+<p>Sometimes that's enough.</p>
+<hr>
+<p><em>Want to contribute? The code is at <a href="https://github.com/williamzujkowski/mcp-standards-server">github.com/williamzujkowski/mcp-standards-server</a>. Issues and PRs welcome. Especially if you know why Redis keeps disconnecting.</em></p>
+<p><em>Or use the original standards repo. It still works great and doesn't require Redis.</em></p>
+
+            </div>
+            
+            <!-- Related Posts -->
+            
+            
+            
+            
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+            
+            
+            
+            <section aria-label="Content section" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Related Posts</h2>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/from-claude-in-your-terminal-to-robots-in-your-workshop-the-embodied-ai-revolution/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Deploy Vision-Language-Action models for embodied AI robots—integrate physical world interaction wit...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-10-13">
+                                    October 13, 2025
+                                </time>
+                                <span>8 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Understand AI cognitive infrastructure shaping how billions think—explore societal effects of langua...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-08-09">
+                                    August 9, 2025
+                                </time>
+                                <span>10 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/vulnerability-management-at-scale-with-open-source-tools/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Vulnerability Management at Scale with Open Source Tools
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Build enterprise vulnerability management with open source—deploy scanning, remediation tracking, an...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-07-15">
+                                    July 15, 2025
+                                </time>
+                                <span>8 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <a href="/posts/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to all posts
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://williamzujkowski.github.io%2Fposts%2Fdown-the-mcp-rabbit-hole-building-a-standards-server%2F" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#0077b5] dark:hover:text-[#0077b5] transition-colors duration-200"
+                           aria-label="Share on LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Hacker News -->
+                        <a href="https://news.ycombinator.com/submitlink?u=https://williamzujkowski.github.io%2Fposts%2Fdown-the-mcp-rabbit-hole-building-a-standards-server%2F&t=Down%20the%20MCP%20Rabbit%20Hole%3A%20Building%20a%20Standards%20Server" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff6600] dark:hover:text-[#ff6600] transition-colors duration-200"
+                           aria-label="Share on Hacker News">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M0 0v24h24v-24h-24zm12.8 8.7l2.3-4.3h1.4l-3.1 5.5v3.5h-1.2v-3.5l-3-5.5h1.4l2.2 4.3z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Reddit -->
+                        <a href="https://reddit.com/submit?url=https://williamzujkowski.github.io%2Fposts%2Fdown-the-mcp-rabbit-hole-building-a-standards-server%2F&title=Down%20the%20MCP%20Rabbit%20Hole%3A%20Building%20a%20Standards%20Server" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff4500] dark:hover:text-[#ff4500] transition-colors duration-200"
+                           aria-label="Share on Reddit">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Copy Link -->
+                        <button onclick="copyToClipboard('https://williamzujkowski.github.io/posts/down-the-mcp-rabbit-hole-building-a-standards-server/')" 
+                                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                                aria-label="Copy link to clipboard">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</article>
+
+<!-- Blog JavaScript Bundle (reading-progress, table-of-contents) -->
+<script src="/assets/js/blog.min.js"></script>
+
+<!-- Collapsible Code Blocks - loaded in base.njk -->
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of William Zujkowski, exploring technology and sharing knowledge. All opinions and views expressed are my own and do not reflect those of my employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="/feed.xml" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.858 5.1 3.429 5.1zm0 4.8v2.4c3.924 0 7.114 3.206 7.114 7.142h2.4c0-5.256-4.276-9.542-9.514-9.542zM6.171 16.386c-.756 0-1.371.615-1.371 1.371 0 .756.615 1.371 1.371 1.371.756 0 1.371-.615 1.371-1.371 0-.756-.615-1.371-1.371-1.371z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    &copy; 2025 William Zujkowski. All rights reserved.
+                    Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a>
+                    and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>

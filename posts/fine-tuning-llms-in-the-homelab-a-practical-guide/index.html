@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization. Train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.">
+    <meta name="author" content="William Zujkowski">
+    <meta name="keywords" content="cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security">
+    
+    <title>Fine-Tuning LLMs in the Homelab: A Practical Guide - William Zujkowski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://williamzujkowski.github.io/posts/fine-tuning-llms-in-the-homelab-a-practical-guide/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="William Zujkowski Feed" href="https://williamzujkowski.github.io/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/icon-192.svg">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/icon-512.svg">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fine-Tuning LLMs in the Homelab: A Practical Guide">
+    <meta property="og:description" content="Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization. Train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://williamzujkowski.github.io/posts/fine-tuning-llms-in-the-homelab-a-practical-guide/">
+    <meta property="og:image" content="https://williamzujkowski.github.io/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="William Zujkowski">
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="article:author" content="William Zujkowski">
+    <meta property="article:published_time" content="2025-05-10">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        
+        "headline": "Fine-Tuning LLMs in the Homelab: A Practical Guide",
+        "description": "Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization. Train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.",
+        "datePublished": "2025-05-10",
+        "dateModified": "2025-11-14",
+        "author": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io/about/",
+            "sameAs": [
+                "https://github.com/williamzujkowski",
+                "https://www.linkedin.com/in/williamzujkowski"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://williamzujkowski.github.io/assets/images/headshot.png"
+            }
+        },
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://williamzujkowski.github.io/assets/images/og-image.jpg"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://williamzujkowski.github.io/posts/fine-tuning-llms-in-the-homelab-a-practical-guide/"
+        },
+        "url": "https://williamzujkowski.github.io/posts/fine-tuning-llms-in-the-homelab-a-practical-guide/"
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        William Zujkowski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <!-- Enhanced Breadcrumbs for Blog Posts -->
+<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+  <ol class="flex items-center space-x-2 text-sm flex-wrap">
+    <li>
+      <a href="/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        <svg class="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Home
+      </a>
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href="/posts/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        Blog
+      </a>
+    </li>
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+      
+      <li class="flex items-center">
+        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/tags/ai/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+          ai
+        </a>
+      </li>
+      
+    
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-gray-900 dark:text-gray-100 font-medium truncate max-w-xs">Fine-Tuning LLMs in the Homelab: A Practical Guide</span>
+    </li>
+  </ol>
+</nav>
+
+<article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12">
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm font-medium">
+                        <time datetime="2025-05-10" class="text-primary-600 dark:text-primary-400">
+                            May 10, 2025
+                        </time>
+                        <span class="text-gray-400 dark:text-gray-600">•</span>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            17 min read
+                        </span>
+                    </div>
+                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                        Fine-Tuning LLMs in the Homelab: A Practical Guide
+                    </h1>
+                    
+                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                        Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization. Train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.
+                    </p>
+                    
+                </div>
+                
+                
+                <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
+                    
+                        
+                    
+                        
+                        <a href="/tags/ai/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            ai
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/homelab/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            homelab
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/machine-learning/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            machine-learning
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/programming/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            programming
+                        </a>
+                        
+                    
+                </div>
+                
+            </header>
+
+            <!-- Table of Contents Accordion -->
+            <nav aria-label="Table of contents" class="toc-accordion mb-8 animate-fade-in-up animation-delay-500">
+                <details class="group">
+                    <summary class="cursor-pointer select-none font-medium flex items-center justify-between">
+                        <span>Table of Contents</span>
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="toc-content mt-4" id="toc-content">
+                        <!-- ToC will be generated here by JavaScript -->
+                    </div>
+                </details>
+            </nav>
+
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
+                <p><strong>BLUF:</strong> In March 2025, I attempted to fine-tune Llama 3 8B on my RTX 3090. The first attempt consumed all 24GB of VRAM in under 3 minutes and crashed with a CUDA out-of-memory error.</p>
+<p>After 47 hours of experimentation across two weeks, I finally got it working using QLoRA with 4-bit quantization. The successful training run took 14 hours at 340W average power consumption, which cost me roughly $8.40 in electricity. This guide shares everything I learned from that journey, including the five failures that taught me more than the eventual success.</p>
+<h2>How It Works</h2>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph datapipeline[&quot;Data Pipeline&quot;]
+        Raw[Raw Data]
+        Clean[Cleaning]
+        Feature[Feature Engineering]
+    end
+    subgraph modeltraining[&quot;Model Training&quot;]
+        Train[Training]
+        Val[Validation]
+        Test[Testing]
+    end
+    subgraph deployment[&quot;Deployment&quot;]
+        Deploy[Model Deployment]
+        Monitor[Monitoring]
+        Update[Updates]
+    end
+
+    Raw --&gt; Clean
+    Clean --&gt; Feature
+    Feature --&gt; Train
+    Train --&gt; Val
+    Val --&gt; Test
+    Test --&gt; Deploy
+    Deploy --&gt; Monitor
+    Monitor --&gt;|Feedback| Train
+
+    classDef purpleNode fill:#9c27b0
+    classDef greenNode fill:#4caf50
+    class Train purpleNode
+    class Deploy greenNode
+</code></pre>
+<h2>Understanding Parameter-Efficient Fine-Tuning</h2>
+<p>Traditional fine-tuning updates all model parameters during training. For large models with billions of parameters, this requires enormous computational resources. I discovered this the hard way when my first attempt to fine-tune the full Llama 3 8B model immediately maxed out my system's 64GB of RAM and triggered swap thrashing on my i9-9900K.</p>
+<p>Parameter-efficient fine-tuning (PEFT) methods achieve comparable results while training only a small fraction of parameters. After switching to LoRA, my trainable parameter count dropped from 8 billion to approximately 4.2 million, a reduction of roughly 99.95%. For background on <a href="/posts/2025-06-25-local-llm-deployment-privacy-first">local LLM deployment guide</a>, including hardware selection and infrastructure setup, I've documented the complete foundation you'll need before attempting fine-tuning.</p>
+<h3>LoRA: Low-Rank Adaptation</h3>
+<p>LoRA introduces trainable rank decomposition matrices into transformer layers while keeping the original model weights frozen. Instead of updating billions of parameters, you train small adapter matrices that capture task-specific knowledge.</p>
+<p>The key insight is that adaptation typically operates in a low-dimensional subspace. When I tested different LoRA ranks (r=8, r=16, r=32, r=64), I found that r=16 provided the best balance between quality and memory usage for my use case. The r=64 configuration improved validation accuracy by only 1.2% but increased VRAM usage by 3.8GB, which seemed like a poor trade-off.</p>
+<h3>QLoRA: Quantized LoRA</h3>
+<p>QLoRA extends LoRA by quantizing the base model to 4-bit precision, further reducing memory requirements. This technique saved me when full-precision LoRA still consumed 22.3GB of my 24GB VRAM budget, leaving almost no headroom for batch processing.</p>
+<p>With QLoRA, my VRAM usage dropped to 14.7GB for the same Llama 3 8B model. This enabled me to increase my batch size from 1 (with gradient accumulation) to an effective batch size of 32 with 4-step gradient accumulation. Training time per epoch decreased from approximately 2.8 hours to 1.4 hours. For readers planning a complete <a href="/posts/2025-10-29-privacy-first-ai-lab-local-llms">privacy-first AI lab setup</a>, I recommend establishing network isolation and security controls before fine-tuning to prevent data leakage during training.</p>
+<p>The quantization is carefully designed to preserve model quality. My testing revealed that 4-bit quantization caused a perplexity increase of around 3-5% on my validation set compared to full precision, which was acceptable for my application. One limitation is that extremely precise numerical tasks may suffer more degradation.</p>
+<h2>Hardware Requirements and Considerations</h2>
+<p>I'm running an Intel i9-9900K with 64GB DDR4 RAM and an NVIDIA RTX 3090 (24GB VRAM). This setup works well for fine-tuning models up to roughly 13B parameters with QLoRA, though larger models require more aggressive optimizations.</p>
+<h3>GPU Requirements</h3>
+<p>During March 2025 testing, GPU temperatures peaked at 84°C during training, causing mild thermal throttling that extended my training run by approximately 47 minutes. Adding two Noctua NF-A12x25 fans reduced peak temperatures to 76°C and eliminated throttling.</p>
+<p>Key GPU specifications to consider:</p>
+<ul>
+<li><strong>VRAM Capacity</strong>: Determines maximum model size you can train (my 24GB enables Llama 3 8B with QLoRA, but couldn't fit Llama 3 70B even with aggressive quantization)</li>
+<li><strong>Compute Capability</strong>: My RTX 3090 (compute capability 8.6) processes approximately 1,247 tokens per second during training</li>
+<li><strong>Thermal Design</strong>: Sustained loads differ dramatically from gaming workloads. Plan for 8-14 hour continuous training runs.</li>
+<li><strong>Power Consumption</strong>: My training runs averaged 340W, with peaks up to 370W (factor in electricity costs)</li>
+</ul>
+<p>Before diving into fine-tuning, ensure you have a proper <a href="/posts/2025-10-29-privacy-first-ai-lab-local-llms">privacy-first AI lab setup</a> with network isolation, monitoring, and security controls – training exposes your models to the same privacy risks as inference.</p>
+<h3>Memory Optimization Strategies</h3>
+<p>Several techniques help maximize effective VRAM utilization:</p>
+<ul>
+<li><strong>Gradient Checkpointing</strong>: Trades computation for memory by recomputing activations during backward pass rather than storing them (increased my training time by approximately 23% but reduced VRAM usage by 4.1GB, worth it when hitting memory limits)</li>
+<li><strong>Mixed Precision Training</strong>: I use BF16 for most operations while maintaining FP32 precision for critical computations (reduced my VRAM footprint by roughly 30% compared to full FP32 training, with no measurable quality loss)</li>
+<li><strong>Gradient Accumulation</strong>: I process smaller batches and accumulate gradients over 4 steps before updating weights (simulates effective batch size of 32 while only requiring memory for batch size 8, and training stability improved noticeably)</li>
+<li><strong>Model Offloading</strong>: Offloading inactive parameters to CPU memory during training worked but increased training time by approximately 3.2x (impractical for my 8B model, may suit 30B+ models where VRAM is the primary bottleneck)</li>
+</ul>
+<h2>Dataset Preparation and Quality</h2>
+<p>My first fine-tuning attempt in March used a hastily assembled dataset of 847 examples I scraped from various sources. The resulting model was noticeably worse than the base Llama 3 8B in several areas. It had memorized specific phrasings from the training data and produced awkward, stilted responses.</p>
+<p>I learned that dataset quality matters more than I initially appreciated.</p>
+<h3>Dataset Size Considerations</h3>
+<p>How much data do you actually need? I've experimented with datasets ranging from 93 examples to 12,400 examples.</p>
+<p>For simple task adaptation (like adjusting response formatting), even small datasets of 100-500 examples produced meaningful improvements. My 342-example dataset for code documentation formatting worked well, though validation loss plateaued after epoch 2 of 4.</p>
+<p>For more complex domain adaptation, larger datasets yielded better results. My 3,400-example dataset for technical writing took me 2 weeks to curate properly, but the resulting model showed substantially better performance. Validation perplexity dropped from 4.23 (base model) to 2.87 (fine-tuned), a reduction of roughly 32%.</p>
+<p>Quality matters more than quantity. A carefully curated dataset of 500 high-quality examples often outperforms a noisy dataset of 5,000 mediocre examples. I discovered this when my 4,800-example dataset (assembled quickly) performed worse than my 680-example dataset (carefully reviewed and cleaned).</p>
+<h3>Data Format and Structure</h3>
+<p>Most fine-tuning frameworks expect data in specific formats. I primarily use three patterns:</p>
+<p><strong>Instruction Format</strong>: Pairs of instructions and responses, teaching the model to follow specific patterns. This format worked best for my task-specific adaptations. My testing suggests this approach is most effective when you have at least 200-300 diverse instruction examples.</p>
+<p><strong>Conversational Format</strong>: Multi-turn dialogues that capture context and back-and-forth interaction patterns. I used this for a chatbot experiment in April 2025, with mixed results. The model learned conversational flow well but occasionally generated responses that referenced fictional prior context.</p>
+<p><strong>Completion Format</strong>: Prompts with expected completions. This is the simplest format, and I use it when I just need the model to learn specific output patterns without complex instruction following.</p>
+<h3>Data Cleaning and Validation</h3>
+<p>Thorough data cleaning prevents training on problematic examples that could degrade model quality. I learned this after my second training attempt produced a model that occasionally inserted random HTML tags into responses. The culprit was 23 badly formatted examples in my training set that I hadn't noticed.</p>
+<p>I now follow a rigorous cleaning process:</p>
+<ol>
+<li>Remove duplicate examples (I found 147 exact duplicates in my initial 847-example dataset)</li>
+<li>Fix formatting inconsistencies (normalize whitespace, consistent JSON structure)</li>
+<li>Validate that examples match expected output format (I use a Python script for this)</li>
+<li>Check for biased or problematic content (manual review of random samples)</li>
+</ol>
+<p>I split my data into 85% training and 15% validation. During my March experiments, validation metrics revealed overfitting around epoch 3, which I wouldn't have caught without proper validation tracking.</p>
+<h2>Training Process and Hyperparameters</h2>
+<p>My third training attempt in March failed because I used a learning rate of 2e-3, which caused training loss to diverge after approximately 840 steps. The model's responses became increasingly incoherent as training progressed. I wasted 6.5 hours and $3.80 in electricity before I realized what was happening.</p>
+<h3>Critical Hyperparameters</h3>
+<p>Several hyperparameters significantly impact fine-tuning quality and efficiency. Here's what I've learned from trial and error:</p>
+<p><strong>Learning Rate</strong>: This parameter probably has the biggest impact on training success. I started with 2e-4 for my first successful LoRA run, then reduced to 5e-5 for QLoRA after experiencing instability. Too high causes the divergence I mentioned earlier. Too low results in glacially slow convergence, I tested 1e-6 once and training barely progressed after 8 hours.</p>
+<p>My current approach: Start with 1e-4 for LoRA, 5e-5 for QLoRA, and adjust based on training loss behavior in the first few hundred steps.</p>
+<p><strong>Rank (r)</strong>: For LoRA, this determines the dimensionality of adapter matrices. I tested r=8, 16, 32, and 64 systematically:</p>
+<ul>
+<li>r=8: VRAM usage 16.2GB, validation perplexity 3.14</li>
+<li>r=16: VRAM usage 16.9GB, validation perplexity 2.87</li>
+<li>r=32: VRAM usage 18.3GB, validation perplexity 2.79</li>
+<li>r=64: VRAM usage 20.1GB, validation perplexity 2.75</li>
+</ul>
+<p>The diminishing returns above r=16 weren't worth the memory cost for my use case.</p>
+<p><strong>Alpha</strong>: LoRA scaling factor that controls the magnitude of adapter updates. I typically set this to 32 (2x my rank of 16). When I tried alpha=8, training loss decreased more slowly. Alpha=64 caused occasional instability spikes in loss curves.</p>
+<p><strong>Batch Size</strong>: I use an effective batch size of 32 with gradient accumulation over 4 steps, giving me actual batch size of 8. This configuration seems to balance training stability and memory usage well. My experiments with effective batch size 64 showed minimal quality improvement but substantially longer training times.</p>
+<p><strong>Training Epochs</strong>: I typically train for 3-4 epochs on my 3,400-example dataset. Training for 6 epochs caused clear overfitting, with validation loss increasing while training loss continued decreasing. One epoch seems insufficient, validation metrics typically still improve significantly into epoch 2.</p>
+<h3>Training Monitoring</h3>
+<p>I track these metrics obsessively during training after learning from early failures:</p>
+<ul>
+<li><strong>Training Loss</strong>: Should decrease steadily (my successful runs show smooth exponential decay from around 2.8 down to 0.7-0.9, and erratic behavior suggests learning rate is too high or data has quality issues)</li>
+<li><strong>Validation Loss</strong>: Saved me from deploying a badly overfit model in late March (my validation loss started increasing at epoch 3.2 while training loss kept dropping, so I now use early stopping with patience of 0.5 epochs)</li>
+<li><strong>GPU Metrics</strong>: I monitor temperature, power consumption, and memory usage via nvidia-smi every 30 seconds (before adding better cooling, thermal throttling extended my training run by roughly 47 minutes, and power consumption averaging 340W at $0.13/kWh means each 14-hour training run costs approximately $8.40)</li>
+<li><strong>Throughput</strong>: I process roughly 1,247 tokens per second during training with my current configuration (helps me estimate total training time, as my 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput). For orchestrating complex fine-tuning workflows with parallel agent coordination, see my guide on <a href="/posts/2025-08-07-supercharging-development-claude-flow">supercharging development with Claude-Flow</a> which demonstrates multi-agent task management at scale.</li>
+</ul>
+<h2>Practical Challenges and Solutions</h2>
+<p>Fine-tuning LLMs presents several practical challenges. I've hit almost all of these at some point.</p>
+<h3>Overfitting</h3>
+<p>My April experiment with a 287-example dataset resulted in severe overfitting. The model memorized training examples nearly verbatim and performed poorly on held-out test cases. Validation loss peaked at epoch 2.3 and then started increasing while training loss approached 0.12.</p>
+<p><strong>Prevention strategies that worked for me</strong>:</p>
+<ul>
+<li>Using larger, more diverse datasets (my 3,400-example set overfits much less)</li>
+<li>Training for 3 epochs instead of 6 (validated via early stopping)</li>
+<li>Monitoring validation loss every 0.25 epochs</li>
+<li>Adding dropout at rate 0.1 (reduced overfitting but also slightly hurt final performance)</li>
+</ul>
+<h3>Catastrophic Forgetting</h3>
+<p>After my first successful fine-tuning run, the model performed well on my specific task but had noticeably degraded on general question answering. It &quot;forgot&quot; how to handle questions outside my narrow training distribution. This was probably my most frustrating realization.</p>
+<p><strong>Mitigation approaches I've tested</strong>:</p>
+<ul>
+<li>Including 420 diverse general examples alongside my 3,400 task-specific examples (this helped substantially)</li>
+<li>Using learning rate 5e-5 instead of 1e-4 (makes smaller updates, seems to preserve more base knowledge)</li>
+<li>Training for 3 epochs instead of 5 (less time to forget)</li>
+<li>The trade-off is that these approaches slightly reduce task-specific performance</li>
+</ul>
+<h3>Training Instability</h3>
+<p>My third training run in March exhibited wild loss spikes every 200-300 steps. Loss would be decreasing smoothly, then suddenly spike from 1.2 to 4.7, then recover. This pattern repeated throughout training.</p>
+<p><strong>Stabilization techniques that solved this</strong>:</p>
+<ul>
+<li>Reduced learning rate from 1e-4 to 5e-5 (eliminated most spikes)</li>
+<li>Enabled gradient clipping at norm 1.0 (smoothed remaining instability)</li>
+<li>Found and removed 8 corrupted examples from my dataset (one had malformed UTF-8)</li>
+<li>Ensured consistent formatting across all examples (I had mixed JSON and plaintext)</li>
+</ul>
+<h3>Resource Constraints</h3>
+<p>My RTX 3090 with 24GB VRAM seems generous until you try fitting a 13B parameter model. My April attempt to fine-tune Llama 3 13B failed even with aggressive QLoRA settings.</p>
+<p><strong>Optimization strategies I've used</strong>:</p>
+<ul>
+<li>QLoRA with 4-bit quantization (essential for anything over 7B parameters on my hardware)</li>
+<li>Gradient checkpointing enabled (trades roughly 23% more training time for 4.1GB memory savings)</li>
+<li>Batch size 8 with gradient accumulation (simulates larger batches without memory cost)</li>
+<li>Training Llama 3 8B instead of 13B for most experiments (the 8B model is fast enough for iteration)</li>
+</ul>
+<p>The limitation is real: I cannot currently fine-tune models above roughly 13B parameters on my hardware, even with all optimizations enabled.</p>
+<h2>Evaluation and Quality Assessment</h2>
+<p>After spending 14 hours on training, I learned to invest serious time in evaluation before deploying. My first fine-tuned model looked good in casual testing but performed poorly on edge cases I hadn't anticipated.</p>
+<h3>Automated Metrics</h3>
+<p>Quantitative metrics provide objective assessment, though they don't tell the whole story.</p>
+<p><strong>Perplexity</strong>: My validation perplexity typically drops from 4.23 (base Llama 3 8B) to around 2.87 after fine-tuning on my 3,400-example dataset. Lower is better, though absolute values depend heavily on your domain. One of my domain-specific models achieved perplexity 1.92, but that's not directly comparable to the general dataset.</p>
+<p><strong>Task-Specific Metrics</strong>: For my code documentation task, I measure BLEU score and exact match rate. My fine-tuned model achieves BLEU 0.67 and exact match 34% on held-out test cases, compared to base model BLEU 0.42 and exact match 12%. These metrics are more meaningful to me than perplexity.</p>
+<h3>Human Evaluation</h3>
+<p>Automated metrics miss important quality aspects. I discovered my April model occasionally inserted plausible-sounding but completely fabricated technical details, something perplexity wouldn't catch.</p>
+<p>I now manually evaluate 50 randomly selected test cases, rating each response on:</p>
+<ul>
+<li>Factual accuracy (my April model got this wrong roughly 8% of the time)</li>
+<li>Relevance to the prompt</li>
+<li>Tone appropriateness</li>
+<li>Formatting consistency</li>
+</ul>
+<p>This tedious process has caught issues that would have embarrassed me in production deployment.</p>
+<h3>A/B Testing</h3>
+<p>For my personal documentation assistant, I ran a two-week A/B test comparing my fine-tuned Llama 3 8B against the base model. I randomly assigned queries to each model and tracked which responses I actually used.</p>
+<p>Results: I used fine-tuned responses 73% of the time vs base model 27%. This was more convincing than any automated metric. The limitation is you need enough usage volume to get statistically meaningful results.</p>
+<h2>Deployment Considerations</h2>
+<p>Successfully deploying fine-tuned models requires planning beyond just training.</p>
+<h3>Model Artifacts and Management</h3>
+<p>I learned organization the hard way after losing track of which LoRA adapter went with which base model and hyperparameters. Now I maintain a structured registry.</p>
+<p>For each fine-tuned model I save:</p>
+<ul>
+<li>LoRA adapter weights (typically 84-340MB depending on rank)</li>
+<li>Training configuration YAML (learning rate, batch size, epochs, etc)</li>
+<li>Dataset version hash and example count</li>
+<li>Evaluation metrics on standard test sets</li>
+<li>Training duration and approximate electricity cost</li>
+</ul>
+<p>My adapters are stored separately from base models. This saves massive storage, a single Llama 3 8B base model (16GB) supports multiple task-specific adapters.</p>
+<h3>Inference Optimization</h3>
+<p>I apply post-training quantization for faster inference. My fine-tuned model quantized to 4-bit using GPTQ achieves approximately 47 tokens/second on my RTX 3090, compared to 28 tokens/second with the 16-bit version. Quality degradation was minimal, perplexity increased from 2.87 to 3.01.</p>
+<p>I also implement simple batching when processing multiple requests. Batching 4 requests together increased throughput from 47 to 142 tokens/second total (approximately 35.5 tokens/second per request). The trade-off is slightly higher latency for individual requests.</p>
+<h3>Monitoring and Iteration</h3>
+<p>I log every inference request with:</p>
+<ul>
+<li>Input prompt (first 200 characters)</li>
+<li>Generation latency</li>
+<li>Token count</li>
+<li>Approximate quality (I manually review 5% of outputs)</li>
+</ul>
+<p>This revealed that roughly 12% of my queries fall outside my training distribution and produce lower quality outputs. I'm collecting these edge cases for my next fine-tuning iteration.</p>
+<h2>Advanced Techniques and Optimizations</h2>
+<p>Once comfortable with basic fine-tuning, I experimented with more sophisticated approaches.</p>
+<h3>Multi-Task Learning</h3>
+<p>I trained a single model on three related tasks simultaneously in April 2025: code documentation, technical Q&amp;A, and changelog summarization. Total dataset was 5,200 examples across all tasks.</p>
+<p>The multi-task model handled all three capabilities reasonably well, though single-task models performed roughly 8-12% better on their specific tasks measured by my task-specific metrics. The trade-off is convenience, one model instead of three separate adapters.</p>
+<p>This approach seems most useful when tasks are related. My attempt to combine code documentation with casual conversation in one model produced weird hybrid outputs that mixed technical and conversational tones inappropriately.</p>
+<h3>Continual Learning</h3>
+<p>I'm currently testing approaches to update my model with new examples without full retraining. My first attempt just fine-tuned again on new data, which caused catastrophic forgetting of the original training.</p>
+<p>I'm now experimenting with rehearsal: interleaving 800 examples from original training with 1,200 new examples. Early results suggest this preserves old knowledge better, though I'm still validating thoroughly before deploying.</p>
+<h3>Ensemble Methods</h3>
+<p>I trained three Llama 3 8B models with identical hyperparameters but different random seeds. Validation perplexity varied from 2.79 to 2.94 across the three. When I ensemble predictions by selecting the response with lowest perplexity, quality improved slightly (validation perplexity dropped from 2.87 to 2.81), but inference cost tripled.</p>
+<p>The trade-off isn't worth it for my use case, but may be valuable for critical applications where quality matters more than speed.</p>
+<h2>Common Mistakes to Avoid</h2>
+<p>Learn from my failures to save time and electricity costs:</p>
+<ul>
+<li><strong>Using insufficient or poor quality data</strong>: My initial 847-example dataset produced a model worse than baseline in several areas (investing 2 weeks to curate 3,400 quality examples was time well spent, and the quality difference was dramatic)</li>
+<li><strong>Not monitoring validation metrics</strong>: I trained my second model for 6 epochs without watching validation loss (the resulting overfit model memorized training data and performed poorly on new inputs, wasting 11 hours and roughly $6.50 in electricity)</li>
+<li><strong>Inappropriate learning rates</strong>: My learning rate 2e-3 disaster diverged after 840 steps, while learning rate 1e-6 barely trained after 8 hours (finding the right range, 1e-4 to 5e-5 for my setup, required experimentation but was critical)</li>
+<li><strong>Ignoring base model capabilities</strong>: I tried fine-tuning Llama 3 8B to generate highly specialized medical terminology, a domain where the base model had minimal knowledge (results were poor no matter how much I tweaked hyperparameters, and fine-tuning works best when building on existing capabilities)</li>
+<li><strong>Skipping systematic evaluation</strong>: Casual testing of my March model missed the fact that it occasionally fabricated technical details (creating a proper 200-example test set with manual review revealed this issue before deployment)</li>
+</ul>
+<h2>Future Directions</h2>
+<p>The field of efficient fine-tuning continues to evolve rapidly. I'm watching several promising developments:</p>
+<p><strong>Mixture of Experts</strong>: Training sparse models where only subsets of parameters activate for each input. This could enable larger effective model capacity within my VRAM constraints. I haven't tested this yet due to limited tooling support.</p>
+<p><strong>Meta-Learning</strong>: Models that learn how to fine-tune themselves more efficiently. The research looks promising, though I'm skeptical about real-world practicality based on what I've read.</p>
+<p><strong>Automated Hyperparameter Optimization</strong>: Systems that automatically search for optimal configurations. This would have saved me probably 20+ hours of manual experimentation, though current tools seem immature.</p>
+<p><strong>Few-Shot and Zero-Shot Adaptation</strong>: Techniques for task adaptation with minimal training. I'm testing prompt engineering approaches that may eliminate fine-tuning for simple tasks, though results are mixed so far.</p>
+<hr>
+<p>Fine-tuning large language models on consumer hardware has become practical thanks to parameter-efficient techniques like LoRA and QLoRA. My journey from complete VRAM crashes to successful 14-hour training runs taught me that careful attention to dataset quality, hyperparameter configuration, and training dynamics matters more than raw hardware specs.</p>
+<p>The key is understanding the trade-offs between model size, training time, quality, and resource constraints. I recommend starting with Llama 3 8B and a carefully curated 500-1000 example dataset. Monitor validation loss obsessively, start with conservative learning rates (5e-5 for QLoRA), and invest time in systematic evaluation before deployment.</p>
+<p>My setup (i9-9900K, 64GB RAM, RTX 3090) handles models up to roughly 13B parameters, though 8B models are my sweet spot for iteration speed. The total cost of my March-April experimentation was approximately $47 in electricity for roughly 85 hours of training across multiple experiments.</p>
+<p>The limitations are real: consumer hardware can't match enterprise infrastructure for very large models (70B+), training takes hours to days rather than minutes, and thermal management matters more than I initially appreciated. But the capability to customize powerful models for specific tasks from my home office, at a cost of roughly $8-10 per training run, has changed how I approach AI development.</p>
+<hr>
+<h3>Further Reading:</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a> - Original LoRA paper</li>
+<li><a href="https://arxiv.org/abs/2305.14314">QLoRA: Efficient Finetuning of Quantized LLMs</a> - QLoRA methodology</li>
+<li><a href="https://github.com/huggingface/peft">Hugging Face PEFT Library</a> - Implementation and examples</li>
+<li><a href="https://huggingface.co/blog/peft">Parameter-Efficient Fine-Tuning Methods</a> - Overview and comparison</li>
+</ul>
+
+            </div>
+            
+            <!-- Related Posts -->
+            
+            
+            
+            
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+            
+            
+            
+            <section aria-label="Content section" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Related Posts</h2>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/building-a-private-cloud-in-your-homelab-with-proxmox-and-security-best-practices/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Building a Private Cloud in Your Homelab with Proxmox and Security Best Practices
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Learn to build and secure a production-grade private cloud using Proxmox VE. Covers network segmenta...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-12-24">
+                                    December 24, 2025
+                                </time>
+                                <span>10 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/hardening-docker-containers-in-your-homelab-a-defense-in-depth-approach/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Hardening Docker Containers in Your Homelab: A Defense-in-Depth Approach
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Eight security layers that stopped real attacks in homelab testing: minimal base images, user namesp...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-12-17">
+                                    December 17, 2025
+                                </time>
+                                <span>9 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/building-a-homelab-security-dashboard-with-grafana-and-prometheus/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Building a Homelab Security Dashboard with Grafana and Prometheus
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Real-world guide to monitoring security events in your homelab. Covers Prometheus configuration, Gra...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-12-10">
+                                    December 10, 2025
+                                </time>
+                                <span>10 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <a href="/posts/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to all posts
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://williamzujkowski.github.io%2Fposts%2Ffine-tuning-llms-in-the-homelab-a-practical-guide%2F" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#0077b5] dark:hover:text-[#0077b5] transition-colors duration-200"
+                           aria-label="Share on LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Hacker News -->
+                        <a href="https://news.ycombinator.com/submitlink?u=https://williamzujkowski.github.io%2Fposts%2Ffine-tuning-llms-in-the-homelab-a-practical-guide%2F&t=Fine-Tuning%20LLMs%20in%20the%20Homelab%3A%20A%20Practical%20Guide" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff6600] dark:hover:text-[#ff6600] transition-colors duration-200"
+                           aria-label="Share on Hacker News">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M0 0v24h24v-24h-24zm12.8 8.7l2.3-4.3h1.4l-3.1 5.5v3.5h-1.2v-3.5l-3-5.5h1.4l2.2 4.3z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Reddit -->
+                        <a href="https://reddit.com/submit?url=https://williamzujkowski.github.io%2Fposts%2Ffine-tuning-llms-in-the-homelab-a-practical-guide%2F&title=Fine-Tuning%20LLMs%20in%20the%20Homelab%3A%20A%20Practical%20Guide" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff4500] dark:hover:text-[#ff4500] transition-colors duration-200"
+                           aria-label="Share on Reddit">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Copy Link -->
+                        <button onclick="copyToClipboard('https://williamzujkowski.github.io/posts/fine-tuning-llms-in-the-homelab-a-practical-guide/')" 
+                                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                                aria-label="Copy link to clipboard">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</article>
+
+<!-- Blog JavaScript Bundle (reading-progress, table-of-contents) -->
+<script src="/assets/js/blog.min.js"></script>
+
+<!-- Collapsible Code Blocks - loaded in base.njk -->
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of William Zujkowski, exploring technology and sharing knowledge. All opinions and views expressed are my own and do not reflect those of my employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="/feed.xml" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.858 5.1 3.429 5.1zm0 4.8v2.4c3.924 0 7.114 3.206 7.114 7.142h2.4c0-5.256-4.276-9.542-9.514-9.542zM6.171 16.386c-.756 0-1.371.615-1.371 1.371 0 .756.615 1.371 1.371 1.371.756 0 1.371-.615 1.371-1.371 0-.756-.615-1.371-1.371-1.371z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    &copy; 2025 William Zujkowski. All rights reserved.
+                    Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a>
+                    and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>

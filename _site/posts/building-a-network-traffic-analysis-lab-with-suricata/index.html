@@ -1,0 +1,2606 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Deploy Suricata IDS/IPS for real-time network threat detection—configure rule management, performance tuning, and SIEM integration for homelab monitoring.">
+    <meta name="author" content="William Zujkowski">
+    <meta name="keywords" content="cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security">
+    
+    <title>Building a Network Traffic Analysis Lab with Suricata - William Zujkowski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://williamzujkowski.github.io/posts/building-a-network-traffic-analysis-lab-with-suricata/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="William Zujkowski Feed" href="https://williamzujkowski.github.io/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/icon-192.svg">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/icon-512.svg">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Building a Network Traffic Analysis Lab with Suricata">
+    <meta property="og:description" content="Deploy Suricata IDS/IPS for real-time network threat detection—configure rule management, performance tuning, and SIEM integration for homelab monitoring.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://williamzujkowski.github.io/posts/building-a-network-traffic-analysis-lab-with-suricata/">
+    <meta property="og:image" content="https://williamzujkowski.github.io/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="William Zujkowski">
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="article:author" content="William Zujkowski">
+    <meta property="article:published_time" content="2025-08-25">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        
+        "headline": "Building a Network Traffic Analysis Lab with Suricata",
+        "description": "Deploy Suricata IDS/IPS for real-time network threat detection—configure rule management, performance tuning, and SIEM integration for homelab monitoring.",
+        "datePublished": "2025-08-25",
+        "dateModified": "2025-11-15",
+        "author": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io/about/",
+            "sameAs": [
+                "https://github.com/williamzujkowski",
+                "https://www.linkedin.com/in/williamzujkowski"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://williamzujkowski.github.io/assets/images/headshot.png"
+            }
+        },
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://williamzujkowski.github.io/assets/images/og-image.jpg"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://williamzujkowski.github.io/posts/building-a-network-traffic-analysis-lab-with-suricata/"
+        },
+        "url": "https://williamzujkowski.github.io/posts/building-a-network-traffic-analysis-lab-with-suricata/"
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        William Zujkowski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <!-- Enhanced Breadcrumbs for Blog Posts -->
+<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+  <ol class="flex items-center space-x-2 text-sm flex-wrap">
+    <li>
+      <a href="/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        <svg class="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Home
+      </a>
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href="/posts/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        Blog
+      </a>
+    </li>
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+      
+      <li class="flex items-center">
+        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/tags/homelab/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+          homelab
+        </a>
+      </li>
+      
+    
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-gray-900 dark:text-gray-100 font-medium truncate max-w-xs">Building a Network Traffic Analysis Lab with Suric...</span>
+    </li>
+  </ol>
+</nav>
+
+<article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12">
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm font-medium">
+                        <time datetime="2025-08-25" class="text-primary-600 dark:text-primary-400">
+                            August 25, 2025
+                        </time>
+                        <span class="text-gray-400 dark:text-gray-600">•</span>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            12 min read
+                        </span>
+                    </div>
+                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                        Building a Network Traffic Analysis Lab with Suricata
+                    </h1>
+                    
+                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                        Deploy Suricata IDS/IPS for real-time network threat detection—configure rule management, performance tuning, and SIEM integration for homelab monitoring.
+                    </p>
+                    
+                </div>
+                
+                
+                <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
+                    
+                        
+                    
+                        
+                        <a href="/tags/homelab/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            homelab
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/networking/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            networking
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/security/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            security
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/threat-detection/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            threat-detection
+                        </a>
+                        
+                    
+                </div>
+                
+            </header>
+
+            <!-- Table of Contents Accordion -->
+            <nav aria-label="Table of contents" class="toc-accordion mb-8 animate-fade-in-up animation-delay-500">
+                <details class="group">
+                    <summary class="cursor-pointer select-none font-medium flex items-center justify-between">
+                        <span>Table of Contents</span>
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="toc-content mt-4" id="toc-content">
+                        <!-- ToC will be generated here by JavaScript -->
+                    </div>
+                </details>
+            </nav>
+
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
+                <h2>The Invisible Threat</h2>
+<p><img class="max-w-full h-auto" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&amp;q=80" alt="Network monitoring visualization with glowing connections" loading="lazy">
+<em>Photo by Alina Grubnyak on Unsplash</em></p>
+<p>Last year, I noticed unusual DNS queries from my homelab network. Hundreds of requests to obscure domains at 3 AM. Without network monitoring, I would never have caught the IoT device beaconing home to its manufacturer with telemetry data I didn't authorize.</p>
+<p>That incident convinced me: you can't protect what you can't see. If you're <a href="/posts/2025-04-24-building-secure-homelab-adventure">building a security-focused homelab</a>, network traffic analysis with Suricata should be a core component of your monitoring strategy.</p>
+<h2>Network Traffic Analysis Architecture</h2>
+<p>⚠️ <strong>Warning:</strong> Network traffic analysis must comply with privacy laws and organizational policies. Deploy only on networks you own or have explicit authorization to monitor.</p>
+<pre><code class="language-mermaid">flowchart TB
+    subgraph trafficcollection[&quot;Traffic Collection&quot;]
+        Mirror[Port Mirroring]
+        Tap[Network TAP]
+        Span[SPAN Port]
+    end
+    subgraph suricataengine[&quot;Suricata Engine&quot;]
+        Capture[Packet Capture]
+        Decode[Protocol Decoder]
+        Detection[Detection Engine]
+        Logger[Event Logger]
+    end
+    subgraph rulemanagement[&quot;Rule Management&quot;]
+        Emerging[Emerging Threats]
+        Custom[Custom Rules]
+        ETPRO[ET Pro Rules]
+        Update[Rule Updates]
+    end
+    subgraph analysisresponse[&quot;Analysis &amp; Response&quot;]
+        EVE[EVE JSON Logs]
+        Filebeat[Filebeat Shipper]
+        Elastic[Elasticsearch]
+        Kibana[Kibana Dashboard]
+        Wazuh[Wazuh SIEM]
+    end
+
+    Mirror --&gt; Capture
+    Tap --&gt; Capture
+    Span --&gt; Capture
+
+    Capture --&gt; Decode
+    Decode --&gt; Detection
+    Detection --&gt; Logger
+
+    Emerging --&gt; Detection
+    Custom --&gt; Detection
+    ETPRO --&gt; Detection
+    Update --&gt; Detection
+
+    Logger --&gt; EVE
+    EVE --&gt; Filebeat
+    Filebeat --&gt; Elastic
+    Filebeat --&gt; Wazuh
+    Elastic --&gt; Kibana
+
+    classDef criticalStyle fill:#f44336,color:#fff
+    classDef successStyle fill:#4caf50,color:#fff
+    classDef infoStyle fill:#00bcd4,color:#fff
+    class Detection criticalStyle
+    class Elastic successStyle
+    class Kibana infoStyle
+</code></pre>
+<p>Building my network traffic analysis lab with Suricata transformed my homelab from a black box into a transparent, monitored environment. Here's how I did it.</p>
+<h2>Hardware Setup</h2>
+<h3>Network TAP vs SPAN Port</h3>
+<p>My Ubiquiti Dream Machine Pro supports port mirroring, but I also tested with a dedicated network TAP for comparison.</p>
+<p><strong>SPAN Port (What I Use):</strong></p>
+<ul>
+<li>Ubiquiti allows mirroring specific VLANs</li>
+<li>No additional hardware required</li>
+<li>Sufficient for homelab traffic volumes</li>
+<li>Some packet loss under heavy load</li>
+</ul>
+<p><strong>Network TAP (Optional):</strong></p>
+<ul>
+<li>Passive optical TAP for 100% packet capture</li>
+<li>No packet loss or latency</li>
+<li>More expensive ($200-500)</li>
+<li>Overkill for most homelabs</li>
+</ul>
+<h3>Dedicated Analysis Server</h3>
+<p>I run Suricata on my Dell R940 with:</p>
+<ul>
+<li><strong>CPU</strong>: 8 cores dedicated to packet processing</li>
+<li><strong>RAM</strong>: 16GB allocated</li>
+<li><strong>Storage</strong>: 500GB SSD for fast log writes</li>
+<li><strong>NIC</strong>: Dedicated 10Gb interface for mirrored traffic</li>
+</ul>
+<h3>AF_PACKET Performance Tuning</h3>
+<p><strong>Ring buffer sizing:</strong> Suricata's AF_PACKET capture mode uses kernel ring buffers to handle burst traffic. Default 4MB ring buffers cause packet drops at &gt;5Gbps sustained traffic. Set <code>ring-size: 67108864</code> (64MB per interface) in <code>/etc/suricata/suricata.yaml</code> under <code>af-packet</code> section to handle 10Gbps bursts without drops. Monitor <code>/proc/net/pf_ring/stats</code> for packet loss—anything above 0.1% requires tuning.</p>
+<p><strong>Fanout configuration:</strong> Enable multi-threaded packet capture with <code>cluster-type: cluster_qm</code> (queue-mapping fanout) to distribute packets across CPU cores. Set <code>cluster-id: 99</code> and <code>threads: auto</code> to match your CPU count (8 cores = 8 worker threads). This reduces per-thread packet processing latency from ~200μs to ~25μs in my testing. Verify performance with <code>suricata --af-packet=ens1f0 --runmode=workers -i ens1f0</code> and check <code>stats.log</code> for <code>capture.kernel_drops</code> (should be near 0). If drops persist above 1%, increase ring buffer to 128MB or reduce rule complexity.</p>
+<h2>Suricata Installation and Configuration</h2>
+<h3>Installing Suricata</h3>
+<script src="https://gist.github.com/williamzujkowski/ac871dd21758d0f1f44986c4ee6e21e7.js"></script>
+<h2>Writing Custom Suricata Rules</h2>
+<h3>Rule Syntax Basics</h3>
+<p>Suricata rules follow this structure:</p>
+<p>⚠️ <strong>Warning:</strong> Network detection rules must be tested in lab environments before production deployment. Improper rules can cause false positives or network disruption.</p>
+<pre><code class="language-text">action protocol source_ip source_port -&gt; dest_ip dest_port (rule options)
+</code></pre>
+<h3>Custom Detection Rules</h3>
+<p>One particularly valuable use case is detecting suspicious IoT device behavior. After working through <a href="/posts/2025-09-20-iot-security-homelab-owasp">lessons from OWASP IoTGoat on IoT security</a> and implementing <a href="/posts/2025-09-08-zero-trust-vlan-segmentation-homelab">zero trust VLAN microsegmentation</a>, I developed custom rules to catch the most common IoT attack patterns:</p>
+<script src="https://gist.github.com/williamzujkowski/fdd48db6a837ca02c00c79f7c4fd6cde.js"></script>
+<h2>Testing and Validation</h2>
+<script src="https://gist.github.com/williamzujkowski/55bec7428ee6cb7ba25a59a6aabca57d.js"></script>
+<h2>Integration with SIEM</h2>
+<script src="https://gist.github.com/williamzujkowski/4f6b12b16ec06c596b3baefe837ecf95.js"></script>
+<h2>Visualization with Kibana</h2>
+<h3>Creating Suricata Dashboard</h3>
+<pre><code class="language-bash"># Import Suricata dashboards
+sudo filebeat setup --dashboards -E output.elasticsearch.hosts=[&quot;10.0.1.5:9200&quot;]
+</code></pre>
+<p>Custom visualization queries:</p>
+<script src="https://gist.github.com/williamzujkowski/35c585bdda7f328093d18b40c29ccb22.js"></script>
+<h2>Advanced Detection Techniques</h2>
+<script src="https://gist.github.com/williamzujkowski/a6630cefcbe03030515d0b3310251b7a.js"></script>
+<h2>Operational Best Practices</h2>
+<script src="https://gist.github.com/williamzujkowski/d370286436bb31c998340c63afe8e501.js"></script>
+<h2>Rule Update Security (CRITICAL)</h2>
+<p><strong>The Problem:</strong> Suricata rule updates are a supply chain attack vector. Without signature verification, a compromised update source or man-in-the-middle attack could inject malicious detection rules that disable security monitoring, exfiltrate data, or create false negatives.</p>
+<p><strong>Why it matters:</strong> Detection rules execute with Suricata's privileges and have visibility into all network traffic. A malicious rule could:</p>
+<ul>
+<li>Disable legitimate detections (create blind spots)</li>
+<li>Exfiltrate sensitive data patterns via DNS queries</li>
+<li>Trigger false positives to cause alert fatigue</li>
+<li>Modify traffic inspection behavior</li>
+</ul>
+<h3>Secure Rule Update Workflow</h3>
+<p><strong>Use suricata-update with signature verification:</strong></p>
+<pre><code class="language-bash"># Install suricata-update (comes with Suricata 6.0+)
+sudo apt install python3-suricata-update
+
+# Configure ET Open with GPG verification (recommended)
+sudo suricata-update update-sources
+sudo suricata-update enable-source et/open
+sudo suricata-update
+
+# Verify GPG signatures are checked
+sudo suricata-update --verbose
+# Should see: &quot;Checking signature for...&quot;
+</code></pre>
+<p><strong>Enable automatic signature verification:</strong></p>
+<pre><code class="language-bash"># /etc/suricata/update.yaml
+sources:
+  - et/open:
+      checksum: yes  # Verify SHA256 checksums
+
+# suricata-update automatically verifies ET Open signatures
+# using built-in GPG keys
+</code></pre>
+<p><strong>Manual GPG verification (if needed):</strong></p>
+<pre><code class="language-bash"># Download Emerging Threats GPG key
+wget https://rules.emergingthreats.net/open/suricata-6.0/emerging.rules.tar.gz.asc
+wget https://rules.emergingthreats.net/open/suricata-6.0/emerging.rules.tar.gz
+
+# Import ET GPG key
+gpg --keyserver keys.openpgp.org --recv-keys 14B7AC5D
+
+# Verify signature
+gpg --verify emerging.rules.tar.gz.asc emerging.rules.tar.gz
+# Should output: &quot;Good signature from Emerging Threats&quot;
+</code></pre>
+<h3>Staging Environment Testing</h3>
+<p><strong>Never deploy rules directly to production:</strong></p>
+<pre><code class="language-bash"># Test rules in staging first
+sudo suricata-update --suricata /usr/bin/suricata \
+  --suricata-conf /etc/suricata/suricata-staging.yaml \
+  --output /var/lib/suricata/rules-staging
+
+# Validate rule syntax
+sudo suricata -T -c /etc/suricata/suricata-staging.yaml
+
+# Run for 24 hours in staging, monitor for:
+# - Rule parsing errors
+# - False positive rates
+# - Performance impact
+# - Packet drop increases
+
+# If clean after 24h, promote to production
+sudo cp /var/lib/suricata/rules-staging/* /var/lib/suricata/rules/
+sudo systemctl reload suricata
+</code></pre>
+<h3>Automated Update Pipeline</h3>
+<p><strong>Safe automation includes verification + staging:</strong></p>
+<pre><code class="language-bash">#!/bin/bash
+# /usr/local/bin/suricata-rule-update.sh
+
+set -e
+
+# Update with verification
+sudo suricata-update --verbose 2&gt;&amp;1 | tee /var/log/suricata-update.log
+
+# Check for signature verification
+if ! grep -q &quot;Checking signature&quot; /var/log/suricata-update.log; then
+    echo &quot;ERROR: Signature verification failed or was skipped!&quot;
+    exit 1
+fi
+
+# Test rules before reload
+sudo suricata -T -c /etc/suricata/suricata.yaml
+
+# Reload Suricata
+sudo systemctl reload suricata
+
+# Monitor for 10 minutes
+sleep 600
+sudo suricatasc -c &quot;capture-mode&quot;
+# Verify packet drops haven't increased
+</code></pre>
+<p><strong>Schedule with caution:</strong></p>
+<pre><code class="language-cron"># Update daily at 3 AM (low traffic window)
+0 3 * * * /usr/local/bin/suricata-rule-update.sh &gt;&gt; /var/log/suricata-update-cron.log 2&gt;&amp;1
+</code></pre>
+<h3>Rule Source Trust Hierarchy</h3>
+<p><strong>Prioritize rule sources by trust:</strong></p>
+<ol>
+<li><strong>ET Open (Community):</strong> GPG signed, 30-day delay from Pro, safe for homelab</li>
+<li><strong>ET Pro (Commercial):</strong> $900/year, zero-day rules, signed, vetted by Proofpoint</li>
+<li><strong>Custom rules:</strong> Your own rules, full control, test thoroughly</li>
+<li><strong>Third-party sources:</strong> Verify GPG keys, audit before enabling</li>
+</ol>
+<h4>ET Open 30-Day Delay: Understanding the Trade-Offs (MODERATE)</h4>
+<p><strong>The Problem:</strong> ET Open rules are released 30 days after ET Pro rules. This means homelabs using free ET Open have a <strong>30-day window</strong> where zero-day threats are detectable by ET Pro subscribers but invisible to ET Open users. For rapidly exploited vulnerabilities, 30 days is an eternity.</p>
+<p><strong>Why it matters:</strong> The delay is intentional (business model for Proofpoint), but creates a detection gap for emerging threats. Understanding this trade-off helps you decide when ET Open is sufficient vs when you need compensating controls.</p>
+<p><strong>Why the 30-Day Delay Exists:</strong></p>
+<ol>
+<li><strong>Business Model:</strong> ET Pro subscription revenue ($900/year per sensor) funds Proofpoint's threat research team</li>
+<li><strong>Value Differentiation:</strong> Zero-day detection rules justify commercial pricing</li>
+<li><strong>Community Sustainability:</strong> ET Open free tier maintains community adoption, creates pipeline for Pro upgrades</li>
+<li><strong>Threat Intelligence Lag:</strong> By day 30, most threats are publicly known, ET Open provides &quot;good enough&quot; detection for non-targeted environments</li>
+</ol>
+<p><strong>Security Implications:</strong></p>
+<p><strong>Zero-Day Window (Day 0-30):</strong></p>
+<ul>
+<li><strong>ET Pro:</strong> Has detection rule immediately when threat discovered</li>
+<li><strong>ET Open:</strong> No detection rule, attack succeeds undetected</li>
+<li><strong>Impact:</strong> Homelab vulnerable to fast-spreading threats (worms, ransomware, critical RCEs)</li>
+</ul>
+<p><strong>Public Disclosure Window (Day 30+):</strong></p>
+<ul>
+<li><strong>ET Pro:</strong> Already has rule, benefited from 30-day head start</li>
+<li><strong>ET Open:</strong> Rule released, now protected (better late than never)</li>
+<li><strong>Impact:</strong> Protection catches up, but missed initial attack wave</li>
+</ul>
+<p><strong>Real-World Example: CVE-2024-X Critical RCE</strong></p>
+<pre><code>Timeline:
+Day 0: Vulnerability discovered by researcher, disclosed to vendor
+Day 1: ET Pro rule released (SID 2024001: &quot;ET EXPLOIT CVE-2024-X RCE Attempt&quot;)
+Day 1-5: Exploit code published on GitHub, mass scanning begins
+Day 7: Major ransomware campaign exploits CVE-2024-X (10,000+ victims)
+Day 30: ET Open rule finally released (SID 2024001 now available to community)
+
+ET Pro users: Protected from Day 1, detected attack attempts during Days 1-30
+ET Open users: Vulnerable Days 1-30, protected starting Day 31 (after attack wave passed)
+</code></pre>
+<p><strong>Compensating Controls for ET Open Users:</strong></p>
+<p><strong>1. Threat Intelligence Feeds (Real-Time):</strong></p>
+<pre><code class="language-bash"># Integrate AlienVault OTX (free threat intel)
+# Add OTX IoCs to Suricata blocklist
+curl -H &quot;X-OTX-API-KEY: $OTX_API_KEY&quot; \
+  https://otx.alienvault.com/api/v1/indicators/export &gt; otx-iocs.txt
+
+# Convert OTX IoCs to Suricata format
+grep -E &quot;^(IP|Domain)&quot; otx-iocs.txt | awk '{print &quot;drop ip any any -&gt; &quot;$2&quot; any (msg:\&quot;OTX Threat Intel Block\&quot;; sid:9000000; rev:1;)&quot;}' &gt; otx-rules.rules
+
+# Load OTX rules (updated daily)
+sudo suricatasc -c &quot;ruleset-reload-rules&quot;
+</code></pre>
+<p><strong>2. Custom Rules for Published CVEs (Proactive):</strong></p>
+<pre><code class="language-bash"># When CVE published (Day 0), write custom rule before ET Open release (Day 30)
+# Example: CVE-2024-1234 affects /api/upload endpoint
+
+alert http any any -&gt; $HOME_NET any (
+  msg:&quot;CUSTOM CVE-2024-1234 RCE Attempt&quot;;
+  flow:established,to_server;
+  http.uri; content:&quot;/api/upload&quot;; nocase;
+  http.method; content:&quot;POST&quot;;
+  http.request_body; content:&quot;&lt;?php&quot;; nocase;  # PHP injection attempt
+  classtype:web-application-attack;
+  sid:10000001; rev:1;
+)
+
+# Deploy immediately, don't wait 30 days for ET Open
+</code></pre>
+<p><strong>3. Behavioral Detection (Protocol Anomalies):</strong></p>
+<pre><code class="language-bash"># Generic anomaly detection catches novel attacks ET Open doesn't have rules for yet
+alert tls any any -&gt; any any (
+  msg:&quot;TLS Certificate with Suspicious CN&quot;;
+  tls.cert_subject; content:&quot;acme.local&quot;; nocase;  # Self-signed certs from attacker
+  classtype:protocol-command-decode;
+  sid:10000002; rev:1;
+)
+
+alert dns any any -&gt; any any (
+  msg:&quot;DNS Query to Newly Registered Domain (NRD)&quot;;
+  dns.query; content:&quot;.xyz&quot;; nocase;  # Many phishing campaigns use .xyz TLDs
+  threshold:type limit, track by_src, count 1, seconds 3600;
+  sid:10000003; rev:1;
+)
+</code></pre>
+<p><strong>4. Layered Defense (Defense-in-Depth):</strong></p>
+<pre><code class="language-bash"># ET Open is ONE layer, not the ONLY layer
+# Combine with:
+# - Firewall egress filtering (block known-bad IPs/domains)
+# - Endpoint detection (YARA rules, behavioral analysis)
+# - Vulnerability scanning (identify vulnerable services before exploitation)
+# - Network segmentation (limit lateral movement if Suricata misses initial entry)
+</code></pre>
+<p><strong>When ET Open is Sufficient:</strong></p>
+<ul>
+<li>✅ Homelab environments (non-production, learning/testing)</li>
+<li>✅ Low-value targets (attackers don't specifically target you)</li>
+<li>✅ Mature patch management (vulnerabilities patched within 7-14 days)</li>
+<li>✅ Defense-in-depth implemented (Suricata is backup, not primary defense)</li>
+<li>✅ Threat model: opportunistic attacks (broad scanning, not targeted)</li>
+</ul>
+<p><strong>When ET Pro is Necessary:</strong></p>
+<ul>
+<li>❌ Production environments (business-critical services)</li>
+<li>❌ High-value targets (financial data, PII, intellectual property)</li>
+<li>❌ Slow patch cycles (30+ days to deploy patches)</li>
+<li>❌ Suricata as primary defense (no firewall, no endpoint protection)</li>
+<li>❌ Threat model: targeted attacks (APTs, nation-state actors)</li>
+<li>❌ Compliance requirements (PCI-DSS, HIPAA, NIST 800-53)</li>
+</ul>
+<p><strong>Cost-Benefit Analysis for Homelab:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Annual Cost</strong></th>
+<th><strong>Zero-Day Protection</strong></th>
+<th><strong>Homelab Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ET Open</td>
+<td>$0</td>
+<td>Day 30+</td>
+<td>High (learning, adequate for homelab)</td>
+</tr>
+<tr>
+<td>ET Pro</td>
+<td>$900/sensor</td>
+<td>Day 0+</td>
+<td>Low (overkill for non-production)</td>
+</tr>
+<tr>
+<td>ET Open + Custom Rules</td>
+<td>$0 + time investment</td>
+<td>Day 0+ (manual)</td>
+<td>Medium (proactive, educational)</td>
+</tr>
+<tr>
+<td>ET Open + Threat Intel Feeds</td>
+<td>$0</td>
+<td>Day 1-7 (depends on feed)</td>
+<td>High (automated, near-real-time)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended Homelab Strategy:</strong></p>
+<pre><code class="language-bash"># My homelab approach (zero cost, reasonable protection):
+# 1. ET Open baseline (free, GPG-verified, 30-day lag acceptable)
+sudo suricata-update enable-source et/open
+
+# 2. AlienVault OTX for near-real-time threat intel (free)
+# Update OTX IoCs daily via cron
+0 4 * * * /usr/local/bin/update-otx-rules.sh
+
+# 3. Custom rules for published CVEs affecting my stack
+# Create rules within 24 hours of CVE publication (manual, educational)
+
+# 4. Behavioral rules for protocol anomalies
+# Generic detections catch novel attacks before signatures exist
+
+# 5. Accept 30-day zero-day window as acceptable risk
+# Trade-off: Homelab value doesn't justify $900/year ET Pro cost
+</code></pre>
+<p><strong>Validation Commands:</strong></p>
+<pre><code class="language-bash"># Check which ruleset you're using
+sudo suricata-update list-enabled-sources
+# Should output: &quot;et/open&quot; (free, 30-day delay)
+# Compare: &quot;et/pro&quot; (paid, zero-day coverage)
+
+# Verify rule update frequency
+sudo tail -100 /var/log/suricata/suricata-update.log | grep &quot;Downloaded&quot;
+# Should show daily updates
+
+# Check custom rule count
+grep -c &quot;^alert\|^drop&quot; /var/lib/suricata/rules/local.rules
+# Higher count = more compensating controls for ET Open delay
+
+# Audit rule age (how old are your rules?)
+sudo suricata-update list-sources --enabled | grep &quot;modified&quot;
+# ET Open rules are 30 days behind latest threats
+</code></pre>
+<p><strong>Senior engineer perspective:</strong> Years of IDS management taught me ET Open's 30-day delay is acceptable for 95% of homelabs. The key insight: zero-day detection is valuable only if you're a high-value target worth the attacker's effort to deploy zero-days against. Random homelab on residential ISP? Attackers use commodity exploits that ET Open detects fine once published. Targeted attacks against your specific homelab? You have bigger problems than IDS rule delays. ET Pro makes sense for production environments protecting revenue-generating services or sensitive data. For learning and personal infrastructure, ET Open + custom rules + threat intel feeds provides 90% of the protection at 0% of the cost. I ran ET Open for 3 years in my homelab, never once thought &quot;I wish I'd spent $900/year for 30-day earlier detection.&quot; But I DID write 47 custom rules for CVEs specific to my stack—that proactive approach provided better ROI than commercial rules for threats I don't face.</p>
+<h3>Supply Chain Attack Scenarios</h3>
+<p><strong>Without signature verification:</strong></p>
+<ul>
+<li>Attacker compromises rules.emergingthreats.net DNS → serves malicious rules ✅ ATTACK SUCCEEDS</li>
+<li>MitM on HTTP rule download → injects backdoor detection rules ✅ ATTACK SUCCEEDS</li>
+<li>Compromised mirror serves trojanized ruleset → Suricata loads malicious rules ✅ ATTACK SUCCEEDS</li>
+</ul>
+<p><strong>With signature verification:</strong></p>
+<ul>
+<li>Compromised DNS serves malicious rules → GPG verification fails → Update rejected ❌</li>
+<li>MitM injects backdoor → Signature mismatch → Update rejected ❌</li>
+<li>Compromised mirror → Wrong signature → Update rejected ❌</li>
+</ul>
+<h3>Validation Commands</h3>
+<pre><code class="language-bash"># Verify suricata-update is using signature verification
+sudo suricata-update list-sources --enabled
+# Should show: et/open with checksum: yes
+
+# Check last update verification status
+sudo tail -100 /var/log/suricata/suricata-update.log | grep -E &quot;signature|checksum&quot;
+
+# List installed rule sources and their trust status
+sudo suricata-update list-sources --free
+sudo suricata-update list-sources --all
+
+# Audit current rule file integrity
+sudo suricata-update check-versions
+</code></pre>
+<p><strong>Senior engineer perspective:</strong> Years of managing IDS deployments taught me: rule updates are code execution. Treat them like software updates—verify signatures, test in staging, automate safely. I've seen organizations disable GPG verification &quot;for convenience&quot; only to wonder why their detection rates dropped after a targeted supply chain attack. Security tools are prime targets. The irony of compromising an IDS to disable detection isn't lost on attackers.</p>
+<h2>Incident Response Workflow</h2>
+<p>When Suricata triggers an alert:</p>
+<ol>
+<li><strong>Triage</strong>: Review alert in Kibana dashboard</li>
+<li><strong>Investigate</strong>: Extract full PCAP for the flow</li>
+<li><strong>Analyze</strong>: Review payload and context</li>
+<li><strong>Contain</strong>: Block malicious IPs/domains</li>
+<li><strong>Remediate</strong>: Clean affected systems</li>
+<li><strong>Document</strong>: Update runbooks</li>
+</ol>
+<h2>Lessons Learned</h2>
+<p>After running Suricata in production for years:</p>
+<h3>1. Start Simple, Add Complexity Gradually</h3>
+<p>Don't enable every rule on day one. Start with Emerging Threats Open, tune for false positives, then add custom rules.</p>
+<h3>2. Context Matters More Than Volume</h3>
+<p>10 correlated alerts are more valuable than 10,000 noisy signatures. Focus on detection quality, not quantity.</p>
+<h3>3. Integration is Everything</h3>
+<p>Suricata alone is just logs. Integration with SIEM, threat intelligence, and automated response creates a complete detection pipeline.</p>
+<h3>4. Performance Tuning is Ongoing</h3>
+<p>Monitor packet drops religiously. If you're dropping packets, you're missing threats.</p>
+<h3>5. Test Your Detections</h3>
+<p>Regularly test that your rules actually fire. A rule that never alerts might be broken or misconfigured.</p>
+<h2>Research &amp; References</h2>
+<h3>IDS/IPS Technology</h3>
+<ol>
+<li>
+<p><strong><a href="https://ieeexplore.ieee.org/document/8726695">Snort vs Suricata Performance</a></strong> (2019)</p>
+<ul>
+<li>IEEE - Comparative analysis of IDS performance</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://docs.suricata.io/">Suricata Official Documentation</a></strong> - Comprehensive configuration guide</p>
+</li>
+</ol>
+<h3>Threat Detection Research</h3>
+<ol>
+<li>
+<p><strong><a href="https://arxiv.org/abs/1904.02426">Machine Learning for Intrusion Detection</a></strong> (2019)</p>
+<ul>
+<li>arXiv preprint - ML-based network anomaly detection</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://attack.mitre.org/">MITRE ATT&amp;CK for Network Defense</a></strong> - Adversary tactics and techniques</p>
+</li>
+<li>
+<p><strong><a href="/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard">MITRE ATT&amp;CK Dashboard Implementation</a></strong> - Correlate Suricata detections with ATT&amp;CK tactics</p>
+</li>
+</ol>
+<h3>Rule Development</h3>
+<ul>
+<li><strong><a href="https://rules.emergingthreats.net/">Emerging Threats Rules</a></strong> - Community ruleset</li>
+<li><strong><a href="https://suricata.readthedocs.io/en/latest/rules/index.html">Suricata Language Reference</a></strong> - Rule syntax documentation</li>
+<li><strong><a href="https://github.com/OISF/suricata">OISF GitHub</a></strong> - Suricata source code and examples</li>
+<li><strong><a href="/posts/2025-08-18-container-security-hardening-homelab">Container Security Hardening</a></strong> - Protect containerized Suricata deployments</li>
+</ul>
+<h2>Conclusion</h2>
+<p>Network traffic analysis with Suricata transformed my homelab from an opaque network into a monitored, understood environment. The visibility gained from IDS/IPS isn't just about catching threats. It's about understanding normal behavior so you can spot anomalies.</p>
+<p>Start with basic installation, enable Emerging Threats rules, and gradually add custom detections for your specific environment. The investment in proper monitoring pays dividends the first time you catch an incident before it escalates.</p>
+<hr>
+<p><em>Running Suricata in your environment? What detection rules have proven most valuable? Share your custom rules and detection strategies. Let's build better defenses together!</em></p>
+
+            </div>
+            
+            <!-- Related Posts -->
+            
+            
+            
+            
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+            
+            
+            
+            <section aria-label="Content section" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Related Posts</h2>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/promsketch-2-100x-faster-prometheus-queries-with-sketch-algorithms/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Deploy PromSketch to optimize slow PromQL queries using sketch-based approximation. Homelab benchmar...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-11-19">
+                                    November 19, 2025
+                                </time>
+                                <span>5 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/from-claude-in-your-terminal-to-robots-in-your-workshop-the-embodied-ai-revolution/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Deploy Vision-Language-Action models for embodied AI robots—integrate physical world interaction wit...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-10-13">
+                                    October 13, 2025
+                                </time>
+                                <span>8 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/automated-security-scanning-pipeline-with-grype-and-osv/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Automated Security Scanning Pipeline with Grype and OSV
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Build automated security scanning pipelines with Grype, OSV, and Trivy—integrate vulnerability detec...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-10-06">
+                                    October 6, 2025
+                                </time>
+                                <span>11 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <a href="/posts/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to all posts
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://williamzujkowski.github.io%2Fposts%2Fbuilding-a-network-traffic-analysis-lab-with-suricata%2F" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#0077b5] dark:hover:text-[#0077b5] transition-colors duration-200"
+                           aria-label="Share on LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Hacker News -->
+                        <a href="https://news.ycombinator.com/submitlink?u=https://williamzujkowski.github.io%2Fposts%2Fbuilding-a-network-traffic-analysis-lab-with-suricata%2F&t=Building%20a%20Network%20Traffic%20Analysis%20Lab%20with%20Suricata" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff6600] dark:hover:text-[#ff6600] transition-colors duration-200"
+                           aria-label="Share on Hacker News">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M0 0v24h24v-24h-24zm12.8 8.7l2.3-4.3h1.4l-3.1 5.5v3.5h-1.2v-3.5l-3-5.5h1.4l2.2 4.3z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Reddit -->
+                        <a href="https://reddit.com/submit?url=https://williamzujkowski.github.io%2Fposts%2Fbuilding-a-network-traffic-analysis-lab-with-suricata%2F&title=Building%20a%20Network%20Traffic%20Analysis%20Lab%20with%20Suricata" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff4500] dark:hover:text-[#ff4500] transition-colors duration-200"
+                           aria-label="Share on Reddit">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Copy Link -->
+                        <button onclick="copyToClipboard('https://williamzujkowski.github.io/posts/building-a-network-traffic-analysis-lab-with-suricata/')" 
+                                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                                aria-label="Copy link to clipboard">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</article>
+
+<!-- Blog JavaScript Bundle (reading-progress, table-of-contents) -->
+<script src="/assets/js/blog.min.js"></script>
+
+<!-- Collapsible Code Blocks - loaded in base.njk -->
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of William Zujkowski, exploring technology and sharing knowledge. All opinions and views expressed are my own and do not reflect those of my employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="/feed.xml" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.858 5.1 3.429 5.1zm0 4.8v2.4c3.924 0 7.114 3.206 7.114 7.142h2.4c0-5.256-4.276-9.542-9.514-9.542zM6.171 16.386c-.756 0-1.371.615-1.371 1.371 0 .756.615 1.371 1.371 1.371.756 0 1.371-.615 1.371-1.371 0-.756-.615-1.371-1.371-1.371z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    &copy; 2025 William Zujkowski. All rights reserved.
+                    Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a>
+                    and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>

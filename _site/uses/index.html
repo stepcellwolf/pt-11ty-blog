@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hardware, software, and services I use.">
+    <meta name="author" content="William Zujkowski">
+    <meta name="keywords" content="cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security">
+    
+    <title>Uses - William Zujkowski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://williamzujkowski.github.io/uses/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="William Zujkowski Feed" href="https://williamzujkowski.github.io/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/icon-192.svg">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/icon-512.svg">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Uses">
+    <meta property="og:description" content="Hardware, software, and services I use.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://williamzujkowski.github.io/uses/">
+    <meta property="og:image" content="https://williamzujkowski.github.io/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="William Zujkowski">
+    <meta property="og:locale" content="en_US">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        
+        "name": "William Zujkowski",
+        "description": "Senior Information Security Engineer with 15+ years experience in cybersecurity, AI security, and Zero-Trust architectures. Sharing insights on security, homelab automation, and the intersection of AI and cybersecurity.",
+        "url": "https://williamzujkowski.github.io/uses/",
+        "author": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io/about/",
+            "sameAs": [
+                "https://github.com/williamzujkowski",
+                "https://www.linkedin.com/in/williamzujkowski"
+            ]
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://williamzujkowski.github.io/posts/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        William Zujkowski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/projects/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teach/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resources/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/projects/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teach/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resources/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12 text-center">
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                    Uses
+                </h1>
+                
+                <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                    Hardware, software, and services I use.
+                </p>
+                
+            </header>
+            
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-400">
+                <h1>Uses</h1>
+<p>This is my digital toolbox – the stuff that's survived the test of real-world use and hasn't let me down. I'm picky about my tools because bad choices cost time, and time is what I use to tinker with cool stuff. Everything here has a story, usually involving at least one failure before I figured it out.</p>
+<p>What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab and workflow that actually works for me. This is a living document: I update it when I change something significant or learn a better way.</p>
+<hr>
+<h2>🖥️ Hardware</h2>
+<h3>Workstation</h3>
+<ul>
+<li>
+<p><strong>Desktop PC</strong> — Intel i9-9900K (2019), 64 GB RAM, <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/" rel="noopener noreferrer">RTX 3090</a> (2021), 1TB NVMe + 8TB HDD storage</p>
+<p><strong>Why this build:</strong> Needed something that could handle local LLM experiments (hence the 3090's 24GB VRAM) plus VM workloads (hence the 64GB RAM). Built in 2019 for ~$2,400, upgraded GPU in 2021 when I realized 11GB VRAM on my old 2080 Ti limited me to 7B models. The 3090's 24GB handles 7B-34B models comfortably in full VRAM.</p>
+<p><strong>Trade-off:</strong> Could've gone AMD Threadripper for better multi-threading, but CUDA support for ML work made NVIDIA the obvious choice. The 3090 was expensive ($1,500 during the shortage), but it saves me hundreds per month in cloud GPU costs.</p>
+<p><strong>Failure story:</strong> Originally bought a 2080 Ti in 2020. Fried it overclocking to squeeze 15% more performance for LLM inference. Learned my lesson about pushing hardware past its limits. RIP $1,200.</p>
+</li>
+<li>
+<p><strong>Laptop</strong> — <a href="https://frame.work/" rel="noopener noreferrer">Framework Laptop</a> (DIY Edition, 2022) with <a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a></p>
+<p><strong>Why Framework:</strong> After three laptops that became e-waste because one component failed, I wanted something actually repairable. Framework's modular design means I can upgrade RAM, storage, ports, even the mainboard without replacing the whole machine.</p>
+<p><strong>Cost reality:</strong> $1,400 for the DIY edition with an i7-1260P, 32GB RAM, and 1TB NVMe. More expensive than a Dell with similar specs, but I value the right-to-repair philosophy.</p>
+<p><strong>Ubuntu choice:</strong> Tried Fedora for six months, kept breaking after updates. Ubuntu LTS is boring, which is exactly what I want on a laptop I depend on.</p>
+</li>
+<li>
+<p><strong>Displays</strong> — 34&quot; LG 34WK95U ultrawide (3440x1440, ~$800)</p>
+<p><strong>Why ultrawide:</strong> Tried dual 27&quot; monitors for years. The bezel gap drove me insane. One seamless ultrawide lets me have three vertical code panes side-by-side without visual interruption. Game changer for monitoring dashboards.</p>
+</li>
+</ul>
+<h3>Peripherals</h3>
+<ul>
+<li>
+<p><strong>Keyboard</strong> — <a href="https://wooting.io/wooting-80he" rel="noopener noreferrer">Wooting 80HE</a> (~$185)</p>
+<p><strong>Analog hall effect keys:</strong> Thought it was marketing hype until I tried it. The ability to set actuation points per-key and have analog input changed how I interact with my machine. It's absurdly customizable. Now I can't go back to traditional mechanical switches.</p>
+</li>
+<li>
+<p><strong>Mouse</strong> — <a href="https://www.gloriousgaming.com/collections/model-o-mice" rel="noopener noreferrer">Glorious Model O</a> (~$50)</p>
+<p><strong>Lightweight champion:</strong> 67 grams. After years of heavy gaming mice giving me wrist pain, going ultralight was a revelation. Simple, reliable, cheap.</p>
+</li>
+<li>
+<p><strong>Headset</strong> — <a href="https://steelseries.com/gaming-headsets/arctis-7" rel="noopener noreferrer">SteelSeries Arctis 7X+</a> (~$150)</p>
+<p><strong>Wireless that actually works:</strong> Battery lasts 30+ hours, comfortable for all-day wear, and the mic doesn't sound like I'm in a cave. Works seamlessly across my PC, Xbox, and Switch.</p>
+</li>
+<li>
+<p><strong>Coffee</strong> — <a href="https://chemexcoffeemaker.com/products/ten-cup-classic-chemex" rel="noopener noreferrer">Chemex 10-cup</a> (~$50) + <a href="https://baratza.com/grinder/encore/" rel="noopener noreferrer">Baratza Encore grinder</a> (~$170)</p>
+<p><strong>Because good security engineering requires good coffee.</strong> This is non-negotiable. Chemex makes clean, smooth coffee without the bitterness you get from French press. The ritual of manual pour-over also gives me time to think through problems.</p>
+</li>
+</ul>
+<h3>Homelab Infrastructure</h3>
+<p><strong>The Journey:</strong> Started with a $50 Raspberry Pi 4 in 2015. Thought &quot;this is all I need.&quot; Ten years and ~$8,000 in equipment later, here we are.</p>
+<ul>
+<li>
+<p><strong>Firewall</strong> — <a href="https://ui.com/consoles/dream-machine-pro" rel="noopener noreferrer">Ubiquiti Dream Machine Pro</a> (~$380)</p>
+<p><strong>Why UDM Pro:</strong> Spent years with pfSense on repurposed hardware. Worked great until it didn't. UDM Pro isn't as flexible, but it's stable, fast, and I don't have to maintain another box. Trade-off accepted.</p>
+<p><strong>What I actually use:</strong> VLAN segmentation (IoT devices on isolated network), IDS/IPS for threat detection, DPI for traffic analysis. Handles gigabit routing without breaking a sweat.</p>
+</li>
+<li>
+<p><strong>Hypervisor</strong> — Dell R940 running <a href="https://www.proxmox.com/" rel="noopener noreferrer">Proxmox</a> (~$3,500 used, 2022)</p>
+<p><strong>Why enterprise gear:</strong> Needed serious compute for VM testing. Considered building custom, but used enterprise hardware is cheap if you can handle the noise. This thing sounds like a jet engine at full throttle. Worth it.</p>
+<p><strong>Specs:</strong> 4x Intel Xeon Gold 6130 (64 cores / 128 threads total), 768GB RAM, 8TB NVMe + 12TB HDD storage.</p>
+<p><strong>What I run:</strong> ~30 VMs for testing, ~15 LXC containers for services. Proxmox because it's free, well-documented, and I understand it. Tried ESXi for three months in 2020, licensing made me cry.</p>
+<p><strong>Power cost:</strong> ~$150/month at idle. Expensive hobby, but cheaper than renting equivalent cloud resources for learning.</p>
+</li>
+<li>
+<p><strong>Cluster Nodes</strong> — 3x <a href="https://www.raspberrypi.com/products/raspberry-pi-5/" rel="noopener noreferrer">Raspberry Pi 5</a> (16GB, ~$80 each) + 1x <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" rel="noopener noreferrer">Raspberry Pi 4</a> (8GB, 2020)</p>
+<p><strong>K3s testing cluster:</strong> Learning Kubernetes on real hardware beats reading docs. The Pi 5s run a lightweight K3s cluster for ARM testing. It's slow, but that's the point – if it works here, it'll work anywhere.</p>
+<p><strong>Pi-hole on the Pi 4:</strong> Network-wide ad blocking. Set-and-forget for five years running. Blocks ~25% of DNS queries before they hit the network.</p>
+</li>
+<li>
+<p><strong>Storage</strong> — <a href="https://www.truenas.com/" rel="noopener noreferrer">TrueNAS Core</a> (~$1,200 for custom build, 2020)</p>
+<p><strong>~40TB raw, ~30TB usable</strong> (RAIDZ2 configuration)</p>
+<p><strong>Why TrueNAS:</strong> ZFS is bulletproof. I've had drives fail, but never lost data. Snapshots saved me twice when I accidentally deleted things I shouldn't have. Once from a bad script, once from fat-fingering an rm command.</p>
+<p><strong>Backup strategy:</strong> Critical data goes to <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a> (~$50/month) via <a href="https://restic.net/" rel="noopener noreferrer">restic</a>. Follows the 3-2-1 rule: 3 copies, 2 different media, 1 offsite.</p>
+</li>
+<li>
+<p><strong>Networking</strong> — <a href="https://ui.com/" rel="noopener noreferrer">Ubiquiti</a> UniFi Switch 24 PoE (~$380) + 2x U6 Pro APs (~$150 each)</p>
+<p><strong>Why Ubiquiti ecosystem:</strong> Centralized management, reliable, PoE for clean AP installation. Not the cheapest, not the most feature-rich, but it just works. I've had zero downtime in three years.</p>
+<p><strong>Network design:</strong> 5 VLANs (Management, Home, Lab, IoT, Guest). IoT devices can't reach anything else. Learned this lesson after a smart bulb tried to phone home to China 47,000 times in one day.</p>
+</li>
+</ul>
+<p><strong>Related posts:</strong></p>
+<ul>
+<li><a href="/posts/implementing-dns-over-https-doh-for-home-networks/">Implementing DNS-over-HTTPS (DoH) for Home Networks</a></li>
+<li><a href="/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/">IoT Security in Your Home Lab: Lessons from OWASP IoTGoat</a></li>
+</ul>
+<hr>
+<h2>🧰 Software &amp; Development</h2>
+<h3>Operating Systems &amp; Virtualization</h3>
+<ul>
+<li>
+<p><a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a> as primary OS</p>
+<p><strong>Boring and stable:</strong> After distro-hopping for years (Arch, Fedora, NixOS, Pop!_OS), I settled on Ubuntu LTS. It's boring. Boring is good. I spend my time solving problems, not fixing my OS.</p>
+<p><strong>What I learned:</strong> The &quot;best&quot; distro is the one that doesn't make you think about it.</p>
+</li>
+<li>
+<p><a href="https://www.proxmox.com/" rel="noopener noreferrer">Proxmox</a> for virtualization</p>
+<p><strong>Proxmox vs ESXi:</strong> VMware's licensing changes in 2024 validated my 2022 choice. Proxmox is open-source, has a great community, and doesn't lock me into vendor licensing. I've been running it for three years without major issues.</p>
+<p><strong>Learning curve:</strong> Took about 2 weeks to get comfortable. Worth it.</p>
+</li>
+<li>
+<p><a href="https://www.docker.com/" rel="noopener noreferrer">Docker</a> / <a href="https://podman.io/" rel="noopener noreferrer">Podman</a> for containers</p>
+<p><strong>Docker for development, Podman for production:</strong> Docker is ubiquitous and has better docs. Podman is daemonless and more secure. I use both depending on context.</p>
+<p><strong>Container philosophy:</strong> If a service isn't in a container, it's doing it wrong. Makes deployment reproducible and rollbacks trivial.</p>
+</li>
+<li>
+<p><a href="https://k3s.io/" rel="noopener noreferrer">K3s</a> for lightweight Kubernetes</p>
+<p><strong>Learning K8s the hard way:</strong> Tried learning full Kubernetes in 2021. Overwhelmed. K3s is stripped-down, easier to understand, perfect for homelab. Once you understand K3s, regular K8s makes sense.</p>
+<p><strong>Reality check:</strong> K8s is overkill for 90% of homelab use cases. I use it because I want to learn it, not because I need it.</p>
+</li>
+</ul>
+<h3>Terminal &amp; Editor</h3>
+<ul>
+<li>
+<p><a href="https://github.com/ghostty-org/ghostty" rel="noopener noreferrer">Ghostty</a> terminal</p>
+<p><strong>Recent switch:</strong> Moved from Alacritty in October 2024. Ghostty is stupid fast (GPU-accelerated), uses less memory, and the developer is responsive. Still in beta but already more stable than some &quot;production&quot; terminals I've used.</p>
+<p><strong>Why not GNOME Terminal:</strong> Startup time. Ghostty launches in ~40ms vs ~400ms for GNOME Terminal. When you open dozens of terminals daily, that adds up.</p>
+</li>
+<li>
+<p><a href="https://www.zsh.org/" rel="noopener noreferrer">Zsh</a> shell + <a href="https://ohmyz.sh/" rel="noopener noreferrer">oh-my-zsh</a> + plugins</p>
+<p><strong>Why not bash:</strong> Tab completion and git integration. My most-used plugins: <code>git</code>, <code>docker</code>, <code>kubectl</code>, <code>z</code> (directory jumping), <code>fzf</code> integration.</p>
+<p><strong>Tried fish:</strong> Great shell, but bash compatibility matters for scripts I copy from Stack Overflow. Zsh gives me better UX while staying bash-compatible.</p>
+</li>
+<li>
+<p><a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> multiplexer</p>
+<p><strong>Essential for remote work:</strong> SSH sessions that survive disconnects. I can start a long-running task, disconnect, reconnect hours later, and it's still running. Game changer.</p>
+<p><strong>Learning curve:</strong> Steep. Took me 3 months to stop fighting it. Now it's muscle memory. Worth the investment.</p>
+</li>
+<li>
+<p><a href="https://code.visualstudio.com/" rel="noopener noreferrer">VS Code</a> with extensions for Python, Go, Terraform, Docker</p>
+<p><strong>Controversial take:</strong> I know, &quot;real developers use vim.&quot; I tried. For 3 months in 2019. I was 30% slower in vim. Life's too short. VS Code with vim keybindings is my compromise.</p>
+<p><strong>Essential extensions:</strong> Python (Microsoft), Docker, GitLens, Remote-SSH, Markdown All-in-One, Trailing Spaces.</p>
+<p><strong>Remote-SSH is magic:</strong> Edit files on remote machines like they're local. No more nano/vi in SSH sessions.</p>
+</li>
+<li>
+<p><a href="https://github.com/enkia/tokyo-night-vscode-theme" rel="noopener noreferrer">Tokyo Night theme</a></p>
+<p><strong>Eye comfort:</strong> After years of high-contrast themes giving me headaches, Tokyo Night's softer palette is easier on my eyes during long coding sessions. Small quality-of-life improvement that matters.</p>
+</li>
+</ul>
+<hr>
+<h2>🔐 Security &amp; Monitoring (Homelab)</h2>
+<ul>
+<li>
+<p><a href="https://www.wireshark.org/" rel="noopener noreferrer">Wireshark</a>, tcpdump, <a href="https://nmap.org/" rel="noopener noreferrer">nmap</a> for network inspection</p>
+<p><strong>The classics:</strong> These tools have been around forever because they work. Wireshark for deep packet inspection, tcpdump for quick captures, nmap for discovery. I use them weekly.</p>
+<p><strong>Learning investment:</strong> Spent ~40 hours over a year learning Wireshark filters. Now I can find issues in minutes that used to take hours.</p>
+</li>
+<li>
+<p><a href="https://www.tenable.com/products/nessus" rel="noopener noreferrer">Nessus</a> for vulnerability assessment</p>
+<p><strong>Using:</strong> Nessus Essentials (free version, up to 16 IPs). Tried OpenVAS for a year in 2020—spent more time fixing false positives than finding vulns. Nessus just works.</p>
+<p><strong>Trade-off:</strong> Free version is limited to 16 hosts, but that covers my critical infrastructure. For a full homelab scan, I rotate scans across subnets or use Grype/OSV for container/package scanning.</p>
+<p><strong>What I scan:</strong> Everything. Monthly full scans of all homelab assets. Found critical vulns in IoT devices that vendors never patched.</p>
+</li>
+<li>
+<p><a href="https://github.com/anchore/grype" rel="noopener noreferrer">Grype</a> and <a href="https://github.com/google/osv-scanner" rel="noopener noreferrer">OSV-Scanner</a> for supply chain scanning</p>
+<p><strong>Free alternatives:</strong> For container/code scanning, these are excellent. I also use <a href="https://github.com/aquasecurity/trivy" rel="noopener noreferrer">Trivy</a>. Run all three because overlapping coverage catches more issues.</p>
+<p><strong>Discovery:</strong> Found a critical vuln in a homelab container with Grype that Nessus missed. Now I always run multiple scanners.</p>
+</li>
+<li>
+<p><a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a> for log analysis and detection</p>
+<p><strong>Open-source SIEM:</strong> Wazuh aggregates logs from everything and correlates events. Detected a brute-force SSH attack in real-time in 2023. Would've missed it without centralized logging.</p>
+<p><strong>Setup time:</strong> ~8 hours to configure properly. Worth every minute. Now I have visibility into everything happening on my network.</p>
+</li>
+<li>
+<p><a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>, <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>, <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> for metrics and dashboards</p>
+<p><strong>Observability stack:</strong> Prometheus scrapes metrics, Grafana visualizes them, Netdata gives real-time insights. I have dashboards for everything: server health, network traffic, container metrics, power consumption.</p>
+<p><strong>Prevented issues:</strong> Caught a failing disk before data loss, identified a memory leak in a service, spotted unusual traffic patterns.</p>
+</li>
+<li>
+<p><a href="https://www.zaproxy.org/" rel="noopener noreferrer">OWASP ZAP</a> and <a href="https://github.com/OJ/gobuster" rel="noopener noreferrer">gobuster</a> for web/app testing</p>
+<p><strong>Pentesting tools:</strong> ZAP for automated web app scanning, gobuster for directory/subdomain discovery. Use these for testing anything web-facing before exposing it to the internet.</p>
+</li>
+<li>
+<p><a href="https://bitwarden.com/" rel="noopener noreferrer">Bitwarden</a> (self-hosted) for password management</p>
+<p><strong>Why self-hosted:</strong> I trust Bitwarden's security model, but I prefer controlling the infrastructure. Running <a href="https://github.com/dani-garcia/vaultwarden" rel="noopener noreferrer">Vaultwarden</a> (lightweight Bitwarden server) on my homelab since 2021.</p>
+<p><strong>Migration:</strong> Moved from LastPass after their 2021 breach. Haven't looked back.</p>
+</li>
+<li>
+<p><a href="https://www.yubico.com/products/yubikey-5c-nfc/" rel="noopener noreferrer">YubiKey 5C NFC</a> for hardware 2FA (~$55)</p>
+<p><strong>Physical security keys:</strong> I use YubiKeys for every account that supports FIDO2/WebAuthn. Phishing-resistant 2FA is non-negotiable.</p>
+<p><strong>Rule:</strong> If a service doesn't support 2FA in 2025, it doesn't get my data. Full stop.</p>
+</li>
+<li>
+<p><a href="https://www.vaultproject.io/" rel="noopener noreferrer">HashiCorp Vault</a> for secrets in automation and CI</p>
+<p><strong>Secrets management:</strong> Hardcoded secrets are evil. Vault centralizes secret storage and provides audit logs of who accessed what when.</p>
+<p><strong>Learning curve:</strong> Steep. Took me two weeks to grok the concepts. Absolutely worth it for automated workflows.</p>
+</li>
+</ul>
+<p><strong>Related posts:</strong></p>
+<ul>
+<li><a href="/posts/building-a-smart-vulnerability-prioritization-system-with-epss-and-cisa-kev/">Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV</a></li>
+<li><a href="/posts/vulnerability-management-at-scale-with-open-source-tools/">Vulnerability Management at Scale with Open Source Tools</a></li>
+<li><a href="/posts/building-your-own-mitre-attck-threat-intelligence-dashboard/">Building Your Own MITRE ATT&amp;CK Threat Intelligence Dashboard</a></li>
+<li><a href="/posts/ebpf-for-security-monitoring-a-practical-guide/">eBPF for Security Monitoring: A Practical Guide</a></li>
+</ul>
+<hr>
+<h2>🤖 AI &amp; Prompting</h2>
+<ul>
+<li>
+<p><strong>Local LLMs on RTX 3090</strong> (24GB VRAM)</p>
+<p><strong>Models that actually fit:</strong> Llama 3.1 8B (~4GB Q4), Mistral 7B (~4GB Q4), CodeLlama 34B (~20GB Q4), Qwen 2.5 Coder 32B (~18GB Q4).</p>
+<p><strong>Why local:</strong> Privacy, unlimited usage, learning how they work under the hood. For security research and analyzing potentially sensitive data, local inference is the only acceptable option.</p>
+<p><strong>Hardware reality:</strong> 24GB VRAM handles 7B-34B models fully in GPU memory with Q4 quantization. Larger models (70B+) require CPU offloading (storing part of model in system RAM), which drops performance from 20+ tokens/second to 2-5 tokens/second. For 70B tasks, I use API access or accept the slower offloaded inference.</p>
+<p><strong>Performance sweet spot:</strong> CodeLlama 34B at Q4 quantization (~20GB) gives excellent quality at 12-15 tokens/second. 8B models hit 40+ tokens/second. Good enough for 90% of my use cases.</p>
+</li>
+<li>
+<p><a href="https://ollama.com/" rel="noopener noreferrer">Ollama</a> for model management</p>
+<p><strong>Game changer:</strong> Makes running local LLMs actually usable. Tried llama.cpp directly – too much friction. Ollama is Docker-simple.</p>
+<p><strong>Install to running LLM in 2 commands:</strong></p>
+<pre><code class="language-bash">curl https://ollama.ai/install.sh | sh
+ollama run llama3.1:8b  # Or codellama:34b for larger models
+</code></pre>
+</li>
+<li>
+<p><strong>Use cases that actually work:</strong></p>
+<ul>
+<li><strong>Code review:</strong> Catches obvious bugs, suggests improvements. Not perfect, but faster than waiting for human review.</li>
+<li><strong>Security policy analysis:</strong> Summarizing 50-page compliance docs into actionable items.</li>
+<li><strong>Homelab troubleshooting:</strong> Explains obscure error messages better than Google sometimes.</li>
+<li><strong>Learning new tech:</strong> Asks better questions than docs sometimes. Great for &quot;explain like I'm five&quot; moments.</li>
+<li><strong>Blog post editing:</strong> Catches typos and awkward phrasing I miss.</li>
+</ul>
+</li>
+<li>
+<p><strong>Use cases that don't work:</strong></p>
+<ul>
+<li>Anything requiring real-time data (models are frozen in time).</li>
+<li>Complex multi-step reasoning (hallucinations increase with complexity).</li>
+<li>Critical decisions where hallucinations matter (always verify).</li>
+<li>Code generation for complex systems (good for boilerplate, bad for architecture).</li>
+</ul>
+</li>
+<li>
+<p><strong>Reality check:</strong> LLMs are tools, not magic. They're autocomplete on steroids. Useful when you understand their limitations, dangerous when you don't.</p>
+</li>
+</ul>
+<p><strong>Related posts:</strong></p>
+<ul>
+<li><a href="/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/">Supercharging Development with Claude-Flow</a></li>
+<li><a href="/posts/down-the-mcp-rabbit-hole-building-a-standards-server/">Down the MCP Rabbit Hole: Building a Standards Server</a></li>
+<li><a href="/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/">Exploring Claude CLI Context and Compliance</a></li>
+<li><a href="/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/">AI as Cognitive Infrastructure</a></li>
+</ul>
+<hr>
+<h2>☁️ Services</h2>
+<ul>
+<li>
+<p><strong>Code Hosting:</strong> GitHub (public), <a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> (self-hosted private)</p>
+<p><strong>Why both:</strong> GitHub for open-source visibility, GitLab for private repos I don't want in someone else's cloud. GitLab CE is free and feature-complete.</p>
+</li>
+<li>
+<p><strong>CI/CD:</strong> GitHub Actions (public), <a href="https://www.jenkins.io/" rel="noopener noreferrer">Jenkins</a> (homelab automation)</p>
+<p><strong>GitHub Actions:</strong> Free for public repos, simple YAML config, integrates perfectly with GitHub. Handles my blog deployment.</p>
+<p><strong>Jenkins:</strong> Overkill for most things, but I use it for homelab automation that GitHub Actions can't reach. Runs backup jobs, system updates, monitoring checks.</p>
+</li>
+<li>
+<p><strong>Monitoring:</strong> <a href="https://uptimerobot.com/" rel="noopener noreferrer">UptimeRobot</a> (free tier)</p>
+<p><strong>External health checks:</strong> Monitors my public-facing services from outside my network. Notifies me via email/SMS if something goes down. Free tier is generous (50 monitors, 5-minute intervals).</p>
+</li>
+<li>
+<p><strong>VPN:</strong> <a href="https://www.wireguard.com/" rel="noopener noreferrer">WireGuard</a>, <a href="https://tailscale.com/" rel="noopener noreferrer">Tailscale</a>, <a href="https://protonvpn.com/" rel="noopener noreferrer">ProtonVPN</a></p>
+<p><strong>WireGuard for homelab access:</strong> Fast, modern, secure. Self-hosted on my UDM Pro. Connect to my homelab from anywhere.</p>
+<p><strong>Tailscale for mesh networking:</strong> Zero-config VPN that just works. Free for personal use (up to 20 devices). Magic.</p>
+<p><strong>ProtonVPN for privacy:</strong> When I need to hide my traffic from my ISP or access region-locked content. Swiss privacy laws, no logs, trustworthy.</p>
+</li>
+<li>
+<p><strong>DNS:</strong> <a href="https://1.1.1.1/" rel="noopener noreferrer">Cloudflare 1.1.1.1</a> upstream, <a href="https://pi-hole.net/" rel="noopener noreferrer">Pi-hole</a> local filtering</p>
+<p><strong>Layered approach:</strong> Pi-hole blocks ads/tracking at the DNS level (25% of queries), Cloudflare DNS for privacy (faster than ISP DNS, no logging).</p>
+<p><strong>Why not Google DNS:</strong> I don't need Google knowing every domain I visit.</p>
+</li>
+</ul>
+<hr>
+<h2>🗂️ Self-Hosted Services</h2>
+<p>Running these on Proxmox VMs/containers because I control my data:</p>
+<ul>
+<li><a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a>, <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>, <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>, <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> — Security + monitoring stack</li>
+<li><a href="https://jellyfin.org/" rel="noopener noreferrer">Jellyfin</a> — Media server (FOSS alternative to Plex, no tracking)</li>
+<li><a href="https://www.home-assistant.io/" rel="noopener noreferrer">Home Assistant</a> — Home automation (controls lights, sensors, cameras)</li>
+<li><a href="https://www.bookstackapp.com/" rel="noopener noreferrer">BookStack</a> — Documentation/wiki (beautiful, markdown-based, easy to use)</li>
+<li><a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> — Private git repos</li>
+<li><a href="https://restic.net/" rel="noopener noreferrer">restic</a> backups → <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a> — Encrypted offsite backups</li>
+</ul>
+<p><strong>Why self-host:</strong> Privacy, learning, control. Also, it's fun. I've learned more about networking, security, and system administration from running these services than from any course.</p>
+<p><strong>Cost:</strong> ~$50/month for Backblaze B2, ~$150/month for power. Compared to equivalent SaaS subscriptions (~$300/month), I'm break-even while learning and owning my data.</p>
+<hr>
+<h2>🧪 CLI Tools</h2>
+<h3>Development</h3>
+<ul>
+<li><a href="https://git-scm.com/" rel="noopener noreferrer">git</a> — Version control (use it hourly)</li>
+<li><a href="https://cli.github.com/" rel="noopener noreferrer">gh</a> — GitHub CLI (faster than web UI for PRs/issues)</li>
+<li><a href="https://www.python.org/" rel="noopener noreferrer">python3</a> — Scripting &amp; automation (80% of my scripts)</li>
+<li><a href="https://go.dev/" rel="noopener noreferrer">go</a> — Systems programming (learning, not expert)</li>
+<li><a href="https://www.rust-lang.org/" rel="noopener noreferrer">rust</a> — Memory-safe development (aspirational, still learning)</li>
+</ul>
+<h3>Infrastructure</h3>
+<ul>
+<li><a href="https://www.terraform.io/" rel="noopener noreferrer">terraform</a> — IaC (declarative infrastructure, version-controlled)</li>
+<li><a href="https://www.ansible.com/" rel="noopener noreferrer">ansible</a> — Configuration management (automate everything)</li>
+<li><a href="https://www.docker.com/" rel="noopener noreferrer">docker</a> — Containers (daily driver)</li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/" rel="noopener noreferrer">kubectl</a> — Kubernetes (learning)</li>
+<li><a href="https://k3s.io/" rel="noopener noreferrer">k3s</a> — Lightweight Kubernetes (actually using)</li>
+</ul>
+<h3>Utilities That Changed My Workflow</h3>
+<ul>
+<li><a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> — Multiplexer (can't work without it)</li>
+<li><a href="https://github.com/junegunn/fzf" rel="noopener noreferrer">fzf</a> — Fuzzy finder (instant file/history search)</li>
+<li><a href="https://github.com/BurntSushi/ripgrep" rel="noopener noreferrer">ripgrep</a> — Code search (10x faster than grep)</li>
+<li><a href="https://github.com/sharkdp/bat" rel="noopener noreferrer">bat</a> — Syntax-highlighted cat (small QoL improvement)</li>
+<li><a href="https://htop.dev/" rel="noopener noreferrer">htop</a> — Process monitor (better than top)</li>
+<li><a href="https://dev.yorhel.nl/ncdu" rel="noopener noreferrer">ncdu</a> — Disk usage (find space hogs instantly)</li>
+</ul>
+<p><strong>Pattern:</strong> I gradually replace standard tools with modern alternatives when they significantly improve my workflow. Not change for change's sake, but real productivity gains.</p>
+<hr>
+<h2>📚 Learning</h2>
+<ul>
+<li>
+<p><strong>Platforms:</strong> <a href="https://www.pluralsight.com/" rel="noopener noreferrer">Pluralsight</a> ($299/year), <a href="https://www.oreilly.com/" rel="noopener noreferrer">O'Reilly</a> ($499/year), YouTube (free)</p>
+<p><strong>ROI:</strong> These subscriptions pay for themselves if I learn one skill that saves 10 hours. They've saved me hundreds of hours.</p>
+<p><strong>YouTube underrated:</strong> Free, high-quality content. I've learned more from <a href="https://www.youtube.com/@NetworkChuck" rel="noopener noreferrer">NetworkChuck</a>, <a href="https://www.youtube.com/@LiveOverflow" rel="noopener noreferrer">LiveOverflow</a>, and <a href="https://www.youtube.com/@ippsec" rel="noopener noreferrer">IppSec</a> than from some paid courses.</p>
+</li>
+<li>
+<p><strong>Security labs:</strong> <a href="https://www.hackthebox.com/" rel="noopener noreferrer">HackTheBox</a> (~$150/year), <a href="https://tryhackme.com/" rel="noopener noreferrer">TryHackMe</a> (~$100/year), personal homelab (priceless)</p>
+<p><strong>Hands-on learning:</strong> Reading about security is fine. Breaking things is better. These platforms provide safe, legal environments to practice offensive security.</p>
+<p><strong>Homelab advantage:</strong> I can test things these platforms don't cover. My lab, my rules.</p>
+</li>
+<li>
+<p><strong>Threat intel:</strong> <a href="https://otx.alienvault.com/" rel="noopener noreferrer">AlienVault OTX</a>, <a href="https://abuse.ch/" rel="noopener noreferrer">abuse.ch feeds</a>, <a href="https://www.cisa.gov/known-exploited-vulnerabilities" rel="noopener noreferrer">CISA KEV</a></p>
+<p><strong>Free threat intelligence:</strong> These feeds tell me what bad actors are exploiting right now. I integrate them into Wazuh for automated detection.</p>
+</li>
+</ul>
+<hr>
+<h2>🧭 Principles</h2>
+<ol>
+<li>
+<p><strong>Open Source First</strong> — Transparent, inspectable tools</p>
+<p><strong>Learned this the hard way:</strong> Vendor locked me out of my own monitoring data in 2018. Never again. Open source means I control my data and can fix it myself if needed.</p>
+<p><strong>Exception:</strong> I'll use proprietary tools when they're significantly better (Nessus) or when no viable FOSS alternative exists. Pragmatism over ideology.</p>
+</li>
+<li>
+<p><strong>Privacy &amp; Safety</strong> — Minimize data exhaust; enforce 2FA everywhere</p>
+<p><strong>Rule:</strong> If a service doesn't support 2FA in 2025, it doesn't get my data. Full stop. Bitwarden + YubiKey for everything.</p>
+<p><strong>Data minimization:</strong> Services that don't need my real info get <a href="https://simplelogin.io/" rel="noopener noreferrer">SimpleLogin</a> aliases and fake data. Compartmentalization reduces blast radius.</p>
+</li>
+<li>
+<p><strong>Automate Boring Things</strong> — Script repeatable tasks</p>
+<p><strong>Trigger:</strong> If I do something manually 3 times, it gets automated. Life's too short for repetitive tasks.</p>
+<p><strong>Examples:</strong> Database backups (automated), certificate renewal (automated), system updates (automated), blog deployment (automated), VM snapshots (automated).</p>
+</li>
+<li>
+<p><strong>Document As You Go</strong> — Wikis &gt; memory</p>
+<p><strong>Reality check:</strong> I don't remember why I made a change 3 months ago without notes. Future me always thanks past me for documentation.</p>
+<p><strong>Tools:</strong> BookStack for procedures, git commit messages for code changes, inline comments for complex logic.</p>
+<p><strong>Learned:</strong> If I can't explain it to someone else, I don't understand it well enough.</p>
+</li>
+<li>
+<p><strong>Reliability &gt; Novelty</strong> — Boring tech for critical paths</p>
+<p><strong>Translation:</strong> New and shiny is fun for labs. Production runs on battle-tested boring tech. Docker, PostgreSQL, nginx, Ubuntu LTS – they work because they've been broken and fixed 1,000 times.</p>
+<p><strong>Exception:</strong> I break this rule in the homelab constantly. That's what it's for. Break things, learn, iterate. Just don't do it in production.</p>
+<p><strong>Wisdom:</strong> The best tech stack is the one you understand, not the one on Hacker News.</p>
+</li>
+</ol>
+<hr>
+<p><em>Last updated: 2025-11-12</em></p>
+
+            </div>
+            
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center italic">
+                    Last updated: November 17, 2025
+                </p>
+            </footer>
+            
+        </div>
+    </div>
+</article>
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of William Zujkowski, exploring technology and sharing knowledge. All opinions and views expressed are my own and do not reflect those of my employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Posts</a></li>
+<li><a href="/projects/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Talks</a></li>
+<li><a href="/teach/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/resources/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="/feed.xml" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.858 5.1 3.429 5.1zm0 4.8v2.4c3.924 0 7.114 3.206 7.114 7.142h2.4c0-5.256-4.276-9.542-9.514-9.542zM6.171 16.386c-.756 0-1.371.615-1.371 1.371 0 .756.615 1.371 1.371 1.371.756 0 1.371-.615 1.371-1.371 0-.756-.615-1.371-1.371-1.371z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    &copy; 2025 William Zujkowski. All rights reserved.
+                    Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a>
+                    and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>

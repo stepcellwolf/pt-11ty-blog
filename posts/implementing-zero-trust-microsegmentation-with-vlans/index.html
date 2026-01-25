@@ -1,0 +1,2730 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation and layer 3 firewalls for defense in depth.">
+    <meta name="author" content="William Zujkowski">
+    <meta name="keywords" content="cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security">
+    
+    <title>Implementing Zero Trust Microsegmentation with VLANs - William Zujkowski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://williamzujkowski.github.io/posts/implementing-zero-trust-microsegmentation-with-vlans/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="William Zujkowski Feed" href="https://williamzujkowski.github.io/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/icon-192.svg">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/icon-512.svg">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Implementing Zero Trust Microsegmentation with VLANs">
+    <meta property="og:description" content="Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation and layer 3 firewalls for defense in depth.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://williamzujkowski.github.io/posts/implementing-zero-trust-microsegmentation-with-vlans/">
+    <meta property="og:image" content="https://williamzujkowski.github.io/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="William Zujkowski">
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="article:author" content="William Zujkowski">
+    <meta property="article:published_time" content="2025-09-08">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        
+        "headline": "Implementing Zero Trust Microsegmentation with VLANs",
+        "description": "Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation and layer 3 firewalls for defense in depth.",
+        "datePublished": "2025-09-08",
+        "dateModified": "2025-11-15",
+        "author": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io/about/",
+            "sameAs": [
+                "https://github.com/williamzujkowski",
+                "https://www.linkedin.com/in/williamzujkowski"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "William Zujkowski",
+            "url": "https://williamzujkowski.github.io",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://williamzujkowski.github.io/assets/images/headshot.png"
+            }
+        },
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://williamzujkowski.github.io/assets/images/og-image.jpg"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://williamzujkowski.github.io/posts/implementing-zero-trust-microsegmentation-with-vlans/"
+        },
+        "url": "https://williamzujkowski.github.io/posts/implementing-zero-trust-microsegmentation-with-vlans/"
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        William Zujkowski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <!-- Enhanced Breadcrumbs for Blog Posts -->
+<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+  <ol class="flex items-center space-x-2 text-sm flex-wrap">
+    <li>
+      <a href="/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        <svg class="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Home
+      </a>
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href="/posts/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        Blog
+      </a>
+    </li>
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+      
+      <li class="flex items-center">
+        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/tags/homelab/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+          homelab
+        </a>
+      </li>
+      
+    
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-gray-900 dark:text-gray-100 font-medium truncate max-w-xs">Implementing Zero Trust Microsegmentation with VLA...</span>
+    </li>
+  </ol>
+</nav>
+
+<article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12">
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm font-medium">
+                        <time datetime="2025-09-08" class="text-primary-600 dark:text-primary-400">
+                            September 8, 2025
+                        </time>
+                        <span class="text-gray-400 dark:text-gray-600">•</span>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            15 min read
+                        </span>
+                    </div>
+                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                        Implementing Zero Trust Microsegmentation with VLANs
+                    </h1>
+                    
+                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                        Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation and layer 3 firewalls for defense in depth.
+                    </p>
+                    
+                </div>
+                
+                
+                <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
+                    
+                        
+                    
+                        
+                        <a href="/tags/homelab/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            homelab
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/networking/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            networking
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/security/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            security
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/zero-trust/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            zero-trust
+                        </a>
+                        
+                    
+                </div>
+                
+            </header>
+
+            <!-- Table of Contents Accordion -->
+            <nav aria-label="Table of contents" class="toc-accordion mb-8 animate-fade-in-up animation-delay-500">
+                <details class="group">
+                    <summary class="cursor-pointer select-none font-medium flex items-center justify-between">
+                        <span>Table of Contents</span>
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="toc-content mt-4" id="toc-content">
+                        <!-- ToC will be generated here by JavaScript -->
+                    </div>
+                </details>
+            </nav>
+
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
+                <h2>The IoT Camera That Taught Me About Network Segmentation</h2>
+<p><img class="max-w-full h-auto" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&amp;q=80" alt="Network security and segmentation visualization" loading="lazy">
+<em>Photo by Alina Grubnyak on Unsplash</em></p>
+<p><strong>BLUF:</strong> Years ago, I bought a cheap IP camera for my homelab. Within hours, it was beaconing to servers in China, scanning my network, and attempting to access my NAS.</p>
+<p>All because I put it on the same network as my trusted devices. That camera is now in a VLAN jail, where it belongs. This experience became a core lesson in <a href="/posts/2025-04-24-building-secure-homelab-adventure">building a security-focused homelab with VLANs</a>, where network segmentation proved essential for containing untrusted devices.</p>
+<h2>Zero Trust Network Architecture</h2>
+<pre><code class="language-mermaid">flowchart TB
+    subgraph internetedge[&quot;Internet Edge&quot;]
+        WAN[WAN Connection]
+        UDM[Dream Machine Pro]
+    end
+    subgraph managementvlan10[&quot;Management VLAN 10&quot;]
+        Admin[Admin Devices]
+        Proxmox[Proxmox Host]
+        Switches[Network Switches]
+    end
+    subgraph trustedvlan20[&quot;Trusted VLAN 20&quot;]
+        Workstation[Workstations]
+        Laptops[Laptops]
+        Phones[Personal Phones]
+    end
+    subgraph servervlan30[&quot;Server VLAN 30&quot;]
+        Web[Web Servers]
+        DB[Databases]
+        Apps[Applications]
+    end
+    subgraph iotvlan40[&quot;IoT VLAN 40&quot;]
+        Camera[IP Cameras]
+        Smart[Smart Devices]
+        Sensors[IoT Sensors]
+    end
+    subgraph guestvlan50[&quot;Guest VLAN 50&quot;]
+        GuestDevices[Guest Devices]
+    end
+    subgraph securityservices[&quot;Security Services&quot;]
+        Firewall[Firewall Rules]
+        IDS[Suricata IDS]
+        DNS[Pi-hole DNS]
+    end
+
+    WAN --&gt; UDM
+    UDM --&gt; Firewall
+
+    Firewall --&gt; Admin
+    Firewall --&gt; Workstation
+    Firewall --&gt; Web
+    Firewall --&gt; Camera
+    Firewall --&gt; GuestDevices
+
+    Firewall --&gt; IDS
+    Firewall --&gt; DNS
+
+    classDef redNode fill:#f44336,color:#fff
+    classDef orangeNode fill:#ff9800,color:#fff
+    classDef deepOrangeNode fill:#ff5722,color:#fff
+    class Firewall redNode
+    class Camera,Smart,Sensors orangeNode
+    class GuestDevices deepOrangeNode
+</code></pre>
+<h2>VLAN Design Philosophy</h2>
+<h3>The Zero Trust Principle</h3>
+<p><strong>Traditional approach:</strong> Trust everything inside the network perimeter.</p>
+<p><strong>Zero trust approach:</strong> Verify explicitly, enforce least privilege, assume breach.</p>
+<p>These principles build on the foundational concepts I explored in my guide to <a href="/posts/2024-07-09-zero-trust-architecture-implementation">zero trust architecture fundamentals</a>. VLAN segmentation is one practical implementation of those abstract security principles. My VLAN design follows these principles:</p>
+<ol>
+<li><strong>Default deny</strong>: No traffic flows between VLANs unless explicitly allowed</li>
+<li><strong>Least privilege</strong>: Each VLAN has minimum required access</li>
+<li><strong>Explicit allow</strong>: Every connection must have a business justification</li>
+<li><strong>Continuous monitoring</strong>: Log and alert on anomalous traffic using <a href="/posts/2025-08-25-network-traffic-analysis-suricata-homelab">Suricata network traffic analysis</a></li>
+</ol>
+<h3>VLAN Segmentation Strategy</h3>
+<table>
+<thead>
+<tr>
+<th>VLAN ID</th>
+<th>Name</th>
+<th>Purpose</th>
+<th>Trust Level</th>
+<th>Internet Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Default</td>
+<td>Unused (disabled)</td>
+<td>None</td>
+<td>No</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Management</td>
+<td>Network infrastructure</td>
+<td>High</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Trusted</td>
+<td>Personal devices</td>
+<td>High</td>
+<td>Full</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Servers</td>
+<td>Production services</td>
+<td>Medium</td>
+<td>Controlled</td>
+</tr>
+<tr>
+<td>40</td>
+<td>IoT</td>
+<td>Smart home devices</td>
+<td>Low</td>
+<td>Restricted</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Guest</td>
+<td>Visitor devices</td>
+<td>None</td>
+<td>Full (isolated)</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Lab</td>
+<td>Testing/experiments</td>
+<td>Low</td>
+<td>Full</td>
+</tr>
+<tr>
+<td>70</td>
+<td>DMZ</td>
+<td>Public-facing services</td>
+<td>Low</td>
+<td>Full</td>
+</tr>
+</tbody>
+</table>
+<h2>Ubiquiti Dream Machine Pro Configuration</h2>
+<h3>Initial Setup</h3>
+<p>📎 <strong>Complete configuration:</strong>
+<a href="https://gist.github.com/williamzujkowski/5422062bf5c4c6054de281cb912ce5d9">Full UDM Pro VLAN setup with all 7 VLANs</a></p>
+<p>Each VLAN gets dedicated interface: <code>set interfaces ethernet eth1 vif &lt;id&gt; address &lt;gateway&gt;</code></p>
+<h3>DHCP Configuration</h3>
+<p>📎 <strong>Complete configuration:</strong>
+<a href="https://gist.github.com/williamzujkowski/f5de5f7a5b7e30b7eaa59de0bd55a91b">All VLAN DHCP configs with DNS and gateways</a></p>
+<p>Each VLAN subnet gets DHCP pool starting at .100 address</p>
+<h2>VLAN Security: Anti-Spoofing Controls (CRITICAL)</h2>
+<p><strong>The Problem:</strong> VLAN segmentation alone doesn't prevent Layer 2 attacks. Without anti-spoofing controls, attackers can bypass VLAN isolation through double-tagging (CVE-2005-4440), VLAN hopping, ARP spoofing, and DHCP attacks.</p>
+<p><strong>Why it matters:</strong> Layer 2 attacks circumvent firewall rules entirely. An attacker on IoT VLAN 40 could access Management VLAN 10 by manipulating 802.1Q headers or poisoning ARP tables. Defense in depth requires security at Layer 2 <strong>and</strong> Layer 3.</p>
+<h3>Port Security: Prevent VLAN Hopping</h3>
+<p><strong>Attack vector:</strong> Malicious device negotiates trunking with switch, gains access to all VLANs.</p>
+<p><strong>Mitigation for UDM Pro:</strong></p>
+<pre><code class="language-bash"># Force access mode on all user-facing ports (NOT trunk mode)
+set interfaces ethernet eth2 switchport mode access
+set interfaces ethernet eth2 switchport access vlan 40  # IoT VLAN
+
+# Disable DTP (Dynamic Trunking Protocol) negotiation
+set interfaces ethernet eth2 switchport nonegotiate
+
+# Verify configuration
+show interfaces ethernet eth2 switchport
+</code></pre>
+<p><strong>Best practice:</strong> Only trunk ports should connect to other switches. Every port connecting to an end device must be <code>mode access</code>.</p>
+<h3>Native VLAN Tagging</h3>
+<p><strong>Attack vector:</strong> Double-tagging attack sends frame with two 802.1Q tags. Outer tag matches native VLAN, gets stripped. Inner tag routes frame to target VLAN.</p>
+<p><strong>Mitigation:</strong></p>
+<pre><code class="language-bash"># Tag ALL VLANs, including native VLAN 1
+set interfaces ethernet eth1 native-vlan 999  # Unused VLAN
+set interfaces ethernet eth1 vlan-tagging
+
+# Or disable VLAN 1 entirely (recommended)
+set interfaces ethernet eth1 no-native-vlan
+</code></pre>
+<p><strong>Senior engineer note:</strong> Years of network administration taught me: never trust VLAN 1. It's a common attack target. Either tag it or disable it. My homelab uses VLAN 999 as dead native VLAN—nothing assigned, nothing can exploit it.</p>
+<h4>Why VLAN 1 is Dangerous (MODERATE)</h4>
+<p><strong>The Problem:</strong> VLAN 1 isn't just another VLAN—it's special. Most network equipment treats VLAN 1 as the default VLAN for management traffic, CDP/LLDP, STP, VTP, and untagged frames. This makes it a high-value target for attackers and a common misconfiguration vector.</p>
+<p><strong>Why it matters:</strong> Using VLAN 1 for user traffic or leaving it active without tagging creates multiple attack surfaces. Even if you never explicitly configure VLAN 1, it exists by default on every switch port, processing frames you might not expect.</p>
+<p><strong>VLAN 1 Special Behaviors:</strong></p>
+<ol>
+<li>
+<p><strong>Default VLAN for All Ports</strong></p>
+<ul>
+<li>Every switch port starts in VLAN 1 by default</li>
+<li>Untagged frames (no 802.1Q tag) automatically go to VLAN 1</li>
+<li>Attacker plugging into unused port lands in VLAN 1</li>
+</ul>
+</li>
+<li>
+<p><strong>Control Plane Traffic</strong></p>
+<ul>
+<li>Cisco Discovery Protocol (CDP) frames → VLAN 1</li>
+<li>Link Layer Discovery Protocol (LLDP) → VLAN 1</li>
+<li>Spanning Tree Protocol (STP) BPDUs → VLAN 1 (cannot be changed)</li>
+<li>VLAN Trunking Protocol (VTP) → VLAN 1</li>
+<li><strong>Impact:</strong> Sniffing VLAN 1 reveals network topology, device models, firmware versions</li>
+</ul>
+</li>
+<li>
+<p><strong>Management Plane Default</strong></p>
+<ul>
+<li>Switch management IP often defaults to VLAN 1</li>
+<li>Many organizations inherit this from initial setup, never migrate</li>
+<li><strong>Impact:</strong> VLAN 1 compromise = switch management interface accessible</li>
+</ul>
+</li>
+<li>
+<p><strong>Cannot Be Deleted</strong></p>
+<ul>
+<li>VLAN 1 is hardcoded, cannot be removed from database</li>
+<li>Can only be restricted, not eliminated</li>
+<li><strong>Impact:</strong> Even &quot;unused&quot; VLAN 1 still processes control frames</li>
+</ul>
+</li>
+</ol>
+<p><strong>Attack Scenarios:</strong></p>
+<p><strong>Scenario 1: VLAN 1 Double-Tagging Attack</strong></p>
+<pre><code>Attacker crafts frame:
+[Ethernet Header][Outer 802.1Q Tag: VLAN 1][Inner 802.1Q Tag: VLAN 40][Data]
+
+Switch behavior:
+1. Receives frame on access port (VLAN 1)
+2. Strips outer tag (standard 802.1Q behavior)
+3. Forwards frame with inner tag intact
+4. Inner tag (VLAN 40) gets processed by next switch
+5. Frame reaches IoT VLAN without proper authorization
+
+Mitigation:
+- Tag VLAN 1 on trunk ports (no native VLAN)
+- Use non-1 native VLAN (e.g., VLAN 999)
+</code></pre>
+<p><strong>Scenario 2: STP Manipulation via VLAN 1</strong></p>
+<pre><code>Attacker sends malicious STP BPDUs on VLAN 1:
+1. Claims to be root bridge (priority 0)
+2. Legitimate root bridge relinquishes role
+3. Attacker becomes root bridge
+4. All traffic flows through attacker for inspection/modification
+
+Mitigation:
+- Enable BPDU Guard on access ports
+- Use Root Guard on trunk ports
+- Filter VLAN 1 where not needed
+</code></pre>
+<p><strong>Scenario 3: CDP Information Disclosure</strong></p>
+<pre><code>Attacker sniffs VLAN 1 CDP frames:
+- Device hostname: &quot;core-switch-01&quot;
+- Model: &quot;Cisco Catalyst 3650&quot;
+- Firmware: &quot;IOS-XE 16.6.4&quot; (has CVE-2020-1234 vulnerability)
+- Management IP: 192.168.1.1
+- Native VLAN: 1
+
+Attacker now has:
+- Target for exploitation (known vulnerable firmware)
+- Management interface address
+- Network topology information
+
+Mitigation:
+- Disable CDP globally (unless monitoring requires it)
+- Use LLDP instead (more secure, standards-based)
+- Filter VLAN 1 on untrusted ports
+</code></pre>
+<p><strong>Migration Strategies:</strong></p>
+<p><strong>Strategy 1: Dead VLAN Approach (Recommended for Homelabs)</strong></p>
+<pre><code class="language-bash"># Assign unused VLAN as native (e.g., VLAN 999)
+set interfaces ethernet eth1 native-vlan 999
+set interfaces ethernet eth1 vlan-tagging
+
+# Verify no devices in VLAN 999
+show vlan 999
+# Should output: &quot;No devices assigned&quot;
+
+# Disable VLAN 1 on access ports (user-facing)
+set interfaces ethernet eth2 switchport mode access
+set interfaces ethernet eth2 switchport access vlan 40  # IoT VLAN
+# VLAN 1 no longer processes user traffic on this port
+</code></pre>
+<p><strong>Strategy 2: Management VLAN Migration (Enterprise)</strong></p>
+<pre><code class="language-bash"># Create dedicated management VLAN
+set vlan 10 description &quot;MGMT&quot;
+set interface vlan 10 address 192.168.10.1/24
+
+# Migrate switch management IP from VLAN 1 to VLAN 10
+set system ip management interface vlan 10
+
+# Restrict VLAN 1 to control traffic only
+set vlan 1 description &quot;CONTROL-PLANE-ONLY&quot;
+# Do NOT assign user devices to VLAN 1
+
+# Disable VLAN 1 on user-facing access ports
+set interface ethernet eth2-48 switchport mode access
+set interface ethernet eth2-48 switchport vlan 40
+# VLAN 1 no longer active on these ports
+</code></pre>
+<p><strong>Strategy 3: 802.1Q Tagging Everything (Maximum Security)</strong></p>
+<pre><code class="language-bash"># Force tagging on ALL VLANs including VLAN 1
+set interfaces ethernet eth1 vlan-tagging
+set interfaces ethernet eth1 allowed-vlan 1,10,20,30,40,50
+# All VLANs now tagged, no native VLAN
+
+# Or explicitly remove VLAN 1 from trunk
+set interfaces ethernet eth1 allowed-vlan 10,20,30,40,50
+# VLAN 1 cannot traverse this trunk
+</code></pre>
+<p><strong>Verification Commands:</strong></p>
+<pre><code class="language-bash"># Verify native VLAN configuration
+show interfaces ethernet eth1 switchport
+# Check: &quot;Native VLAN: 999&quot; (not 1)
+
+# Verify VLAN 1 not in use on access ports
+show vlan brief | grep &quot;VLAN0001&quot;
+# Should show: &quot;VLAN0001, Name: default, Status: active, Ports: (none)&quot;
+
+# Check STP root bridge (should not be attacker-controlled)
+show spanning-tree root
+# Verify root bridge priority and MAC address match expected device
+
+# Verify CDP disabled (or VLAN 1 filtered)
+show cdp neighbors
+# If enabled, should not leak sensitive information
+
+# Audit all ports for VLAN assignment
+show interfaces status | grep &quot;VLAN 1&quot;
+# Any user-facing port in VLAN 1 is misconfigured
+</code></pre>
+<p><strong>Common Misconfigurations:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Misconfiguration</strong></th>
+<th><strong>Risk</strong></th>
+<th><strong>Correct Configuration</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VLAN 1 as native VLAN on trunks</td>
+<td>Double-tagging attacks</td>
+<td>Use VLAN 999 as dead native</td>
+</tr>
+<tr>
+<td>User devices in VLAN 1</td>
+<td>Control plane exposure</td>
+<td>Assign all users to VLAN 10+</td>
+</tr>
+<tr>
+<td>Management IP in VLAN 1</td>
+<td>Switch compromise via user access</td>
+<td>Migrate management to VLAN 10</td>
+</tr>
+<tr>
+<td>CDP enabled globally</td>
+<td>Information disclosure</td>
+<td>Disable CDP or filter VLAN 1</td>
+</tr>
+<tr>
+<td>VLAN 1 on access ports</td>
+<td>Unused ports = VLAN 1 entry point</td>
+<td>Set access ports to dead VLAN 999</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Homelab Best Practices:</strong></p>
+<pre><code class="language-bash"># My homelab VLAN 1 configuration (zero user traffic):
+# 1. Native VLAN 999 (dead, nothing assigned)
+set interfaces ethernet eth1 native-vlan 999
+
+# 2. Management on VLAN 10 (isolated, firewall-protected)
+set vlan 10 description &quot;MGMT&quot;
+set interface vlan 10 address 192.168.10.1/24
+
+# 3. VLAN 1 allowed only on trunk (for control traffic)
+set interfaces ethernet eth1 allowed-vlan 1,10,20,30,40,50
+
+# 4. User VLANs start at 20+
+set vlan 20 description &quot;TRUSTED&quot;   # Workstations
+set vlan 30 description &quot;GUEST&quot;     # Guests
+set vlan 40 description &quot;IOT&quot;       # IoT devices
+set vlan 50 description &quot;SERVERS&quot;   # Homelab servers
+
+# 5. Unused ports in dead VLAN 999
+set interfaces ethernet eth10-24 switchport access vlan 999
+set interfaces ethernet eth10-24 shutdown
+</code></pre>
+<p><strong>Production Migration Checklist:</strong></p>
+<ul>
+<li>[ ] Identify all devices currently in VLAN 1 (inventory scan)</li>
+<li>[ ] Create management VLAN (VLAN 10) with appropriate firewall rules</li>
+<li>[ ] Migrate switch management IPs to VLAN 10</li>
+<li>[ ] Reassign user devices from VLAN 1 to appropriate VLANs</li>
+<li>[ ] Configure trunk ports with non-1 native VLAN (999 recommended)</li>
+<li>[ ] Enable BPDU Guard on access ports (prevent STP attacks)</li>
+<li>[ ] Verify VLAN 1 traffic patterns (should be control plane only)</li>
+<li>[ ] Document VLAN assignments and migration rationale</li>
+<li>[ ] Test failover scenarios (STP convergence, port failures)</li>
+<li>[ ] Schedule rollback window (migration risks downtime)</li>
+</ul>
+<p><strong>Senior engineer perspective:</strong> Years of network security audits taught me VLAN 1 is the most commonly exploited misconfiguration in enterprise networks. I've seen attackers pivot from compromised IoT device in &quot;default VLAN 1&quot; directly to switch management interfaces because nobody migrated off the default. In one memorable incident, an intern plugged a laptop into an unused port (VLAN 1 by default), ran Wireshark, and captured switch management credentials from CDP frames—all because VLAN 1 was left as-shipped. Don't be that network. VLAN 1 is legacy baggage from when VLANs were simple. Modern networks should treat it as toxic: isolate it, tag it, or make it a dead VLAN with nothing assigned.</p>
+<h3>DHCP Snooping</h3>
+<p><strong>Attack vector:</strong> Rogue DHCP server on IoT VLAN assigns malicious gateway IP, intercepts all traffic.</p>
+<p><strong>Mitigation:</strong></p>
+<pre><code class="language-bash"># Enable DHCP snooping globally
+set service dhcp-snooping
+
+# Mark trusted interfaces (uplinks to legitimate DHCP servers)
+set service dhcp-snooping interface eth0 trust
+
+# Untrusted interfaces (user-facing ports) automatically monitored
+set service dhcp-snooping vlan 40  # IoT VLAN
+
+# Verify binding table
+show dhcp snooping binding
+</code></pre>
+<p><strong>How it works:</strong> Snooping builds MAC-to-IP-to-port binding table. DHCP Offer packets from untrusted ports are dropped. Only trusted uplink receives/sends DHCP traffic.</p>
+<h3>Dynamic ARP Inspection (DAI)</h3>
+<p><strong>Attack vector:</strong> ARP spoofing allows IoT device to impersonate gateway, intercept traffic to Management VLAN.</p>
+<p><strong>Mitigation:</strong></p>
+<pre><code class="language-bash"># Enable DAI on IoT VLAN (requires DHCP snooping first)
+set service dhcp-snooping vlan 40
+set service arp-inspection vlan 40
+
+# Trust uplink ports (allow ARP from legitimate gateway)
+set service arp-inspection interface eth0 trust
+
+# Rate limit ARP on untrusted ports (prevent DoS)
+set service arp-inspection rate-limit 15  # packets per second
+
+# Verify inspection statistics
+show arp inspection statistics vlan 40
+</code></pre>
+<p><strong>Dependency:</strong> DAI uses DHCP snooping binding table to validate ARP packets. Configure snooping first.</p>
+<h3>Storm Control</h3>
+<p><strong>Attack vector:</strong> Malicious broadcast/multicast storm from compromised IoT device saturates network.</p>
+<p><strong>Mitigation:</strong></p>
+<pre><code class="language-bash"># Limit broadcast/multicast on IoT VLAN interfaces
+set interfaces ethernet eth2 storm-control broadcast level 10  # 10% bandwidth
+set interfaces ethernet eth2 storm-control multicast level 10
+set interfaces ethernet eth2 storm-control action drop
+
+# Monitor storm-control events
+show storm-control
+</code></pre>
+<h3>Validation Commands</h3>
+<p><strong>Test anti-spoofing configuration:</strong></p>
+<pre><code class="language-bash"># 1. Verify access-only ports (no trunking)
+show interfaces switchport | grep &quot;Operational Mode: access&quot;
+
+# 2. Check DHCP snooping bindings
+show dhcp snooping binding
+
+# 3. Verify ARP inspection is active
+show arp inspection statistics
+
+# 4. Test VLAN hopping (should fail)
+# From IoT device, attempt to send double-tagged frame
+# Should be dropped by port security
+
+# 5. Monitor for attacks
+show log | match &quot;DHCP-SNOOPING\|ARP-INSPECTION&quot;
+</code></pre>
+<p><strong>Expected behavior:</strong></p>
+<ul>
+<li>DHCP Offers from untrusted ports: <strong>DROPPED</strong></li>
+<li>ARP packets with mismatched MAC/IP: <strong>DROPPED</strong></li>
+<li>Double-tagged frames on access ports: <strong>DROPPED</strong></li>
+<li>Storm-control threshold exceeded: <strong>TRAFFIC DROPPED</strong></li>
+</ul>
+<h3>Why These Controls Matter</h3>
+<p><strong>Without anti-spoofing:</strong></p>
+<ul>
+<li>IoT camera → double-tags packet → reaches management VLAN → firewall bypassed ✅ ATTACK SUCCEEDS</li>
+<li>Compromised device → rogue DHCP server → gateway poisoning → traffic interception ✅ ATTACK SUCCEEDS</li>
+<li>Malicious ARP → impersonates gateway → MitM attack → credential theft ✅ ATTACK SUCCEEDS</li>
+</ul>
+<p><strong>With anti-spoofing:</strong></p>
+<ul>
+<li>Double-tagged frame → port security drops → attack fails ❌</li>
+<li>Rogue DHCP Offer → snooping drops → attack fails ❌</li>
+<li>Spoofed ARP → DAI drops → attack fails ❌</li>
+</ul>
+<p><strong>Senior engineer perspective:</strong> VLAN firewall rules protect against Layer 3 attacks. Anti-spoofing protects against Layer 2 attacks. You need both. Most homelab tutorials skip Layer 2 security because it's complex and vendor-specific. But that's exactly what attackers exploit. Defense in depth means securing every layer, not just the firewall.</p>
+<h2>Firewall Rules</h2>
+<h3>Rule Structure</h3>
+<p><strong>Follow this rule ordering for predictable behavior:</strong></p>
+<ol>
+<li>Explicit allow rules (most specific first)</li>
+<li>Logging rules</li>
+<li>Explicit deny rules</li>
+<li>Default deny (implicit)</li>
+</ol>
+<h3>Management VLAN Rules</h3>
+<p>📎 <strong>Complete ruleset:</strong>
+<a href="https://gist.github.com/williamzujkowski/088045937fa7c77821a67f31cf994556">All management firewall rules with logging</a></p>
+<p>Management VLAN (10.0.10.0/24) can access all VLANs. All VLANs can SSH to management.</p>
+<h3>IoT VLAN Rules (Most Restrictive)</h3>
+<p>📎 <strong>Complete ruleset:</strong>
+<a href="https://gist.github.com/williamzujkowski/42d5f269c97a1fbd8335316d09f90068">Full IoT isolation rules with default-deny</a></p>
+<p>IoT blocked from all VLANs. Only HTTP/HTTPS to internet allowed. These strict rules are essential for <a href="/posts/2025-09-20-iot-security-homelab-owasp">IoT security with VLAN isolation</a>, where untrusted devices need containment without breaking functionality.</p>
+<h3>Server VLAN Rules</h3>
+<p>📎 <strong>Complete ruleset:</strong>
+<a href="https://gist.github.com/williamzujkowski/337822d5fca33ab0bbd5806204df73af">Server VLAN firewall rules with update policies</a></p>
+<p>Trusted VLAN can reach servers on HTTPS. Servers blocked from management VLAN.</p>
+<h2>Advanced Segmentation Techniques</h2>
+<h3>Micro-Segmentation with mDNS Reflector</h3>
+<p>Allow service discovery across VLANs without full connectivity:</p>
+<p>📎 <strong>Complete configuration:</strong>
+<a href="https://gist.github.com/williamzujkowski/2b9b624d76d9a7f139cbcbd914559a2b">Full Avahi mDNS reflector setup for UDM Pro</a></p>
+<p>Enable Avahi reflector for AirPlay, Chromecast, HomeKit services across VLANs</p>
+<h3>mDNS Reflection Security Considerations</h3>
+<p><strong>Attack vector:</strong> mDNS reflectors can be abused for amplification attacks. An attacker on IoT VLAN 40 sends small mDNS queries (60 bytes) that get reflected across all VLANs with 10x amplification (600+ byte responses). This bypasses VLAN isolation for reconnaissance and can saturate network bandwidth.</p>
+<p><strong>Mitigation strategies:</strong> Implement rate limiting on Avahi reflector (<code>ratelimit-interval-usec=1000000</code> limits queries to 1/second per source). Restrict reflection to specific VLANs using <code>allow-interfaces=vlan20,vlan30</code> (exclude untrusted IoT VLAN 40 from reflection). Enable mDNS filtering on firewall to block <code>.local</code> queries from IoT devices to management VLANs. Monitor Avahi logs for unusual query patterns (<code>journalctl -u avahi-daemon | grep -E &quot;query|response&quot; | awk '{print $NF}' | sort | uniq -c | sort -rn</code>). For high-security environments, disable mDNS reflection entirely and use static DNS entries or dedicated service discovery infrastructure (Consul, etcd).</p>
+<h3>Private VLAN (PVLAN) for IoT Isolation</h3>
+<p>📎 <strong>Complete configuration:</strong>
+<a href="https://gist.github.com/williamzujkowski/48d68afcb132e2f3b924ce74ce7adfa8">Full PVLAN isolation setup with promiscuous ports</a></p>
+<p>Set <code>private-vlan isolated</code> on IoT interface so devices can't reach each other</p>
+<h3>Dynamic VLAN Assignment with RADIUS</h3>
+<p>📎 <strong>Complete configuration:</strong>
+<a href="https://gist.github.com/williamzujkowski/841cea35e4eb424d28f927b596808674">Full FreeRADIUS dynamic VLAN config with device mappings</a></p>
+<p>Map MAC addresses to VLAN IDs via RADIUS <code>Tunnel-Private-Group-Id</code> attribute</p>
+<h2>DNS-Based Access Control</h2>
+<h3>Pi-hole for VLAN-Specific Filtering</h3>
+<p>📎 <strong>Complete blocklists:</strong>
+<a href="https://gist.github.com/williamzujkowski/c58aa2ce297f125633f090549146c536">IoT telemetry blocklist and conditional forwarding</a></p>
+<p>Block vendor telemetry domains per VLAN, conditional forwarding for local zones</p>
+<h3>DNS Query Logging for Threat Detection</h3>
+<p>📎 <strong>Complete script:</strong>
+<a href="https://gist.github.com/williamzujkowski/345730384bf7d77c8b82e7ee4299ce43">Full DNS query analyzer with alerting</a></p>
+<p>Analyze Pi-hole logs for IoT VLAN unusual query patterns</p>
+<h2>Monitoring and Alerting</h2>
+<h3>NetFlow Analysis</h3>
+<p>📎 <strong>Complete configuration:</strong>
+<a href="https://gist.github.com/williamzujkowski/05e39be6317d012d22991a51fe603bbb">Full NetFlow setup with nfdump analysis queries</a></p>
+<p>Export NetFlow to collector for cross-VLAN traffic analysis</p>
+<h3>Traffic Analysis Alerts</h3>
+<p>📎 <strong>Complete script:</strong>
+<a href="https://gist.github.com/williamzujkowski/b2224d5ef6333717d24d18575c597044">Full VLAN traffic monitor with multiple alert channels</a></p>
+<p>Alert on cross-VLAN flows not in allowed whitelist</p>
+<h2>Testing and Validation</h2>
+<h3>Connectivity Testing Matrix</h3>
+<p>📎 <strong>Complete script:</strong>
+<a href="https://gist.github.com/williamzujkowski/2281086bfb8a52a7ab14fb72f47b9635">Full VLAN segmentation test suite with all protocols</a></p>
+<p>Test all VLAN pairs with ping/curl to verify firewall rules work</p>
+<h3>Automated Penetration Testing</h3>
+<p>📎 <strong>Complete script:</strong>
+<a href="https://gist.github.com/williamzujkowski/12ecda690c2c3b878ca981f8a09dc50d">VLAN breakout testing with nmap and metasploit</a></p>
+<p>Attempt VLAN breakout from IoT using nmap source-ip spoofing</p>
+<h2>Troubleshooting Common Issues</h2>
+<!-- 📎 **Complete troubleshooting guide:**
+[All common VLAN issues and solutions](https://gist.github.com/williamzujkowski/vlan-troubleshooting) -->
+<p><strong>DHCP issues:</strong> Check daemon logs, tcpdump VLAN traffic on port 67
+<strong>Routing issues:</strong> Verify <code>ip_forward=1</code>, traceroute between VLANs
+<strong>mDNS issues:</strong> Verify Avahi daemon running, browse services</p>
+<h2>Performance Optimization</h2>
+<!-- 📎 **Complete optimization guide:**
+[Hardware offloading and VLAN tuning](https://gist.github.com/williamzujkowski/vlan-performance-tuning) -->
+<p>Enable hardware NAT offloading, increase MTU to 9000 for storage VLANs</p>
+<h2>Lessons Learned</h2>
+<p><strong>After years of running segmented VLANs:</strong></p>
+<h3>1. Start Simple, Add Complexity Gradually</h3>
+<p>I made the mistake of creating 12 VLANs on day one. Half sat unused for months. Start with 3-4 logical segments, validate they work, then expand.</p>
+<h3>2. Document Your Rules</h3>
+<p>Future you will thank present you. I maintain a wiki page with every firewall rule and its justification. When I review rules 6 months later, I'm glad I documented why that specific port was opened.</p>
+<h3>3. Default Deny is Your Friend</h3>
+<p>Block everything by default, then explicitly allow what's needed. It's harder to setup but more secure. I spent 3 hours debugging why HomeKit wasn't working until I realized default-deny was blocking mDNS.</p>
+<h3>4. Test Your Segmentation Regularly</h3>
+<p>I run automated tests weekly to ensure segmentation hasn't degraded over time.</p>
+<h3>5. Monitor, Don't Just Configure</h3>
+<p>Firewall rules without logging are security theater. Log everything and alert on anomalies.</p>
+<h2>Security Benefits Realized</h2>
+<p><strong>Since implementing VLAN segmentation:</strong></p>
+<ul>
+<li><strong>Reduced attack surface</strong>: Compromised IoT devices can't pivot to trusted networks, validated through <a href="/posts/2025-09-20-iot-security-homelab-owasp">IoT security testing with OWASP IoTGoat</a></li>
+<li><strong>Easier forensics</strong>: VLAN ID in logs immediately identifies affected segment</li>
+<li><strong>Improved performance</strong>: Broadcast domains are smaller, reducing noise</li>
+<li><strong>Improved performance</strong>: Broadcast domains are smaller, reducing noise, measurable with <a href="/posts/2025-09-29-proxmox-high-availability-homelab">Proxmox high-availability monitoring</a></li>
+<li><strong>Compliance</strong>: Network segmentation requirement satisfied</li>
+<li><strong>Peace of mind</strong>: Sketchy cameras can't access my NAS</li>
+</ul>
+<h2>Research &amp; References</h2>
+<h3>Zero Trust Networking</h3>
+<ol>
+<li>
+<p><strong><a href="https://research.google/pubs/pub43231/">BeyondCorp: A New Approach to Enterprise Security</a></strong> (2014)</p>
+<ul>
+<li>Google's zero trust implementation</li>
+<li>ACM Queue</li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://www.oreilly.com/library/view/zero-trust-networks/9781491962183/">Zero Trust Networks</a></strong> - O'Reilly book by Gilman and Barth</p>
+</li>
+</ol>
+<h3>VLAN Best Practices</h3>
+<ol>
+<li>
+<p><strong><a href="https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst6500/ios/12-2SX/configuration/guide/book/vlans.html">VLAN Security Best Practices</a></strong> - Cisco documentation</p>
+</li>
+<li>
+<p><strong><a href="https://tools.ietf.org/html/rfc5517">Private VLAN (PVLAN) Deployment Guide</a></strong> - IETF RFC 5517</p>
+</li>
+</ol>
+<h3>Network Segmentation Standards</h3>
+<ul>
+<li><strong><a href="https://www.pcisecuritystandards.org/documents/Guidance-PCI-DSS-Scoping-and-Segmentation_v1.pdf">PCI DSS Scoping and Segmentation Guidance</a></strong> - Payment Card Industry requirements</li>
+<li><strong><a href="https://csrc.nist.gov/publications/detail/sp/800-41/rev-1/final">NIST SP 800-41: Guidelines on Firewalls and Firewall Policy</a></strong></li>
+<li><strong><a href="https://www.cisecurity.org/controls/network-infrastructure-management">CIS Controls v8: Network Segmentation</a></strong></li>
+</ul>
+<h2>Conclusion</h2>
+<p>VLAN segmentation transformed my homelab from a flat, vulnerable network into a defense-in-depth architecture. The cheap IoT camera that inspired this journey is now safely contained, unable to reach anything important. Zero trust isn't about perfection. It's about making each compromised device a dead end rather than a jumping-off point.</p>
+<p><strong>Start with logical segments, implement strict firewall rules, monitor everything, and iterate.</strong> Your homelab will be more secure, more organized, and far more interesting to manage.</p>
+<hr>
+<p><em>How are you segmenting your homelab network? What firewall rules have saved you from disaster? Share your VLAN strategies and war stories!</em></p>
+
+            </div>
+            
+            <!-- Related Posts -->
+            
+            
+            
+            
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+            
+            
+            
+            <section aria-label="Content section" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Related Posts</h2>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/promsketch-2-100x-faster-prometheus-queries-with-sketch-algorithms/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Deploy PromSketch to optimize slow PromQL queries using sketch-based approximation. Homelab benchmar...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-11-19">
+                                    November 19, 2025
+                                </time>
+                                <span>5 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/from-claude-in-your-terminal-to-robots-in-your-workshop-the-embodied-ai-revolution/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Deploy Vision-Language-Action models for embodied AI robots—integrate physical world interaction wit...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-10-13">
+                                    October 13, 2025
+                                </time>
+                                <span>8 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/automated-security-scanning-pipeline-with-grype-and-osv/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Automated Security Scanning Pipeline with Grype and OSV
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                Build automated security scanning pipelines with Grype, OSV, and Trivy—integrate vulnerability detec...
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2025-10-06">
+                                    October 6, 2025
+                                </time>
+                                <span>11 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <a href="/posts/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to all posts
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://williamzujkowski.github.io%2Fposts%2Fimplementing-zero-trust-microsegmentation-with-vlans%2F" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#0077b5] dark:hover:text-[#0077b5] transition-colors duration-200"
+                           aria-label="Share on LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Hacker News -->
+                        <a href="https://news.ycombinator.com/submitlink?u=https://williamzujkowski.github.io%2Fposts%2Fimplementing-zero-trust-microsegmentation-with-vlans%2F&t=Implementing%20Zero%20Trust%20Microsegmentation%20with%20VLANs" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff6600] dark:hover:text-[#ff6600] transition-colors duration-200"
+                           aria-label="Share on Hacker News">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M0 0v24h24v-24h-24zm12.8 8.7l2.3-4.3h1.4l-3.1 5.5v3.5h-1.2v-3.5l-3-5.5h1.4l2.2 4.3z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Reddit -->
+                        <a href="https://reddit.com/submit?url=https://williamzujkowski.github.io%2Fposts%2Fimplementing-zero-trust-microsegmentation-with-vlans%2F&title=Implementing%20Zero%20Trust%20Microsegmentation%20with%20VLANs" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff4500] dark:hover:text-[#ff4500] transition-colors duration-200"
+                           aria-label="Share on Reddit">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Copy Link -->
+                        <button onclick="copyToClipboard('https://williamzujkowski.github.io/posts/implementing-zero-trust-microsegmentation-with-vlans/')" 
+                                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                                aria-label="Copy link to clipboard">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</article>
+
+<!-- Blog JavaScript Bundle (reading-progress, table-of-contents) -->
+<script src="/assets/js/blog.min.js"></script>
+
+<!-- Collapsible Code Blocks - loaded in base.njk -->
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of William Zujkowski, exploring technology and sharing knowledge. All opinions and views expressed are my own and do not reflect those of my employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Posts</a></li>
+<li><a href="/resources/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Resources</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li>
+<li><a href="/uses/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Uses</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="/feed.xml" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.858 5.1 3.429 5.1zm0 4.8v2.4c3.924 0 7.114 3.206 7.114 7.142h2.4c0-5.256-4.276-9.542-9.514-9.542zM6.171 16.386c-.756 0-1.371.615-1.371 1.371 0 .756.615 1.371 1.371 1.371.756 0 1.371-.615 1.371-1.371 0-.756-.615-1.371-1.371-1.371z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    &copy; 2025 William Zujkowski. All rights reserved.
+                    Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a>
+                    and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>

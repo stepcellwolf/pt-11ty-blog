@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="All posts by Predrag Tasevski — practical cybersecurity insights, open‑source and AI experiments, security culture, and real‑world lessons from the field.">
+    <meta name="author" content="Predrag Tasevski">
+    <meta name="keywords" content="cybersecurity, privacy by design, governance risk and compliance, GRC, cloud security, cyber defence, data protection, ISO 27001, DPO, risk management, security awareness, AI in security">
+    
+    <title>Blog - Predrag Tasevski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://predragtasevski.com/posts/page/2/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="Predrag Tasevski Feed" href="https://predragtasevski.com/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/icon-192.svg">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/icon-512.svg">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog">
+    <meta property="og:description" content="All posts by Predrag Tasevski — practical cybersecurity insights, open‑source and AI experiments, security culture, and real‑world lessons from the field.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://predragtasevski.com/posts/page/2/">
+    <meta property="og:image" content="https://predragtasevski.com/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="Predrag Tasevski">
+    <meta property="og:locale" content="en_US">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+
+    
+    <script data-goatcounter="https://nextjs-pt-blog.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        
+        "name": "Predrag Tasevski",
+        "description": "Senior Cybersecurity and Privacy Expert specializing in Security and Privacy by Design, Governance, Risk and Compliance, cloud security, and human-centric security systems. Founder of Unicis.Tech, author, researcher, and cybersecurity mentor.",
+        "url": "https://predragtasevski.com/posts/page/2/",
+        "author": {
+            "@type": "Person",
+            "name": "Predrag Tasevski",
+            "url": "https://predragtasevski.com/about/",
+            "sameAs": [
+                "https://github.com/stepcellwolf/",
+                "https://www.linkedin.com/in/tpredrag"
+            ]
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://predragtasevski.com/posts/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        Predrag Tasevski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12 text-center">
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                    Blog
+                </h1>
+                
+                <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                    All posts by Predrag Tasevski — practical cybersecurity insights, open‑source and AI experiments, security culture, and real‑world lessons from the field.
+                </p>
+                
+            </header>
+            
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-400">
+                
+<!-- Search Section -->
+<div class="mb-8">
+    <div class="relative max-w-2xl">
+        <label for="search-input" class="sr-only">Search posts</label>
+        <input 
+            type="search" 
+            id="search-input" 
+            placeholder="Search posts by title, content, or tags..." 
+            class="w-full px-4 py-3 pl-12 pr-10 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
+            autocomplete="off"
+        >
+        <svg class="absolute left-4 top-3.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <button 
+            id="search-clear" 
+            class="absolute right-3 top-3 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            style="display: none;"
+            aria-label="Clear search"
+        >
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- Search Results -->
+<div id="search-results" style="display: none;"></div>
+
+<!-- Posts Container -->
+<div id="posts-container" class="grid gap-8 md:gap-12">
+    
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="isoc fundamentals - isoc serbia belgrade chapter webinar  posts isoc encryption networking communication serbia open standards isoc-mkd macedonia infrastructure internet society webinar workshop"
+            data-title="ISOC Fundamentals - ISOC Serbia Belgrade Chapter Webinar"
+            data-description=""
+            data-tags="posts isoc encryption networking communication serbia open standards isoc-mkd macedonia infrastructure internet society webinar workshop"
+            data-date="2021-06-30"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2021-06-30" class="font-medium text-primary-600 dark:text-primary-400">
+                    June 30, 2021
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/isoc-fundamentals-isoc-serbia-belgrade-chapter-webinar/">
+                    <span class="absolute inset-0"></span>
+                    ISOC Fundamentals - ISOC Serbia Belgrade Chapter Webinar
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/isoc/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        isoc
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/encryption/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        encryption
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/networking/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        networking
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/communication/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        communication
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/serbia/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        serbia
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/open-standards/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        open standards
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/isoc-mkd/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        isoc-mkd
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/macedonia/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        macedonia
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/infrastructure/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        infrastructure
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/internet/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        internet
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/society/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        society
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/webinar/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        webinar
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/workshop/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        workshop
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="international cooperation between national cyber security strategies for building a sustainable digital transformation, and critical infrastructure and industry  posts cyber security it security cloud security strategy cii infrastructure industry keynote key speech presentation conference national cyber security strategy digital transformation migration"
+            data-title="International Cooperation Between National Cyber Security Strategies for building a sustainable Digital Transformation, and Critical Infrastructure and Industry"
+            data-description=""
+            data-tags="posts cyber security it security cloud security strategy cii infrastructure industry keynote key speech presentation conference national cyber security strategy digital transformation migration"
+            data-date="2019-09-09"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2019-09-09" class="font-medium text-primary-600 dark:text-primary-400">
+                    September 9, 2019
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    5 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/international-cooperation-between-national-cyber-security-strategies-for-building-a-sustainable-digital-transformation-and-critical-infrastructure-and-industry/">
+                    <span class="absolute inset-0"></span>
+                    International Cooperation Between National Cyber Security Strategies for building a sustainable Digital Transformation, and Critical Infrastructure and Industry
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/cyber-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cyber security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/it-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        it security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/cloud-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cloud security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/strategy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        strategy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/cii/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cii
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/infrastructure/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        infrastructure
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/industry/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        industry
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/keynote/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        keynote
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/key-speech/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        key speech
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/presentation/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        presentation
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/conference/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        conference
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/national-cyber-security-strategy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        national cyber security strategy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/digital-transformation/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        digital transformation
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/migration/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        migration
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="cyber security challenges for 2018  posts cyber security it security prediction interview ransomware data breaches botnet awareness privacy encryption predictions challenges balkan"
+            data-title="Cyber Security Challenges for 2018"
+            data-description=""
+            data-tags="posts cyber security it security prediction interview ransomware data breaches botnet awareness privacy encryption predictions challenges balkan"
+            data-date="2017-03-27"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2017-03-27" class="font-medium text-primary-600 dark:text-primary-400">
+                    March 27, 2017
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/cyber-security-challenges-for-2018/">
+                    <span class="absolute inset-0"></span>
+                    Cyber Security Challenges for 2018
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/cyber-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cyber security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/it-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        it security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/prediction/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        prediction
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/interview/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        interview
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/ransomware/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        ransomware
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/data-breaches/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        data breaches
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/botnet/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        botnet
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/awareness/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        awareness
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/privacy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        privacy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/encryption/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        encryption
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/predictions/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        predictions
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/challenges/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        challenges
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/balkan/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        balkan
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="cyber security overview of 2016 and 2017 predictions (macedonian language)  posts macedonia cyber security it security prediction interview ransomware data breaches botnet awareness privacy encryption"
+            data-title="Cyber Security overview of 2016 and 2017 predictions (Macedonian language)"
+            data-description=""
+            data-tags="posts macedonia cyber security it security prediction interview ransomware data breaches botnet awareness privacy encryption"
+            data-date="2017-01-02"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2017-01-02" class="font-medium text-primary-600 dark:text-primary-400">
+                    January 2, 2017
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/cyber-security-overview-of-2016-and-2017-predictions-macedonian-language/">
+                    <span class="absolute inset-0"></span>
+                    Cyber Security overview of 2016 and 2017 predictions (Macedonian language)
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/macedonia/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        macedonia
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/cyber-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cyber security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/it-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        it security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/prediction/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        prediction
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/interview/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        interview
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/ransomware/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        ransomware
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/data-breaches/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        data breaches
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/botnet/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        botnet
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/awareness/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        awareness
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/privacy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        privacy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/encryption/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        encryption
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="beer &amp; code #40: drupal - winner in cms security race  posts drupal cms security modules audit presentation plugins talk beer"
+            data-title="Beer &amp; Code #40: Drupal - winner in CMS security race"
+            data-description=""
+            data-tags="posts drupal cms security modules audit presentation plugins talk beer"
+            data-date="2016-02-11"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2016-02-11" class="font-medium text-primary-600 dark:text-primary-400">
+                    February 11, 2016
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/beer-code-40-drupal-winner-in-cms-security-race/">
+                    <span class="absolute inset-0"></span>
+                    Beer &amp; Code #40: Drupal - winner in CMS security race
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/drupal/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        drupal
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/cms/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cms
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/modules/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        modules
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/audit/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        audit
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/presentation/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        presentation
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/plugins/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        plugins
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/talk/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        talk
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/beer/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        beer
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="workshop: cyber security and privacy  posts security privacy italy cyber security attacks awareness"
+            data-title="Workshop: Cyber Security and Privacy"
+            data-description=""
+            data-tags="posts security privacy italy cyber security attacks awareness"
+            data-date="2015-12-12"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2015-12-12" class="font-medium text-primary-600 dark:text-primary-400">
+                    December 12, 2015
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/workshop-cyber-security-and-privacy/">
+                    <span class="absolute inset-0"></span>
+                    Workshop: Cyber Security and Privacy
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/privacy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        privacy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/italy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        italy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/cyber-security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cyber security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/attacks/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        attacks
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/awareness/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        awareness
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="cyber culture by franco bifo berardi - belgrade  posts balkan digital devide iot philosophy bifo franco berardi hacktivist cyber future artificial intelligence zenitism policy security"
+            data-title="Cyber Culture by Franco Bifo Berardi - Belgrade"
+            data-description=""
+            data-tags="posts balkan digital devide iot philosophy bifo franco berardi hacktivist cyber future artificial intelligence zenitism policy security"
+            data-date="2015-12-06"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2015-12-06" class="font-medium text-primary-600 dark:text-primary-400">
+                    December 6, 2015
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    3 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/cyber-culture-by-franco-bifo-berardi-belgrade/">
+                    <span class="absolute inset-0"></span>
+                    Cyber Culture by Franco Bifo Berardi - Belgrade
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/balkan/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        balkan
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/digital-devide/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        digital devide
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/iot/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        iot
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/philosophy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        philosophy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/bifo/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        bifo
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/franco-berardi/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        franco berardi
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/hacktivist/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        hacktivist
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/cyber/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cyber
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/future/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        future
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/artificial-intelligence/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        artificial intelligence
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/zenitism/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        zenitism
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/policy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        policy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        security
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="national cyber security awareness month: introduction to cybersecurity  posts awareness cybersecurity month introduction human factor national iot firesale wardriving"
+            data-title="National Cyber Security Awareness Month: Introduction to CyberSecurity"
+            data-description=""
+            data-tags="posts awareness cybersecurity month introduction human factor national iot firesale wardriving"
+            data-date="2015-10-28"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2015-10-28" class="font-medium text-primary-600 dark:text-primary-400">
+                    October 28, 2015
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/national-cyber-security-awareness-month-introduction-to-cybersecurity/">
+                    <span class="absolute inset-0"></span>
+                    National Cyber Security Awareness Month: Introduction to CyberSecurity
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/awareness/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        awareness
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/cybersecurity/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        cybersecurity
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/month/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        month
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/introduction/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        introduction
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/human-factor/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        human factor
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/national/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        national
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/iot/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        iot
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/firesale/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        firesale
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/wardriving/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        wardriving
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="secrets for eavesdropping - respublica.edu.mk  posts surveillance wiretapping eavesdropping mobile phone security privacy censorship freedom public interests balkan"
+            data-title="Secrets for eavesdropping - respublica.edu.mk"
+            data-description=""
+            data-tags="posts surveillance wiretapping eavesdropping mobile phone security privacy censorship freedom public interests balkan"
+            data-date="2015-10-19"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2015-10-19" class="font-medium text-primary-600 dark:text-primary-400">
+                    October 19, 2015
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/secrets-for-eavesdropping-respublicaedumk/">
+                    <span class="absolute inset-0"></span>
+                    Secrets for eavesdropping - respublica.edu.mk
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/surveillance/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        surveillance
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/wiretapping/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        wiretapping
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/eavesdropping/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        eavesdropping
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/mobile/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        mobile
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/phone/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        phone
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/privacy/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        privacy
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/censorship/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        censorship
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/freedom/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        freedom
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/public-interests/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        public interests
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/balkan/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        balkan
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+        <article role="article" 
+            class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
+            data-search="freedom not fear panel discussion and mobile security workshop  posts mobile smartphone security freedom surveillance wiretapping awareness workshop"
+            data-title="Freedom Not Fear panel discussion and Mobile Security Workshop"
+            data-description=""
+            data-tags="posts mobile smartphone security freedom surveillance wiretapping awareness workshop"
+            data-date="2015-10-19"
+        >
+            <div class="flex items-center space-x-3 text-sm">
+                <time datetime="2015-10-19" class="font-medium text-primary-600 dark:text-primary-400">
+                    October 19, 2015
+                </time>
+                <span class="text-gray-400 dark:text-gray-600">•</span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    1 min read
+                </span>
+            </div>
+            <h2 class="mt-3 text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                <a href="/posts/freedom-not-fear-panel-discussion-and-mobile-security-workshop/">
+                    <span class="absolute inset-0"></span>
+                    Freedom Not Fear panel discussion and Mobile Security Workshop
+                </a>
+            </h2>
+            
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                
+                    
+                
+                    
+                    <a href="/tags/mobile/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        mobile
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/smartphone/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        smartphone
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/security/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        security
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/freedom/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        freedom
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/surveillance/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        surveillance
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/wiretapping/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        wiretapping
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/awareness/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        awareness
+                    </a>
+                    
+                
+                    
+                    <a href="/tags/workshop/" class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        workshop
+                    </a>
+                    
+                
+            </div>
+            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                    Read more <span aria-hidden="true">→</span>
+                </span>
+            </div>
+        </article>
+        
+    
+</div>
+
+<!-- Pagination Controls -->
+
+<nav class="mt-12 flex items-center justify-between" aria-label="Pagination">
+    <div class="flex flex-1 justify-between sm:hidden">
+        
+        <a href="/posts/" class="relative inline-flex items-center rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Previous</a>
+        
+        
+        <a href="/posts/page/3/" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Next</a>
+        
+    </div>
+    <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+                Showing
+                <span class="font-medium">11</span>
+                to
+                <span class="font-medium">20</span>
+                of
+                <span class="font-medium">72</span>
+                posts
+            </p>
+        </div>
+        <div>
+            <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                <!-- Previous Page -->
+                
+                <a href="/posts/" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">
+                    <span class="sr-only">Previous</span>
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                
+                
+                <!-- Page Numbers -->
+                
+                    
+                    
+                    <a href="/posts/" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">1</a>
+                    
+                
+                    
+                    
+                    <span aria-current="page" class="relative z-10 inline-flex items-center bg-primary-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">2</span>
+                    
+                
+                    
+                    
+                    <a href="/posts/page/3/" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">3</a>
+                    
+                
+                    
+                    
+                    <a href="/posts/page/4/" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">4</a>
+                    
+                
+                    
+                    
+                    <a href="/posts/page/5/" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">5</a>
+                    
+                
+                    
+                    
+                    <a href="/posts/page/6/" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">6</a>
+                    
+                
+                    
+                    
+                    <a href="/posts/page/7/" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">7</a>
+                    
+                
+                    
+                    
+                    <a href="/posts/page/8/" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">8</a>
+                    
+                
+                
+                <!-- Next Page -->
+                
+                <a href="/posts/page/3/" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">
+                    <span class="sr-only">Next</span>
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                
+            </nav>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Search JavaScript Bundle -->
+<script src="/assets/js/search.min.js"></script>
+            </div>
+            
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center italic">
+                    Last updated: January 25, 2026
+                </p>
+            </footer>
+            
+        </div>
+    </div>
+</article>
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of Predrag Tasevski, — insights on cybersecurity, open‑source, AI and technology. All views are my own and do not reflect any employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div> 
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3> 
+                    <div class="flex space-x-4"> 
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="mailto:pece@predragtasevski.com">
+                        <span class="sr-only">Mail</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://github.com/stepcellwolf/">
+                        <span class="sr-only">GitHub</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tpredrag">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://twitter.com/stepcellwolf">
+                        <span class="sr-only">Twitter</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M23.954 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417A9.867 9.867 0 010 19.54a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://mastodon.social/@stepcellwolf">
+                        <span class="sr-only">Mastodon</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753v-1.809l-.02-.041a20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422z"></path>
+                        </svg>
+                        </a>
+                    </div> 
+                 </div> 
+                </div> 
+
+                <!-- Copyright & License -->
+                <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700"> 
+                    <p class="text-center text-sm text-gray-600 dark:text-gray-400"> &copy; 2026 Predrag Tasevski. Content licensed under <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                    CC BY-NC 4.0</a>. Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a> and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>. <span></p> 
+                </div>
+
+                <!-- Privacy Statement -->
+                <div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
+                    <strong>Privacy statement:</strong> I use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> analytics to collect and report on how my site is used; no advertising or tracking cookies are stored. Data collected does not personally identify visitors.
+                </div>
+            </div>
+                
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>
