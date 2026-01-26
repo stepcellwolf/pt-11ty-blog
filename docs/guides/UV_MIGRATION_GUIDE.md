@@ -204,7 +204,7 @@ The new `pyproject.toml` file replaces `requirements.txt` (which remains for bac
 **Key sections:**
 ```toml
 [project]
-name = "williamzujkowski-blog"
+name = "predragtasevski-blog"
 requires-python = ">=3.11"
 dependencies = [
     "beautifulsoup4>=4.12.0",

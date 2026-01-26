@@ -1441,7 +1441,7 @@ wheels = [
 ]
 
 [[package]]
-name = "williamzujkowski-blog"
+name = "predragtasevski-blog"
 version = "1.0.0"
 source = { editable = "." }
 dependencies = [

@@ -1,5 +1,5 @@
 [project]
-name = "williamzujkowski-blog"
+name = "predragtasevski-blog"
 version = "1.0.0"
 description = "William Zujkowski's personal blog and portfolio - automation scripts and content management"
 requires-python = ">=3.11"
