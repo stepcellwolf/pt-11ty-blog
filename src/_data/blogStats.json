@@ -1,7 +1,7 @@
 {
-  "total_posts": 72,
-  "total_words": 47409,
-  "average_words": 658.5,
+  "total_posts": 73,
+  "total_words": 47583,
+  "average_words": 651.8,
   "average_reading_time": 3.2,
   "posts_by_year": {
     "2011": 12,
@@ -15,7 +15,8 @@
     "2021": 2,
     "2023": 4,
     "2024": 3,
-    "2025": 2
+    "2025": 2,
+    "2026": 1
   },
   "words_by_year": {
     "2011": 13812,
@@ -29,9 +30,12 @@
     "2021": 868,
     "2023": 978,
     "2024": 574,
-    "2025": 640
+    "2025": 640,
+    "2026": 174
   },
-  "posts_by_month": {},
+  "posts_by_month": {
+    "2026-01": 1
+  },
   "top_tags": [
     {
       "tag": "cyber security",
@@ -98,6 +102,10 @@
       "count": 5
     },
     {
+      "tag": "running",
+      "count": 5
+    },
+    {
       "tag": "cyber",
       "count": 4
     },
@@ -106,15 +114,22 @@
       "count": 4
     },
     {
-      "tag": "running",
+      "tag": "challenge",
       "count": 4
-    },
-    {
-      "tag": "network crime",
-      "count": 3
     }
   ],
   "recent_posts": [
+    {
+      "title": "Running 2025 results",
+      "date": "2026-01-26",
+      "reading_time": 1,
+      "tags": [
+        "running",
+        "challenge",
+        "marathon",
+        "run"
+      ]
+    },
     {
       "title": "Open Source is NOT Dead: A Talk in Berlin",
       "date": "2025-02-27",
@@ -277,20 +292,6 @@
         "blog",
         "life style"
       ]
-    },
-    {
-      "title": "Vision of security in Canonical products",
-      "date": "2021-07-09",
-      "reading_time": 3,
-      "tags": [
-        "security",
-        "privacy",
-        "canonical",
-        "ubuntu",
-        "default",
-        "design",
-        "vision"
-      ]
     }
   ],
   "longest_post": {
@@ -306,22 +307,22 @@
   "posts_with_images": 0,
   "posts_with_images_percentage": 0.0,
   "reading_time_distribution": {
-    "1-3 min": 42,
+    "1-3 min": 43,
     "4-6 min": 24,
     "7-9 min": 6,
     "10+ min": 0
   },
   "citation_stats": {
-    "total_external_links": 401,
-    "total_internal_links": 4,
-    "average_citation_density": 17.23,
-    "average_external_links_per_post": 5.6
+    "total_external_links": 403,
+    "total_internal_links": 5,
+    "average_citation_density": 17.15,
+    "average_external_links_per_post": 5.5
   },
   "code_stats": {
     "average_code_to_content_ratio": 4.2,
     "posts_with_code": 16,
-    "posts_with_code_percentage": 22.2
+    "posts_with_code_percentage": 21.9
   },
-  "generated_at": "2026-01-26T01:12:12.710558",
+  "generated_at": "2026-01-26T14:23:16.577537",
   "reading_speed_wpm": 238
 }

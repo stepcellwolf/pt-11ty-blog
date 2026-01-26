@@ -5,9 +5,9 @@
 **Status:** Active  
 **Type:** Personal Website
 
-Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 44 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search functionality, social sharing, reading progress indicator, hero images, and PWA support.
+Personal website of Predrag Tasevski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 44 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search functionality, social sharing, reading progress indicator, hero images, and PWA support.
 
-cloned from: https://github.com/williamzujkowski/williamzujkowski.github.io
+cloned from: https://github.com/stepcellwolf/stepcellwolf.github.io
 
 > **📌 IMPORTANT:** [CLAUDE.md](CLAUDE.md) is the **AUTHORITATIVE DOCUMENTATION** for this repository.
 >
@@ -27,8 +27,8 @@ cloned from: https://github.com/williamzujkowski/williamzujkowski.github.io
 
 ```bash
 # Clone the repository
-git clone https://github.com/williamzujkowski/williamzujkowski.github.io.git
-cd williamzujkowski.github.io
+git clone https://github.com/stepcellwolf/stepcellwolf.github.io.git
+cd stepcellwolf.github.io
 
 # Install dependencies (including Tailwind CSS)
 npm install
@@ -101,7 +101,7 @@ bash scripts/optimize-blog-images.sh  # Optimize images
 - **Typography**: Inter font with Tailwind Typography plugin
 - **Hosting**: GitHub Pages
 - **CI/CD**: GitHub Actions
-- **Standards**: Integrated via [standards repository](https://github.com/williamzujkowski/standards)
+- **Standards**: Integrated via [standards repository](https://github.com/stepcellwolf/standards)
 
 ## 📝 Content Management
 
@@ -149,7 +149,7 @@ The site automatically deploys to GitHub Pages when changes are pushed to the `m
 
 1. Push changes to the `main` branch
 2. GitHub Actions will build and deploy the site
-3. View at https://williamzujkowski.github.io
+3. View at https://stepcellwolf.github.io
 
 ## 🔧 Configuration
 
@@ -212,7 +212,7 @@ This project implements comprehensive knowledge management:
 
 ### Standards Integration
 
-This project follows the guidelines from the [standards repository](https://github.com/williamzujkowski/standards), which is included as a submodule at `.standards/`.
+This project follows the guidelines from the [standards repository](https://github.com/stepcellwolf/standards), which is included as a submodule at `.standards/`.
 
 Key standards applied:
 - **KM** - Knowledge Management Standards (this README structure)
@@ -240,8 +240,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🔗 Links
 
-- **Live Site**: https://williamzujkowski.github.io
-- **Standards**: https://github.com/williamzujkowski/standards
+- **Live Site**: https://stepcellwolf.github.io
+- **Standards**: https://github.com/stepcellwolf/standards
 - **Eleventy Docs**: https://www.11ty.dev/docs/
 
 ---
