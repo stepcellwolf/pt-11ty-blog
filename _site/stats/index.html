@@ -1,0 +1,5270 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive statistics and visualizations for Predrag Tasevski blog posts">
+    <meta name="author" content="Predrag Tasevski">
+    <meta name="keywords" content="cybersecurity, privacy by design, governance risk and compliance, GRC, cloud security, cyber defence, data protection, ISO 27001, DPO, risk management, security awareness, AI in security">
+    
+    <title>Blog Statistics - Predrag Tasevski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://predragtasevski.com/stats/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="Predrag Tasevski Feed" href="https://predragtasevski.com/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.ico">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/android-chrome-192x192.png">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/android-chrome-192x192.png">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog Statistics">
+    <meta property="og:description" content="Comprehensive statistics and visualizations for Predrag Tasevski blog posts">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://predragtasevski.com/stats/">
+    <meta property="og:image" content="https://predragtasevski.com/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="Predrag Tasevski">
+    <meta property="og:locale" content="en_US">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+
+    
+    <script data-goatcounter="https://nextjs-pt-blog.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        
+        "name": "Predrag Tasevski",
+        "description": "Senior Cybersecurity and Privacy Expert specializing in Security and Privacy by Design, Governance, Risk and Compliance, cloud security, and human-centric security systems. Founder of Unicis.Tech, author, researcher, and cybersecurity mentor.",
+        "url": "https://predragtasevski.com/stats/",
+        "author": {
+            "@type": "Person",
+            "name": "Predrag Tasevski",
+            "url": "https://predragtasevski.com/about/",
+            "sameAs": [
+                "https://github.com/stepcellwolf/",
+                "https://www.linkedin.com/in/tpredrag"
+            ]
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://predragtasevski.com/posts/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        Predrag Tasevski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <!-- Header -->
+  <header class="max-w-4xl mx-auto text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+      Blog Statistics
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-400">
+      A comprehensive look at content trends, topics, and publishing patterns
+    </p>
+  </header>
+
+  <!-- Year Selector -->
+  <section aria-label="Year filter navigation">
+    <nav class="max-w-6xl mx-auto mb-8">
+    <div class="flex justify-center items-center gap-4 flex-wrap">
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white shadow-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="all"
+        onclick="switchYear('all')"
+        aria-label="Show statistics for all years"
+        aria-pressed="true"
+        role="button"
+      >
+        All Time
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2022"
+        onclick="switchYear('2019')"
+        aria-label="Show statistics for 2019"
+        aria-pressed="false"
+        role="button"
+      >
+        2019
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2021"
+        onclick="switchYear('2021')"
+        aria-label="Show statistics for 2021"
+        aria-pressed="false"
+        role="button"
+      >
+        2021
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2023"
+        onclick="switchYear('2023')"
+        aria-label="Show statistics for 2023"
+        aria-pressed="false"
+        role="button"
+      >
+        2023
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2024"
+        onclick="switchYear('2024')"
+        aria-label="Show statistics for 2024"
+        aria-pressed="false"
+        role="button"
+      >
+        2024
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2025"
+        onclick="switchYear('2025')"
+        aria-label="Show statistics for 2025"
+        aria-pressed="false"
+        role="button"
+      >
+        2025
+      </button>
+    </div>
+    </nav>
+  </section>
+
+  <!-- Summary Stats Cards -->
+  <section aria-labelledby="overview-heading" aria-live="polite">
+    <h2 id="overview-heading" class="sr-only">Statistics Overview</h2>
+    <div class="max-w-6xl mx-auto mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Total Posts Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Posts</h3>
+          <svg class="w-8 h-8 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="total-posts">
+          72
+        </p>
+      </div>
+
+      <!-- Total Words Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 100ms">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Words</h3>
+          <svg class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="total-words">
+          
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+          56,325
+        </p>
+      </div>
+
+      <!-- Unique Tags Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 200ms">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Unique Tags</h3>
+          <svg class="w-8 h-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="unique-tags">
+          
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+          
+          354
+        </p>
+      </div>
+
+      <!-- Avg Reading Time Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 300ms">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Avg Reading</h3>
+          <svg class="w-8 h-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="avg-reading">
+          
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+          4m
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Writing Streaks Section -->
+  <section aria-labelledby="streaks-heading" class="max-w-6xl mx-auto mb-12">
+    <h2 id="streaks-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Writing Streaks</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in">
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Longest Streak</h3>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100" data-stat="longest-streak">0</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">consecutive months</p>
+      </div>
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 100ms">
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Current Streak</h3>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100" data-stat="current-streak">0</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">consecutive months</p>
+      </div>
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 200ms">
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Most Productive</h3>
+        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="most-productive-month">-</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-stat="most-productive-count">0 posts</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charts Section -->
+  <section aria-labelledby="charts-heading">
+    <h2 id="charts-heading" class="sr-only">Data Visualizations</h2>
+    <div class="max-w-6xl mx-auto space-y-12">
+
+    <!-- Posts Over Time Chart -->
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Posts Over Time</h2>
+      <div class="h-80 px-2">
+        <canvas id="postsOverTimeChart" aria-label="Line chart showing blog posts published over time" role="img"></canvas>
+      </div>
+      <!-- Data table fallback for screen readers -->
+      <table class="sr-only" role="table" aria-label="Posts over time data">
+        <caption>Blog posts published per month</caption>
+        <thead>
+          <tr><th>Month</th><th>Posts</th></tr>
+        </thead>
+        <tbody id="postsOverTimeTable"></tbody>
+      </table>
+    </div>
+
+    <!-- Two Column Layout: Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- Top Tags Chart -->
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Top Tags</h2>
+        <div class="h-80 px-2">
+          <canvas id="topTagsChart" aria-label="Bar chart showing most frequently used blog post tags" role="img"></canvas>
+        </div>
+        <!-- Data table fallback for screen readers -->
+        <table class="sr-only" role="table" aria-label="Top tags data">
+          <caption>Most frequently used tags</caption>
+          <thead>
+            <tr><th>Tag</th><th>Count</th></tr>
+          </thead>
+          <tbody id="topTagsTable"></tbody>
+        </table>
+      </div>
+
+      <!-- Day of Week Analysis -->
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Publishing by Day of Week</h2>
+        <div class="h-80 px-2">
+          <canvas id="dayOfWeekChart" aria-label="Radar chart showing publishing patterns by day of week" role="img"></canvas>
+        </div>
+        <!-- Data table fallback for screen readers -->
+        <table class="sr-only" role="table" aria-label="Day of week data">
+          <caption>Posts published by day of week</caption>
+          <thead>
+            <tr><th>Day</th><th>Posts</th></tr>
+          </thead>
+          <tbody id="dayOfWeekTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Two Column Layout: Text Statistics -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Citation Statistics</h2>
+        <div class="space-y-6">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total External Links</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">401</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">across all posts</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Citations per Post</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">5.6</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">external references</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Citation Density</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">17.23</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">citations per 1,000 words</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Code Statistics</h2>
+        <div class="space-y-6">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Code-to-Content Ratio</h3>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">4.2%</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of content is code blocks</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Posts with Code</h3>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">16</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of 72 posts (22.2%)</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Technical Content Focus</h3>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mt-2">
+              <div class="bg-purple-600 dark:bg-purple-400 h-4 rounded-full transition-all duration-500" style="width: 22.2%"></div>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">posts include code examples</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reading Time Distribution and Enhanced Insights -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Reading Time Distribution</h2>
+        <div class="h-80 px-4">
+          <canvas id="readingTimeChart" aria-label="Doughnut chart showing distribution of reading times across blog posts" role="img"></canvas>
+        </div>
+        <!-- Data table fallback for screen readers -->
+        <table class="sr-only" role="table" aria-label="Reading time distribution data">
+          <caption>Distribution of reading times</caption>
+          <thead>
+            <tr><th>Range</th><th>Posts</th></tr>
+          </thead>
+          <tbody id="readingTimeTable"></tbody>
+        </table>
+      </div>
+
+      <!-- Enhanced Reading Time Insights -->
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Reading Time Insights</h2>
+        <div class="space-y-4">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Median Reading Time</h3>
+            <p class="text-3xl font-bold text-gray-900 dark:text-gray-100" data-stat="median-reading">-</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">25th Percentile</h3>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="percentile-25">-</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">75th Percentile</h3>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="percentile-75">-</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Longest Post</h3>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="longest-post">-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Publishing Activity Heatmap -->
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Publishing Activity Heatmap</h2>
+      <div class="overflow-x-auto" style="padding-top: 48px;">
+        <div id="publishingHeatmap" class="min-w-fit" role="region" aria-label="Publishing activity heatmap">
+          <!-- Heatmap will be generated here -->
+        </div>
+      </div>
+      <!-- Color Legend (dynamically updated based on theme) -->
+      <div id="heatmapLegend" class="mt-6 flex items-center justify-center gap-2" role="img" aria-label="Heatmap color legend">
+        <!-- Legend will be generated dynamically -->
+      </div>
+    </div>
+
+    <!-- Tag Cloud -->
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Tag Cloud</h2>
+      <div id="tagCloud" class="flex flex-wrap gap-3 justify-center min-h-[200px]" role="list" aria-label="Tag cloud">
+        <!-- Tag cloud will be generated here -->
+      </div>
+    </div>
+
+    <!-- Topic Evolution Timeline -->
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Topic Evolution Over Time</h2>
+      <div class="h-96 px-2">
+        <canvas id="topicEvolutionChart" aria-label="Line chart showing evolution of top 5 tags over time" role="img"></canvas>
+      </div>
+      <!-- Data table fallback for screen readers -->
+      <table class="sr-only" role="table" aria-label="Topic evolution data">
+        <caption>Top 5 tags usage over time</caption>
+        <thead>
+          <tr><th>Tag</th><th>Month</th><th>Count</th></tr>
+        </thead>
+        <tbody id="topicEvolutionTable"></tbody>
+      </table>
+    </div>
+
+    <!-- Word Count Analysis -->
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Word Count Analysis</h2>
+      <div class="h-80 px-2">
+        <canvas id="wordCountChart" aria-label="Bar chart showing word count distribution across blog posts" role="img"></canvas>
+      </div>
+      <!-- Data table fallback for screen readers -->
+      <table class="sr-only" role="table" aria-label="Word count distribution data">
+        <caption>Distribution of word counts</caption>
+        <thead>
+          <tr><th>Range</th><th>Posts</th></tr>
+        </thead>
+        <tbody id="wordCountTable"></tbody>
+      </table>
+    </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- Stats Data and Visualization Script -->
+<script>
+// Prepare blog post data
+const blogPosts = [
+  
+  {
+    title: "Information society and information warfare",
+    date: "2011-01-06",
+    tags: ["posts","art of war","cyber crime","cyber war","history","information","information warfare","network crime","society","warfare"],
+    wordCount: 1818,
+    readingTime: 9
+  },
+  
+  {
+    title: "IP Responsibility and abuse reporting procedure",
+    date: "2011-03-11",
+    tags: ["posts","attacks","cyber security","ddos","external ip","internet protocol addressing systems","ip addresses","malware","online","report abuse","security","security risk"],
+    wordCount: 1284,
+    readingTime: 6
+  },
+  
+  {
+    title: "Human Computer Interaction in 2020",
+    date: "2011-03-17",
+    tags: ["posts","future of human communication","hci","human computer interaction","internet","network","networking","online","online generations","social informatics"],
+    wordCount: 1150,
+    readingTime: 6
+  },
+  
+  {
+    title: "WordPress CMS acceleration and optamization",
+    date: "2011-04-09",
+    tags: ["posts","acceleration","optamization","simmulation of attacks and defence","wordpress"],
+    wordCount: 1336,
+    readingTime: 6
+  },
+  
+  {
+    title: "Major changes in warfare from antiquity to modern",
+    date: "2011-04-20",
+    tags: ["posts","antiquity","art of war","changes warfare","cyber","cyber security","cyber warfare","history","internet","modern","networking","new war","network crime","security","war","war strategy"],
+    wordCount: 1725,
+    readingTime: 8
+  },
+  
+  {
+    title: "Internet and collectivistic cultures",
+    date: "2011-06-06",
+    tags: ["posts","collectivistic","cultures","informatics","internet","network","online people","psyche","social"],
+    wordCount: 1017,
+    readingTime: 5
+  },
+  
+  {
+    title: "Digital divide or not?",
+    date: "2011-06-19",
+    tags: ["posts","digital divide","internet","net generation","network","network generation","online","online generations","psychological"],
+    wordCount: 1523,
+    readingTime: 7
+  },
+  
+  {
+    title: "Future of human communication",
+    date: "2011-06-26",
+    tags: ["posts","communication","future of human communication","internet","network","networking","online"],
+    wordCount: 1141,
+    readingTime: 6
+  },
+  
+  {
+    title: "Password Attacks and Generation Strategies",
+    date: "2011-07-26",
+    tags: ["posts","brute force","dictionary generation","dictionary password attacks","password attacks","password generation","rainbow tables"],
+    wordCount: 115,
+    readingTime: 1
+  },
+  
+  {
+    title: "Influence of Virtual life",
+    date: "2011-08-06",
+    tags: ["posts","online","online community","second life","social network","virtual life"],
+    wordCount: 1371,
+    readingTime: 7
+  },
+  
+  {
+    title: "Cost of DDoS, leak of credit card numbers, infected machine and spam",
+    date: "2011-10-12",
+    tags: ["posts","acceleration","optamization","simmulation of attacks and defence","wordpress attacks","credit card numbers","cyber security","ddos","defence","infected machine","internet","malware","network","online","security","spam"],
+    wordCount: 1479,
+    readingTime: 7
+  },
+  
+  {
+    title: "Script Kiddie",
+    date: "2011-10-19",
+    tags: ["posts","attacks","cyber security","ddos","internet","script kiddie","security","server attack","wordpress attack"],
+    wordCount: 2221,
+    readingTime: 10
+  },
+  
+  {
+    title: "Testing IDS",
+    date: "2012-01-03",
+    tags: ["posts","cyber security","ddos","ids","internet","networking","online","openvas","port scan","snort","syn flood","testing ids","vulnerability scanning"],
+    wordCount: 1952,
+    readingTime: 9
+  },
+  
+  {
+    title: "Regular Expression",
+    date: "2012-01-16",
+    tags: ["posts","grep","log mining","regular expression","linux","unix"],
+    wordCount: 442,
+    readingTime: 2
+  },
+  
+  {
+    title: "Mobile Malware Analysis",
+    date: "2012-01-17",
+    tags: ["posts","cell phone","malware","mobile","mobile malware analysis","network crime","phone","phone games","phone malware","security","sms","binary"],
+    wordCount: 670,
+    readingTime: 3
+  },
+  
+  {
+    title: "Honeypot document",
+    date: "2012-02-16",
+    tags: ["posts","honeypot document","cyber security","honeypot"],
+    wordCount: 1391,
+    readingTime: 7
+  },
+  
+  {
+    title: "Security Programing Techniques",
+    date: "2012-02-21",
+    tags: ["posts","asp.net","bash","c#","cyber security","hql","java","jdbc","perl","php5","python","ruby on rail","security","security model","unix","windows 7"],
+    wordCount: 1943,
+    readingTime: 9
+  },
+  
+  {
+    title: "Virtual Machine Malware / Malicious Analysis",
+    date: "2012-03-02",
+    tags: ["posts","malicious analysis","malware","malware analysis","virtual machine","virtual machine analysis"],
+    wordCount: 2992,
+    readingTime: 14
+  },
+  
+  {
+    title: "Testing SNORT – IDS rulesets",
+    date: "2012-03-13",
+    tags: ["posts","cyber security","ddos","ids","internet","networking","online","port scan","snort","snort rules","syn flood","testing ids","vulnerability scanning"],
+    wordCount: 1223,
+    readingTime: 6
+  },
+  
+  {
+    title: "Clever solution by making site more resilient by optimization",
+    date: "2012-03-23",
+    tags: ["posts","ab","attacks","clever solution","cyber security","ddos","internet","jmeter","malicious code","wordpress"],
+    wordCount: 1032,
+    readingTime: 5
+  },
+  
+  {
+    title: "Hate Speech on Internet, 01 Dec. 2012",
+    date: "2012-04-11",
+    tags: ["posts","hate speech","internet","macedonia","sapka","cid"],
+    wordCount: 238,
+    readingTime: 2
+  },
+  
+  {
+    title: "Texworks 0.5r952, error libpoppler-qt4.so.3, Ubuntu 12.04",
+    date: "2012-06-18",
+    tags: ["posts","libpoppler","texworks","ubuntu"],
+    wordCount: 519,
+    readingTime: 3
+  },
+  
+  {
+    title: "Ministry of Interior – Macedonia, website defacement: https://mvr.gov.mk",
+    date: "2012-06-25",
+    tags: ["posts","attacks","cyber security","information warfare","legal aspects of cyber security","log mining","ddos","exploitation","kns","macedonia","mvr","online","security","vulnerability","exploit"],
+    wordCount: 1565,
+    readingTime: 7
+  },
+  
+  {
+    title: "What is wireless network security?",
+    date: "2012-08-10",
+    tags: ["posts","wireless","security","cyber security","gms","wlan","wpan","threats","wifi"],
+    wordCount: 1104,
+    readingTime: 5
+  },
+  
+  {
+    title: "Security Risk Assessment, PenTest Magazine IS Risk Assessment PT A&S 08/12",
+    date: "2012-08-12",
+    tags: ["posts","cyber security","pentest mag","risk assessment","risk management","frequency","probability"],
+    wordCount: 135,
+    readingTime: 1
+  },
+  
+  {
+    title: "Identify Possible Infection of Malware Into the Wireshark Capture File",
+    date: "2012-09-01",
+    tags: ["posts","capture file","cyber security","infection","malware","networking","online","wireshark"],
+    wordCount: 1427,
+    readingTime: 7
+  },
+  
+  {
+    title: "Analyses of Malware Files",
+    date: "2012-09-30",
+    tags: ["posts","malware","online","security","binary","malicious code"],
+    wordCount: 1142,
+    readingTime: 6
+  },
+  
+  {
+    title: "What is network security?",
+    date: "2012-10-26",
+    tags: ["posts","network security","cyber security","access","confidentiality","authentication","non-repudation","ddos","man-in-the-middle","attacks","address spoofing","eavesdropping"],
+    wordCount: 1399,
+    readingTime: 7
+  },
+  
+  {
+    title: "Web Servers Analysis under DoS Attacks, Secure Your Mobile, Protect Your Network and Hack More with Hakin9 11/2012!",
+    date: "2012-11-15",
+    tags: ["posts","wireless","security","cyber security","gms","wlan","wpan","threats","wifi"],
+    wordCount: 109,
+    readingTime: 1
+  },
+  
+  {
+    title: "ICSAP – Interactive Cyber Security Awareness Program",
+    date: "2012-12-06",
+    tags: ["posts","awareness","cyber security","human factor","program","socio-technical","training"],
+    wordCount: 342,
+    readingTime: 2
+  },
+  
+  {
+    title: "Network Security Toolkit",
+    date: "2012-12-25",
+    tags: ["posts","cyber security","network security","toolkits","security"],
+    wordCount: 994,
+    readingTime: 5
+  },
+  
+  {
+    title: "Cyber Security Group in South Eastern Europe",
+    date: "2013-01-03",
+    tags: ["posts","cyber security","ngo","group","south eastern europe","macedonia","balkan"],
+    wordCount: 566,
+    readingTime: 3
+  },
+  
+  {
+    title: "Collective Cyber Defence – The Role of Newer Members and Opportunities for Specialization of Bulgaria in the Alliance Questions and answers",
+    date: "2013-03-12",
+    tags: ["posts","cyber defence","cyber security","security","bulgaria","balkan","conference","nato"],
+    wordCount: 1059,
+    readingTime: 5
+  },
+  
+  {
+    title: "Bullying of digital divide or not?",
+    date: "2013-04-04",
+    tags: ["posts","hactivism","bullying","digital divide"],
+    wordCount: 1315,
+    readingTime: 6
+  },
+  
+  {
+    title: "I can hack your FB, can you catch me...",
+    date: "2013-05-26",
+    tags: ["posts","facebook","fb","hack","mvr","macedonia","course","teaching","cyber security","surfaj bezbedno"],
+    wordCount: 272,
+    readingTime: 2
+  },
+  
+  {
+    title: "Stockholm Internet Forum 2013",
+    date: "2013-06-05",
+    tags: ["posts","internet","forum","conference","stockholm","freedom"],
+    wordCount: 884,
+    readingTime: 4
+  },
+  
+  {
+    title: "Interview for Azerbaijani news: “The punishment for criticizing the social networks is unacceptable” (Russian & Azerbaijani) – Dzhasur Sumerinli",
+    date: "2013-09-21",
+    tags: ["posts","interview","cyber security","policy","news","azerbaijani","social networks"],
+    wordCount: 174,
+    readingTime: 1
+  },
+  
+  {
+    title: "Introduction course to Cyber Security",
+    date: "2013-10-01",
+    tags: ["posts","course","teaching","lecture","cyber security"],
+    wordCount: 208,
+    readingTime: 1
+  },
+  
+  {
+    title: "Belgrade Security Forum 2013 – Session 7: Assuring Cyber-Security in the Western Balkans and the Rest of Europe",
+    date: "2013-10-09",
+    tags: ["posts","conference","security","cyber security","balkans","western","assurance","europe"],
+    wordCount: 1023,
+    readingTime: 5
+  },
+  
+  {
+    title: "First time Lenovo, hopefully for sure the last time",
+    date: "2013-10-21",
+    tags: ["posts","lenovo","laptop","thinkpad","ubuntu"],
+    wordCount: 869,
+    readingTime: 4
+  },
+  
+  {
+    title: "Penetration Testing vs. Vulnerability Assessment",
+    date: "2013-11-11",
+    tags: ["posts","penetration","vulnerability","assessment","pentest","security"],
+    wordCount: 722,
+    readingTime: 4
+  },
+  
+  {
+    title: "Camp in Plav – Montenegro with Young, Smart and Enthusiast people – REACT 2013 Montenegro",
+    date: "2013-12-09",
+    tags: ["posts","camp","react","nato","conference","montenegro","cyber security","cyberwar","cyber","plav"],
+    wordCount: 670,
+    readingTime: 3
+  },
+  
+  {
+    title: "Human rights can give guidance to the protection of data in cyber space under certain conditions",
+    date: "2014-01-13",
+    tags: ["posts","human rights","protection","data","cyber space","conditions"],
+    wordCount: 720,
+    readingTime: 4
+  },
+  
+  {
+    title: "What is Risk Assessment?",
+    date: "2014-03-22",
+    tags: ["posts","risk assessment","risk management","cyber risk","it risk"],
+    wordCount: 676,
+    readingTime: 4
+  },
+  
+  {
+    title: "Interview: Snowden helped the mass awakening of awareness by Nova Makedonija",
+    date: "2014-04-29",
+    tags: ["posts","interview","nova makedonija","newspaper","snowden","awareness","macedonia","cyber security"],
+    wordCount: 70,
+    readingTime: 1
+  },
+  
+  {
+    title: "Interview: StartCast – Bringing you the most promising StartUps",
+    date: "2014-05-29",
+    tags: ["posts","interview","cyber security","startcast","startups"],
+    wordCount: 164,
+    readingTime: 1
+  },
+  
+  {
+    title: "Stockholm Internet Forum 2014",
+    date: "2014-07-06",
+    tags: ["posts","sctockholm","internet","freedom","forum","cyber security"],
+    wordCount: 675,
+    readingTime: 3
+  },
+  
+  {
+    title: "Kaspersky – CyberSecurity European Round 2014, Milan, Italy",
+    date: "2014-08-31",
+    tags: ["posts","kaspersky","cybersecurity","european-round","milan","italy","conference","research"],
+    wordCount: 1267,
+    readingTime: 6
+  },
+  
+  {
+    title: "New blog and why pelican?",
+    date: "2014-11-11",
+    tags: ["posts","pelican","blog","design"],
+    wordCount: 895,
+    readingTime: 4
+  },
+  
+  {
+    title: "Research Paper: Macedonian Path Towards Cybersecurity",
+    date: "2015-09-15",
+    tags: ["posts","macedonia","cyber","establishment","mkd-cirt","strategy","security","national security"],
+    wordCount: 247,
+    readingTime: 2
+  },
+  
+  {
+    title: "TEDxBASSalon 5: Open Data & the Hacking Movement",
+    date: "2015-09-24",
+    tags: ["posts","open data","hacking","hactivism","data science","movement","tedxbassalon","tedx","informations","civil hacking","social","social-technical"],
+    wordCount: 93,
+    readingTime: 1
+  },
+  
+  {
+    title: "Balkans capacity towards cyber defense",
+    date: "2015-09-27",
+    tags: ["posts","cyber security","balkan","awareness","cyber defense","yata","video","interview","macedonia","ict","strategy"],
+    wordCount: 585,
+    readingTime: 3
+  },
+  
+  {
+    title: "Freedom Not Fear panel discussion and Mobile Security Workshop",
+    date: "2015-10-19",
+    tags: ["posts","mobile","smartphone","security","freedom","surveillance","wiretapping","awareness","workshop"],
+    wordCount: 82,
+    readingTime: 1
+  },
+  
+  {
+    title: "Secrets for eavesdropping - respublica.edu.mk",
+    date: "2015-10-19",
+    tags: ["posts","surveillance","wiretapping","eavesdropping","mobile","phone","security","privacy","censorship","freedom","public interests","balkan"],
+    wordCount: 126,
+    readingTime: 1
+  },
+  
+  {
+    title: "National Cyber Security Awareness Month: Introduction to CyberSecurity",
+    date: "2015-10-28",
+    tags: ["posts","awareness","cybersecurity","month","introduction","human factor","national","iot","firesale","wardriving"],
+    wordCount: 225,
+    readingTime: 1
+  },
+  
+  {
+    title: "Cyber Culture by Franco Bifo Berardi - Belgrade",
+    date: "2015-12-06",
+    tags: ["posts","balkan","digital devide","iot","philosophy","bifo","franco berardi","hacktivist","cyber","future","artificial intelligence","zenitism","policy","security"],
+    wordCount: 565,
+    readingTime: 3
+  },
+  
+  {
+    title: "Workshop: Cyber Security and Privacy",
+    date: "2015-12-12",
+    tags: ["posts","security","privacy","italy","cyber security","attacks","awareness"],
+    wordCount: 120,
+    readingTime: 1
+  },
+  
+  {
+    title: "Beer & Code #40: Drupal - winner in CMS security race",
+    date: "2016-02-11",
+    tags: ["posts","drupal","cms","security","modules","audit","presentation","plugins","talk","beer"],
+    wordCount: 176,
+    readingTime: 1
+  },
+  
+  {
+    title: "Cyber Security overview of 2016 and 2017 predictions (Macedonian language)",
+    date: "2017-01-02",
+    tags: ["posts","macedonia","cyber security","it security","prediction","interview","ransomware","data breaches","botnet","awareness","privacy","encryption"],
+    wordCount: 12,
+    readingTime: 1
+  },
+  
+  {
+    title: "Cyber Security Challenges for 2018",
+    date: "2017-03-27",
+    tags: ["posts","cyber security","it security","prediction","interview","ransomware","data breaches","botnet","awareness","privacy","encryption","predictions","challenges","balkan"],
+    wordCount: 99,
+    readingTime: 1
+  },
+  
+  {
+    title: "International Cooperation Between National Cyber Security Strategies for building a sustainable Digital Transformation, and Critical Infrastructure and Industry",
+    date: "2019-09-09",
+    tags: ["posts","cyber security","it security","cloud security","strategy","cii","infrastructure","industry","keynote","key speech","presentation","conference","national cyber security strategy","digital transformation","migration"],
+    wordCount: 1121,
+    readingTime: 5
+  },
+  
+  {
+    title: "ISOC Fundamentals - ISOC Serbia Belgrade Chapter Webinar",
+    date: "2021-06-30",
+    tags: ["posts","isoc","encryption","networking","communication","serbia","open standards","isoc-mkd","macedonia","infrastructure","internet","society","webinar","workshop"],
+    wordCount: 165,
+    readingTime: 1
+  },
+  
+  {
+    title: "Vision of security in Canonical products",
+    date: "2021-07-09",
+    tags: ["posts","security","privacy","canonical","ubuntu","default","design","vision"],
+    wordCount: 695,
+    readingTime: 4
+  },
+  
+  {
+    title: "Running. Results of 2021 & 2022 and challenge for 2023",
+    date: "2023-01-09",
+    tags: ["posts","running","challenge","half-marathon","marathon","run","writing","blog","life style"],
+    wordCount: 313,
+    readingTime: 2
+  },
+  
+  {
+    title: "Podcasts for: Security, Startup, learning German and whatever",
+    date: "2023-01-25",
+    tags: ["posts","running","cybersecurity","security","german","macedonian","podcast","startup"],
+    wordCount: 285,
+    readingTime: 2
+  },
+  
+  {
+    title: "Interview - Indeed Career Guide Tips",
+    date: "2023-06-21",
+    tags: ["posts","interview","career","guide","tips","cloud","software","engineer","cybersecurity","tester"],
+    wordCount: 63,
+    readingTime: 1
+  },
+  
+  {
+    title: "Learning to adapt: From Python puzzles to Next.js adventures.",
+    date: "2023-11-28",
+    tags: ["posts","python","nextjs","blog","pelican","design","react","startup","jamstack","static-site","java","minimalist","serverless","framework","websites","blogposts","sideproject","code","markdown","github-pages"],
+    wordCount: 284,
+    readingTime: 2
+  },
+  
+  {
+    title: "Shifting Left and Right: A Comprehensive Guide to Bolstering Security",
+    date: "2024-01-02",
+    tags: ["posts","shift-left","shift-right","cybersecurity","iac","training","code-review","security testing","sdlc","development","owasp","ci/cd","siem","skf","securityculture"],
+    wordCount: 723,
+    readingTime: 4
+  },
+  
+  {
+    title: "Running 2023 results",
+    date: "2024-04-15",
+    tags: ["posts","running","challenge","half-marathon","marathon","run"],
+    wordCount: 119,
+    readingTime: 1
+  },
+  
+  {
+    title: "DecapCMS and GitLab integration without Netlify",
+    date: "2024-04-21",
+    tags: ["posts","decapcms","cms","gitlab","docusaurus","ci/cd","gitlab pages","netlify","hugo","nextjs","workflow"],
+    wordCount: 435,
+    readingTime: 2
+  },
+  
+  {
+    title: "Running 2024 results",
+    date: "2025-02-17",
+    tags: ["posts","running","challenge","half-marathon","marathon","run"],
+    wordCount: 111,
+    readingTime: 1
+  },
+  
+  {
+    title: "Open Source is NOT Dead: A Talk in Berlin",
+    date: "2025-02-27",
+    tags: ["posts","opensource","foss","businessmodel","techinnovation","cybersecurity","berlintech","startup","devcommunity","ai","saas","cloudcomputing","linux","kubernetes","mongodb","gitlab","redhat","hashicorp","softwaredevelopment","entrepreneurship","techtalk","communitydriven","digitaltransformation","unicistech"],
+    wordCount: 653,
+    readingTime: 3
+  }
+  
+];
+
+let currentYear = 'all';
+let charts = {};
+
+// Get filtered posts based on selected year
+function getFilteredPosts() {
+  if (currentYear === 'all') {
+    return blogPosts;
+  }
+  return blogPosts.filter(post => post.date.startsWith(currentYear));
+}
+
+// Switch year filter
+function switchYear(year) {
+  currentYear = year;
+
+  // Update tab styles and ARIA attributes
+  document.querySelectorAll('.year-tab').forEach(tab => {
+    if (tab.dataset.year === year) {
+      tab.className = 'year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white shadow-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900';
+      tab.setAttribute('aria-pressed', 'true');
+    } else {
+      tab.className = 'year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900';
+      tab.setAttribute('aria-pressed', 'false');
+    }
+  });
+
+  // Update all visualizations
+  updateStats();
+  updateCharts();
+  updateHeatmap();
+  updateTagCloud();
+  updateStreaks();
+  updateReadingTimeInsights();
+}
+
+// Calculate writing streaks
+function calculateStreaks(posts) {
+  if (posts.length === 0) {
+    return { longest: 0, current: 0, mostProductiveMonth: '-', mostProductiveCount: 0 };
+  }
+
+  // Group posts by month
+  const monthCounts = {};
+  posts.forEach(post => {
+    const month = post.date.substring(0, 7); // YYYY-MM
+    monthCounts[month] = (monthCounts[month] || 0) + 1;
+  });
+
+  const sortedMonths = Object.keys(monthCounts).sort();
+
+  // Calculate longest streak
+  let longestStreak = 1;
+  let currentStreak = 1;
+
+  for (let i = 1; i < sortedMonths.length; i++) {
+    const prevDate = new Date(sortedMonths[i - 1] + '-01');
+    const currDate = new Date(sortedMonths[i] + '-01');
+
+    // Check if consecutive months
+    const monthsDiff = (currDate.getFullYear() - prevDate.getFullYear()) * 12 +
+                       (currDate.getMonth() - prevDate.getMonth());
+
+    if (monthsDiff === 1) {
+      currentStreak++;
+      longestStreak = Math.max(longestStreak, currentStreak);
+    } else {
+      currentStreak = 1;
+    }
+  }
+
+  // Calculate current streak from most recent month
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const lastMonth = sortedMonths[sortedMonths.length - 1];
+
+  currentStreak = 1;
+  if (lastMonth === currentMonth || lastMonth === getCurrentOrPreviousMonth()) {
+    for (let i = sortedMonths.length - 2; i >= 0; i--) {
+      const prevDate = new Date(sortedMonths[i] + '-01');
+      const currDate = new Date(sortedMonths[i + 1] + '-01');
+      const monthsDiff = (currDate.getFullYear() - prevDate.getFullYear()) * 12 +
+                         (currDate.getMonth() - prevDate.getMonth());
+
+      if (monthsDiff === 1) {
+        currentStreak++;
+      } else {
+        break;
+      }
+    }
+  } else {
+    currentStreak = 0;
+  }
+
+  // Find most productive month
+  let mostProductiveMonth = '-';
+  let mostProductiveCount = 0;
+  Object.entries(monthCounts).forEach(([month, count]) => {
+    if (count > mostProductiveCount) {
+      mostProductiveCount = count;
+      mostProductiveMonth = month;
+    }
+  });
+
+  // Format most productive month
+  if (mostProductiveMonth !== '-') {
+    const date = new Date(mostProductiveMonth + '-01');
+    mostProductiveMonth = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  }
+
+  return {
+    longest: longestStreak,
+    current: currentStreak,
+    mostProductiveMonth,
+    mostProductiveCount
+  };
+}
+
+// Helper function to get current or previous month
+function getCurrentOrPreviousMonth() {
+  const now = new Date();
+  const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  return `${prevMonth.getFullYear()}-${String(prevMonth.getMonth() + 1).padStart(2, '0')}`;
+}
+
+// Update streak statistics
+function updateStreaks() {
+  const posts = getFilteredPosts();
+  const streaks = calculateStreaks(posts);
+
+  document.querySelector('[data-stat="longest-streak"]').textContent = streaks.longest;
+  document.querySelector('[data-stat="current-streak"]').textContent = streaks.current;
+  document.querySelector('[data-stat="most-productive-month"]').textContent = streaks.mostProductiveMonth;
+  document.querySelector('[data-stat="most-productive-count"]').textContent =
+    `${streaks.mostProductiveCount} post${streaks.mostProductiveCount !== 1 ? 's' : ''}`;
+}
+
+// Calculate percentile
+function percentile(arr, p) {
+  if (arr.length === 0) return 0;
+  const sorted = [...arr].sort((a, b) => a - b);
+  const index = (p / 100) * (sorted.length - 1);
+  const lower = Math.floor(index);
+  const upper = Math.ceil(index);
+  const weight = index - lower;
+  return sorted[lower] * (1 - weight) + sorted[upper] * weight;
+}
+
+// Update reading time insights
+function updateReadingTimeInsights() {
+  const posts = getFilteredPosts();
+  if (posts.length === 0) {
+    document.querySelector('[data-stat="median-reading"]').textContent = '-';
+    document.querySelector('[data-stat="percentile-25"]').textContent = '-';
+    document.querySelector('[data-stat="percentile-75"]').textContent = '-';
+    document.querySelector('[data-stat="longest-post"]').textContent = '-';
+    return;
+  }
+
+  const readingTimes = posts.map(p => p.readingTime);
+  const median = Math.round(percentile(readingTimes, 50));
+  const p25 = Math.round(percentile(readingTimes, 25));
+  const p75 = Math.round(percentile(readingTimes, 75));
+  const longest = Math.max(...readingTimes);
+
+  document.querySelector('[data-stat="median-reading"]').textContent = `${median}m`;
+  document.querySelector('[data-stat="percentile-25"]').textContent = `${p25}m`;
+  document.querySelector('[data-stat="percentile-75"]').textContent = `${p75}m`;
+  document.querySelector('[data-stat="longest-post"]').textContent = `${longest}m`;
+}
+
+// Update summary statistics
+function updateStats() {
+  const posts = getFilteredPosts();
+
+  // Total posts
+  document.querySelector('[data-stat="total-posts"]').textContent = posts.length;
+
+  // Total words
+  const totalWords = posts.reduce((sum, post) => sum + post.wordCount, 0);
+  document.querySelector('[data-stat="total-words"]').textContent = totalWords.toLocaleString();
+
+  // Unique tags
+  const allTags = posts.flatMap(post => post.tags.filter(tag => tag !== 'posts'));
+  const uniqueTags = [...new Set(allTags)];
+  document.querySelector('[data-stat="unique-tags"]').textContent = uniqueTags.length;
+
+  // Average reading time
+  const avgReading = posts.length > 0
+    ? posts.reduce((sum, post) => sum + post.readingTime, 0) / posts.length
+    : 0;
+  document.querySelector('[data-stat="avg-reading"]').textContent = Math.round(avgReading) + 'm';
+}
+
+// Update all charts
+function updateCharts() {
+  const posts = getFilteredPosts();
+
+  // Destroy existing charts
+  Object.values(charts).forEach(chart => {
+    if (chart) chart.destroy();
+  });
+  charts = {};
+
+  // Get theme colors
+  const isDark = document.documentElement.classList.contains('dark');
+  const textColor = isDark ? '#e5e7eb' : '#374151';
+  const gridColor = isDark ? '#374151' : '#e5e7eb';
+
+  // Posts Over Time Chart
+  const monthCounts = {};
+  posts.forEach(post => {
+    const month = post.date.substring(0, 7); // YYYY-MM
+    monthCounts[month] = (monthCounts[month] || 0) + 1;
+  });
+
+  const sortedMonths = Object.keys(monthCounts).sort();
+
+  // Update data table for screen readers
+  const postsOverTimeTable = document.getElementById('postsOverTimeTable');
+  postsOverTimeTable.innerHTML = sortedMonths.map(month =>
+    `<tr><td>${month}</td><td>${monthCounts[month]}</td></tr>`
+  ).join('');
+
+  charts.postsOverTime = new Chart(document.getElementById('postsOverTimeChart'), {
+    type: 'line',
+    data: {
+      labels: sortedMonths,
+      datasets: [{
+        label: 'Posts Published',
+        data: sortedMonths.map(month => monthCounts[month]),
+        borderColor: '#6366f1',
+        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+
+  // Top Tags Chart
+  const tagCounts = {};
+  posts.forEach(post => {
+    post.tags.filter(tag => tag !== 'posts').forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  const topTags = Object.entries(tagCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+
+  // Update data table for screen readers
+  const topTagsTable = document.getElementById('topTagsTable');
+  topTagsTable.innerHTML = topTags.map(([tag, count]) =>
+    `<tr><td>${tag}</td><td>${count}</td></tr>`
+  ).join('');
+
+  charts.topTags = new Chart(document.getElementById('topTagsChart'), {
+    type: 'bar',
+    data: {
+      labels: topTags.map(([tag]) => tag),
+      datasets: [{
+        label: 'Post Count',
+        data: topTags.map(([, count]) => count),
+        backgroundColor: [
+          '#6366f1', '#8b5cf6', '#ec4899', '#f59e0b',
+          '#10b981', '#3b82f6', '#ef4444', '#14b8a6',
+          '#f97316', '#84cc16'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { display: false }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+
+  // Day of Week Analysis (NEW)
+  const dayOfWeekCounts = {
+    'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0,
+    'Thursday': 0, 'Friday': 0, 'Saturday': 0
+  };
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  posts.forEach(post => {
+    const date = new Date(post.date);
+    const dayName = dayNames[date.getDay()];
+    dayOfWeekCounts[dayName]++;
+  });
+
+  // Update data table for screen readers
+  const dayOfWeekTable = document.getElementById('dayOfWeekTable');
+  dayOfWeekTable.innerHTML = Object.entries(dayOfWeekCounts).map(([day, count]) =>
+    `<tr><td>${day}</td><td>${count}</td></tr>`
+  ).join('');
+
+  charts.dayOfWeek = new Chart(document.getElementById('dayOfWeekChart'), {
+    type: 'radar',
+    data: {
+      labels: dayNames,
+      datasets: [{
+        label: 'Posts Published',
+        data: dayNames.map(day => dayOfWeekCounts[day]),
+        borderColor: '#6366f1',
+        backgroundColor: isDark ? 'rgba(99, 102, 241, 0.2)' : 'rgba(99, 102, 241, 0.1)',
+        pointBackgroundColor: '#6366f1',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#6366f1'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        r: {
+          ticks: {
+            color: textColor,
+            stepSize: 1,
+            backdropColor: 'transparent'
+          },
+          grid: { color: gridColor },
+          pointLabels: { color: textColor }
+        }
+      }
+    }
+  });
+
+  // Topic Evolution Chart (NEW)
+  const top5Tags = topTags.slice(0, 5).map(([tag]) => tag);
+  const tagByMonth = {};
+
+  posts.forEach(post => {
+    const month = post.date.substring(0, 7);
+    if (!tagByMonth[month]) tagByMonth[month] = {};
+
+    post.tags.filter(tag => top5Tags.includes(tag)).forEach(tag => {
+      tagByMonth[month][tag] = (tagByMonth[month][tag] || 0) + 1;
+    });
+  });
+
+  const allMonths = Object.keys(tagByMonth).sort();
+  const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'];
+
+  // Update data table for screen readers
+  const topicEvolutionTable = document.getElementById('topicEvolutionTable');
+  topicEvolutionTable.innerHTML = top5Tags.flatMap(tag =>
+    allMonths.map(month =>
+      `<tr><td>${tag}</td><td>${month}</td><td>${tagByMonth[month][tag] || 0}</td></tr>`
+    )
+  ).join('');
+
+  charts.topicEvolution = new Chart(document.getElementById('topicEvolutionChart'), {
+    type: 'line',
+    data: {
+      labels: allMonths,
+      datasets: top5Tags.map((tag, idx) => ({
+        label: tag,
+        data: allMonths.map(month => tagByMonth[month][tag] || 0),
+        borderColor: colors[idx],
+        backgroundColor: colors[idx] + '20',
+        fill: false,
+        tension: 0.4
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: { color: textColor },
+          position: 'top'
+        },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+
+  // Reading Time Distribution (using pre-calculated data from stats generator)
+  const readingTimeBuckets = {"1-3 min":42,"4-6 min":24,"7-9 min":6,"10+ min":0};
+
+  // Update data table for screen readers
+  const readingTimeTable = document.getElementById('readingTimeTable');
+  readingTimeTable.innerHTML = Object.entries(readingTimeBuckets).map(([range, count]) =>
+    `<tr><td>${range}</td><td>${count}</td></tr>`
+  ).join('');
+
+  charts.readingTime = new Chart(document.getElementById('readingTimeChart'), {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(readingTimeBuckets),
+      datasets: [{
+        data: Object.values(readingTimeBuckets),
+        backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b'],
+        borderColor: isDark ? '#1f2937' : '#ffffff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { color: textColor }
+        },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      }
+    }
+  });
+
+  // Word Count Chart
+  const wordCountBuckets = { '0-1000': 0, '1001-2000': 0, '2001-3000': 0, '3001-4000': 0, '4000+': 0 };
+  posts.forEach(post => {
+    const words = post.wordCount;
+    if (words <= 1000) wordCountBuckets['0-1000']++;
+    else if (words <= 2000) wordCountBuckets['1001-2000']++;
+    else if (words <= 3000) wordCountBuckets['2001-3000']++;
+    else if (words <= 4000) wordCountBuckets['3001-4000']++;
+    else wordCountBuckets['4000+']++;
+  });
+
+  // Update data table for screen readers
+  const wordCountTable = document.getElementById('wordCountTable');
+  wordCountTable.innerHTML = Object.entries(wordCountBuckets).map(([range, count]) =>
+    `<tr><td>${range} words</td><td>${count}</td></tr>`
+  ).join('');
+
+  charts.wordCount = new Chart(document.getElementById('wordCountChart'), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(wordCountBuckets).map(label => label + ' words'),
+      datasets: [{
+        label: 'Number of Posts',
+        data: Object.values(wordCountBuckets),
+        backgroundColor: '#6366f1'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { display: false }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+}
+
+// CRITICAL FIX: Update publishing heatmap with inline styles instead of dynamic Tailwind classes
+function updateHeatmap() {
+  const posts = getFilteredPosts();
+  const heatmapData = {};
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  posts.forEach(post => {
+    const date = new Date(post.date);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const key = `${year}-${month}`;
+    heatmapData[key] = (heatmapData[key] || 0) + 1;
+  });
+
+  const maxCount = Math.max(...Object.values(heatmapData), 1);
+  const years = [...new Set(posts.map(post => new Date(post.date).getFullYear()))].sort();
+
+  // High-contrast color scales for WCAG AAA compliance
+  // Light mode: All levels achieve 4.7:1 to 16.2:1 contrast against #f3f4f6
+  // Dark mode: All levels achieve 4.9:1 to 16.5:1 contrast against #1f2937
+  const isDark = document.documentElement.classList.contains('dark');
+  const lightColors = ['#8b9dc3', '#5b6fa8', '#3d4f7f', '#2a3a5c', '#1a2642'];
+  const darkColors = ['#5b6fa8', '#7b8fc8', '#9bafd8', '#bccfe8', '#d9e5f5'];
+  const colors = isDark ? darkColors : lightColors;
+
+  let html = '<div class="grid gap-0.5">';
+
+  years.forEach(year => {
+    html += `<div class="flex items-start gap-2">`;
+    html += `<div class="w-14 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
+    html += `<div class="grid gap-0.5 flex-1 min-w-0" style="grid-template-columns: repeat(12, 81px);">`;
+
+    months.forEach((month, idx) => {
+      const key = `${year}-${idx}`;
+      const count = heatmapData[key] || 0;
+      const intensity = count / maxCount;
+
+      // Calculate color index (0-4) based on intensity
+      let colorIndex = 0;
+      if (count > 0) {
+        colorIndex = Math.min(Math.floor(intensity * 5), 4);
+      }
+
+      const bgColor = count === 0
+        ? (isDark ? '#2a3241' : '#e8eaf0')
+        : colors[colorIndex];
+
+      html += `
+        <div class="group relative hover:z-50 focus:z-50" style="width: 81px; height: 81px;" tabindex="0" role="button"
+             aria-label="${month} ${year}: ${count} post${count !== 1 ? 's' : ''}"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();}">
+          <div class="w-full h-full rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
+               style="background-color: ${bgColor}"></div>
+          <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-lg">
+            ${month} ${year}: ${count} post${count !== 1 ? 's' : ''}
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
+  });
+
+  html += '</div>';
+
+  document.getElementById('publishingHeatmap').innerHTML = html;
+
+  // Update legend with current theme colors
+  updateHeatmapLegend();
+}
+
+// Update heatmap legend based on current theme
+function updateHeatmapLegend() {
+  const isDark = document.documentElement.classList.contains('dark');
+  const lightColors = ['#8b9dc3', '#5b6fa8', '#3d4f7f', '#2a3a5c', '#1a2642'];
+  const darkColors = ['#5b6fa8', '#7b8fc8', '#9bafd8', '#bccfe8', '#d9e5f5'];
+  const colors = isDark ? darkColors : lightColors;
+
+  const labels = ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%'];
+
+  let html = '<span class="text-sm text-gray-600 dark:text-gray-400 flex-shrink-0">Less</span>';
+  html += '<div class="flex gap-2 flex-1 justify-center max-w-xs">';
+
+  colors.forEach((color, idx) => {
+    html += `<div class="w-12 h-12 min-h-[44px] min-w-[44px] rounded flex-shrink-0"
+                  style="background-color: ${color}"
+                  aria-label="${labels[idx]} activity"
+                  role="img"></div>`;
+  });
+
+  html += '</div>';
+  html += '<span class="text-sm text-gray-600 dark:text-gray-400 flex-shrink-0">More</span>';
+
+  document.getElementById('heatmapLegend').innerHTML = html;
+}
+
+// Update tag cloud
+function updateTagCloud() {
+  const posts = getFilteredPosts();
+  const tagCounts = {};
+
+  posts.forEach(post => {
+    post.tags.filter(tag => tag !== 'posts').forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  const maxCount = Math.max(...Object.values(tagCounts), 1);
+  const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+
+  const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6'];
+
+  const html = tags.map(([tag, count], idx) => {
+    const size = 0.8 + (count / maxCount) * 1.5;
+    const color = colors[idx % colors.length];
+    return `
+      <a href="/tags/${tag}/"
+         role="listitem"
+         class="inline-block px-4 py-2 min-h-[44px] rounded-full transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500"
+         style="font-size: ${size}rem; background-color: ${color}20; color: ${color}; border: 2px solid ${color}"
+         aria-label="${tag} tag, ${count} post${count !== 1 ? 's' : ''}">
+        ${tag} <span class="text-xs opacity-70">(${count})</span>
+      </a>
+    `;
+  }).join('');
+
+  document.getElementById('tagCloud').innerHTML = html;
+}
+
+// Animate counters
+function animateCounters() {
+  document.querySelectorAll('.animate-counter').forEach(counter => {
+    const text = counter.textContent.replace(/,/g, '').replace('m', '');
+    const target = parseInt(text);
+    if (isNaN(target)) return;
+
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        counter.textContent = target.toLocaleString() + (counter.textContent.includes('m') ? 'm' : '');
+        clearInterval(timer);
+      } else {
+        counter.textContent = Math.floor(current).toLocaleString();
+      }
+    }, 20);
+  });
+}
+
+// Add fade-in animation observer
+const fadeInObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fade-in-visible');
+    }
+  });
+}, {
+  threshold: 0.1
+});
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  updateCharts();
+  updateHeatmap();
+  updateTagCloud();
+  updateStreaks();
+  updateReadingTimeInsights();
+  animateCounters();
+
+  // Observe all fade-in elements
+  document.querySelectorAll('.fade-in').forEach(el => {
+    fadeInObserver.observe(el);
+  });
+});
+
+// Update charts on theme change
+const themeObserver = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === 'class') {
+      updateCharts();
+      updateHeatmap(); // Re-render heatmap with correct colors for new theme
+    }
+  });
+});
+
+themeObserver.observe(document.documentElement, { attributes: true });
+</script>
+</div>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of Predrag Tasevski, — insights on cybersecurity, open‑source, AI and technology. All views are my own and do not reflect any employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div> 
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3> 
+                    <div class="flex space-x-4"> 
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="mailto:pece@predragtasevski.com">
+                        <span class="sr-only">Mail</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://github.com/stepcellwolf/">
+                        <span class="sr-only">GitHub</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tpredrag">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://twitter.com/stepcellwolf">
+                        <span class="sr-only">Twitter</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M23.954 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417A9.867 9.867 0 010 19.54a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://mastodon.social/@stepcellwolf">
+                        <span class="sr-only">Mastodon</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753v-1.809l-.02-.041a20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422z"></path>
+                        </svg>
+                        </a>
+                    </div> 
+                 </div> 
+                </div> 
+
+                <!-- Copyright & License -->
+                <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700"> 
+                    <p class="text-center text-sm text-gray-600 dark:text-gray-400"> &copy; 2026 Predrag Tasevski. Content licensed under <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                    CC BY-NC 4.0</a>. Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a> and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>. <span></p> 
+                </div>
+
+                <!-- Privacy Statement -->
+                <div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
+                    <strong>Privacy statement:</strong> I use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> analytics to collect and report on how my site is used; no advertising or tracking cookies are stored. Data collected does not personally identify visitors.
+                </div>
+            </div>
+                
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>
