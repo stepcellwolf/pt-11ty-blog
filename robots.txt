@@ -1,0 +1,6 @@
+# robots.txt for https://stepcellwolf.github.io
+
+User-agent: *
+Allow: /
+
+Sitemap: https://stepcellwolf.github.io/sitemap.xml

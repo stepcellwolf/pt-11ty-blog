@@ -1,0 +1,41 @@
+{
+  "name": "Predrag Tasevski - Senior Cybersecurity & Privacy Expert",
+  "short_name": "Pece",
+  "description": "Personal website and blog of Predrag Tasevski, featuring insights on cybersecurity, policy, compliance, open-source and running topics.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1e40af",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/images/favicon-16x16.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/favicon-32x32.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["security", "technology", "blog", "education"],
+  "screenshots": [
+    {
+      "src": "/assets/images/screenshot-desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "label": "Desktop view of the website"
+    },
+    {
+      "src": "/assets/images/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "label": "Mobile view of the website"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

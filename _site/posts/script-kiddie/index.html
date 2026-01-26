@@ -1,0 +1,3094 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Senior Cybersecurity and Privacy Expert specializing in Security and Privacy by Design, Governance, Risk and Compliance, cloud security, and human-centric security systems. Founder of Unicis.Tech, author, researcher, and cybersecurity mentor.">
+    <meta name="author" content="Predrag Tasevski">
+    <meta name="keywords" content="cybersecurity, privacy by design, governance risk and compliance, GRC, cloud security, cyber defence, data protection, ISO 27001, DPO, risk management, security awareness, AI in security">
+    
+    <title>Script Kiddie - Predrag Tasevski</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://predragtasevski.com/posts/script-kiddie/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="Predrag Tasevski Feed" href="https://predragtasevski.com/feed.xml">
+    
+    <!-- Favicons and PWA -->
+    
+<!-- Primary Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.ico">
+
+<!-- SVG Icons for PWA -->
+<link rel="icon" type="image/svg+xml" sizes="192x192" href="/assets/images/android-chrome-192x192.png">
+<link rel="icon" type="image/svg+xml" sizes="512x512" href="/assets/images/android-chrome-192x192.png">
+
+<!-- Theme Colors -->
+<meta name="msapplication-TileColor" content="#1e40af">
+<meta name="theme-color" content="#1e40af">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Script Kiddie">
+    <meta property="og:description" content="Senior Cybersecurity and Privacy Expert specializing in Security and Privacy by Design, Governance, Risk and Compliance, cloud security, and human-centric security systems. Founder of Unicis.Tech, author, researcher, and cybersecurity mentor.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://predragtasevski.com/posts/script-kiddie/">
+    <meta property="og:image" content="https://predragtasevski.com/assets/images/og-image.jpg">
+    <meta property="og:site_name" content="Predrag Tasevski">
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="article:author" content="Predrag Tasevski">
+    <meta property="article:published_time" content="2011-10-19">
+    
+    
+    
+    <!-- Additional SEO Meta -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+
+    
+    <script data-goatcounter="https://nextjs-pt-blog.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        
+        "headline": "Script Kiddie",
+        "description": "",
+        "datePublished": "2011-10-19",
+        "dateModified": "2026-01-25",
+        "author": {
+            "@type": "Person",
+            "name": "Predrag Tasevski",
+            "url": "https://predragtasevski.com/about/",
+            "sameAs": [
+                "https://github.com/stepcellwolf/",
+                "https://www.linkedin.com/in/tpredrag"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Predrag Tasevski",
+            "url": "https://predragtasevski.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://predragtasevski.com/assets/images/headshot.png"
+            }
+        },
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://predragtasevski.com/assets/images/og-image.jpg"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://predragtasevski.com/posts/script-kiddie/"
+        },
+        "url": "https://predragtasevski.com/posts/script-kiddie/"
+        
+    }
+    </script>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+
+
+    
+    <!-- Header -->
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        Predrag Tasevski
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <ul class="flex items-center space-x-1"><li><a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li></ul>
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <ul class="space-y-1"><li><a href="/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">Stats</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumbs -->
+    
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
+        <!-- Enhanced Breadcrumbs for Blog Posts -->
+<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+  <ol class="flex items-center space-x-2 text-sm flex-wrap">
+    <li>
+      <a href="/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        <svg class="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Home
+      </a>
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href="/posts/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+        Blog
+      </a>
+    </li>
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      
+      <li class="flex items-center">
+        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/tags/attacks/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+          attacks
+        </a>
+      </li>
+      
+    
+    <li class="flex items-center">
+      <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-gray-900 dark:text-gray-100 font-medium truncate max-w-xs">Script Kiddie</span>
+    </li>
+  </ol>
+</nav>
+
+<article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header role="banner" aria-label="Site header" class="mb-12">
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm font-medium">
+                        <time datetime="2011-10-19" class="text-primary-600 dark:text-primary-400">
+                            October 19, 2011
+                        </time>
+                        <span class="text-gray-400 dark:text-gray-600">•</span>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            10 min read
+                        </span>
+                    </div>
+                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                        Script Kiddie
+                    </h1>
+                    
+                </div>
+                
+                
+                <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
+                    
+                        
+                    
+                        
+                        <a href="/tags/attacks/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            attacks
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/cyber-security/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            cyber security
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/ddos/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            ddos
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/internet/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            internet
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/script-kiddie/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            script kiddie
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/security/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            security
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/server-attack/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            server attack
+                        </a>
+                        
+                    
+                        
+                        <a href="/tags/wordpress-attack/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                            wordpress attack
+                        </a>
+                        
+                    
+                </div>
+                
+            </header>
+
+            <!-- Table of Contents Accordion -->
+            <nav aria-label="Table of contents" class="toc-accordion mb-8 animate-fade-in-up animation-delay-500">
+                <details class="group">
+                    <summary class="cursor-pointer select-none font-medium flex items-center justify-between">
+                        <span>Table of Contents</span>
+                        <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="toc-content mt-4" id="toc-content">
+                        <!-- ToC will be generated here by JavaScript -->
+                    </div>
+                </details>
+            </nav>
+
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
+                <h1>PURPOSE and SCENARIO</h1>
+<p>The goal of this laboratory test is to make effort to attack server and
+to deface website. Here is the scenario: your client is worried about
+some stuff posted on a blog. They ask You to take care of it. They have
+a throwaway “script kiddie”[Script kiddie] in a third world country, who
+will mount the attack so You don’t need to worry about hiding the
+attackers identity.</p>
+<p>Therefore, we need to devise a way to attack wordpress (default
+installation) based site to render it unusable (page view times over 60
+seconds). Attack resources: one PC with Microsoft Windows XP, a script
+kiddie, internet connection of 2Mbit/s. In addition, server has to stay
+down for two days and script kiddie has up to 1 day to set up the
+attack.</p>
+<p>For scenario above their three different proposals from the fallow
+students. Each proposal is described in section Proposals and their
+effectiveness, installation process and the evaluation of the efficient
+use of available resources.</p>
+<p>Firstly, easy solution for limiting the internet connection of 2Mbit/s
+by Oracle VirtualBox configuration manager. Secondly, the bandwidth
+capacity of the connection and their performance is measured by vnstat1
+for graphs to display our utilization. The steps are vivid on section
+Methods.</p>
+<p>Finally, providing measurement results with different proposals will
+help us to identify the most beneficial proposal for above scenario,
+declared in Conclusion section.</p>
+<p>Moreover, after each attack, test the virtual server environment is
+restarted, because of the affective situation that server after attack
+needs time to recover.</p>
+<h1>METHODS</h1>
+<p>Because of requirements of our scenario we need to limit the internet
+connection of 2 Mbit/s and to provide graphs that can help as with the
+measurement results to conclude which proposals is more competent.
+Therefore, Method 1 is describing the step how we limited the connection
+bandwidth and Method 2 providing as solution how to setup that can help
+you in measuring the speed and the bandwidth.</p>
+<h2>METHOD 1</h2>
+<p>For limiting the internet traffic of the server we have to do the
+following steps in command prompt. The following solution is gathered
+from Manual of Oracle Virtualbox, Chapter 8 [User Manual].</p>
+<p>Limiting VirtualBox – virtual environment speed of network interface:</p>
+<pre><code>VBoxManage modifyvm &quot;[name of virtualbox]&quot; --nicspeed2 2048
+</code></pre>
+<p>Where you need to replace name of virtual box with real one, and specie
+which network interface adapter you wont to limited. In the above
+illustration is only second network adapter affected and then you set
+the limitation, in our case is 2 Mbit/s.</p>
+<p>Furthermore, to make sure that the result have been effective please use
+the following command:</p>
+<pre><code>VBoxManage showvminfo &quot;[name of virtualbox]&quot;
+</code></pre>
+<p>Results and information important to be aware refer to Appendix 1.</p>
+<h2>METHOD 2</h2>
+<p>We are going to install an application that will help us to gather a
+visual graphs of traffic manipulation of script kiddie. The application
+is vnstat.</p>
+<p>In the server virtual environment in command prompt please type the
+following command:</p>
+<pre><code>    sudo apt-get install vnstat&lt;br)
+</code></pre>
+<p>Next step is to select which interface should be monitored and create
+graphs. In our case is eth1, which is second network interface. For
+furthermore detailed installation process please refer to the following
+<a href="https://www.4geeksfromnet.com/2009/04/graphical-bandwidth-monitor-for-ubuntu.html">link</a>.</p>
+<p>To check if the installation process is finished please use your
+browser, as shown in illustration 1 and on the address bar type:
+https://192.168.56.102/vnstat</p>
+<p>Illustration 1: Vnstat PHP interface</p>
+<h1>PROPOSALS</h1>
+<p>The three proposals are following and described in each different
+section and their results. The main measure goal which is going to grate
+for kiddie script is: easy to use instructions, the most efficient use
+of available resources and can the script be up to 1 day attacking.</p>
+<p>Moreover, the results will be provided with two different graphs in
+period of 5 minutes attack and 10 minutes attack. Which would guide us
+to compare which kiddie script has performed the attack more in force.</p>
+<h2>PROPOSAL 1</h2>
+<p>This is the first proposal and the installation process instruction:
+Script kiddie uses a little program to connection flood the WordPress
+installation! The program uses Apache autobench to take the site down in
+seconds.</p>
+<p>Guide for the scipt Kiddie:</p>
+<ol>
+<li>Download the program from <a href="https://enos.itcollege.ee/~avein/anti2.rar">link</a>.</li>
+<li>Unpack and run AntiXakkerv2.0.exe</li>
+<li>Enter the address for wordpress site and press the button</li>
+</ol>
+<p>Above script did no run/work on the VirtualMachine Windows XP.
+Therefore, from the same author we have other solution:</p>
+<ol>
+<li>
+<p>[Download](https://enos.itcollege.ee/~avein/anti.exe](https://enos.itcollege.ee/%7Eavein/anti.exe),
+save it on Desktop</p>
+</li>
+<li>
+<p>Open Start menu, select run and type “cmd” into the box and press
+enter</p>
+</li>
+<li>
+<p>Drag anti.exe file to the black box (commandline) , select the box
+and type the address of your server ( eg. www.delfi.ee ) after the anti.exe</p>
+</li>
+</ol>
+<p>For example, if the address for your webserver is 192.168.56.101 type
+the following:</p>
+<pre><code>anti.exe 192.168.56.101&lt;br)
+
+</code></pre>
+<ol>
+<li>Press enter and the site will go down very soon :=) P.S. This is
+lightweight version tat doesnot use much bandwith and is targeted
+against a bug in apache server :)</li>
+</ol>
+<h3>RESULT 1</h3>
+<p>After running the first proposal we can see that the script kiddie does
+attack the server, but the server was reachable after a bit long delay,
+but still we could access to the wordpress.</p>
+<p>Here are some results graphs.</p>
+<ol>
+<li>5 minutes attack</li>
+</ol>
+<p>Illustration 2: Proposal 1, 5 min, traffic graph</p>
+<ol>
+<li>10 minutes attack</li>
+</ol>
+<p>Illustration 3: Proposal 1, 10 min, traffic graph</p>
+<p>On the one hand the script kiddie did attack the server, but on the
+other hand the server was still accessible. I’d like to conclude by
+stating that the above script did not meet our needs, and it did not
+stop, bring down the response time of the server.</p>
+<h2>PROPOSAL 2</h2>
+<p>Second proposal and the installation process:</p>
+<ol>
+<li>
+<p>You (Script kiddie) download the file from <a href="https://share.ee/x49176f">link</a>.</p>
+</li>
+<li>
+<p>You will get an warning message, but you continue to download anyway</p>
+</li>
+<li>
+<p>In chrome it looks like this</p>
+</li>
+<li>
+<p>Execute the file</p>
+</li>
+<li>
+<p>Will get a warning but continue</p>
+</li>
+<li>
+<p>Will look something like this</p>
+</li>
+<li>
+<p>Insert the URL to attack and define how long you want to attack</p>
+</li>
+<li>
+<p>Will look like</p>
+</li>
+<li>
+<p>Enjoy</p>
+</li>
+</ol>
+<p>The script is basic vbscript that will overwhelm the server by as many
+connections that are required to keep the server down for as long as you
+define.</p>
+<p>The above script did not work on the laboratory performance, because it
+had an code error. Therefore, for this proposal we are not able to
+provide you with the result graphs</p>
+<h2>PROPOSAL 3</h2>
+<p>Third proposal and the installation process is listed below: There is a
+free and very easy Denial of service script written in PHP, called
+Keep-Dead (Version 1.14). You can download it from the following <a href="https://www.esrun.co.uk/blog/imp/2011/03/Keep-Dead.zip">link</a></p>
+<p>It is developed for a research purpose, but still we can use it for our
+scenario. The good think is primarily meant for use via the terminal;
+although it will also work if launched via the browser.</p>
+<ol>
+<li>Unpack the Keep-Dead.zip</li>
+<li>Open in notepad or any other text/script editor</li>
+<li>On line #26 change the
+<code>$target_url = “https://www.example.com/wordpress/?s=%rand%”;</code> to our
+targeted wordpress blog. We can stop even certain page or post in
+wordpres or use of <code>%rand%</code> for a random value to be automatically
+generated for each individual request • You can change the maximum
+number of requests to be made on line #32</li>
+<li>Changeable is maximum number of requests to be made per connection
+#37, etc.</li>
+<li>After setting the setting of our needs save the file.</li>
+<li>And in terminal you need to run the following script:
+<code>php –e keep-dead.php</code> or if you run a xamp or other webserver it is
+possible to run the script from your browser.</li>
+<li>You can terminate the script by pressing CTRL+C in terminal console
+or stop/close the browser.</li>
+</ol>
+<p>For more information or video tutorials please refer to the following
+<a href="https://www.esrun.co.uk/blog/keep-alive-dos-script/">link</a></p>
+<p>If we follow the above steps we can perform our scenario 3 to make the
+server to stay down for two days or even more.</p>
+<p>There many ways to keep the server down for two days, this script for me
+is kind of easy usable. In addition, the author had provide and more
+details with following content: In addition of my proposal pls install
+the following <a href="https://windows.php.net/downloads/releases/php-5.3.8-nts-Win32-VC9-x86.msi">script</a>
+in the installation process in the section of Select Web Server you wish
+to setup please chose Do not setup a web server -&gt; Next click on the
+PHP small narrow down icon and select Entire future will be installed on
+local hard drive (second option) -&gt; Next -&gt; Install</p>
+<p>The results and graphs of the above proposal are demonstrated in the
+next section.</p>
+<p>This is the script that actually does the job and it keeps the server
+down until the script is down.</p>
+<h3>RESULT 3</h3>
+<p>Test results are following:</p>
+<ol>
+<li>5 minutes attack</li>
+</ol>
+<p>Illustration 4: Proposal 3, 5 min, traffic graph</p>
+<ol>
+<li>10 minutes attack</li>
+</ol>
+<p>Illustration 5: Proposal 3, 10 min, traffic graph</p>
+<p>A case in point is that from the above graphs we can see that the server
+does get more traffic and it does get attacked by the script kiddie.
+Illustration 6, bellow demonstrated that actually the server is down, is
+not responding any more to requests.</p>
+<p>Illustration 6: Proposal 3, server down after trying to reach the blog</p>
+<h1>CONCLUSION</h1>
+<p>There are three points that we should consider and to see which proposal
+was more accurate and it did the job that was required in the scenario.</p>
+<p>First I would like to start with rating from 1 to 5 each proposal.
+Higher score present better results. Which is proving our destination to
+hold down the server for longer then one day. The bellow table
+demonstrates which proposal has succeed.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Proposal 1</th>
+<th>Proposal 2</th>
+<th>Proposal 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Easy installation</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Server down</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>TOTAL</td>
+<td>8</td>
+<td>6</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>On the scoring rate 3 of server down is means that the server was down,
+but after few seconds was retrievable. Where the highest score 5 means
+that the server was not retrievable during this proposal test until we
+shutdown or cancel the process of script kiddie. In addition, the
+Proposal 3 due to a code error was not able to perform attack, that is
+why it is graded with server down score of 1. Therefore, our winner for
+this laboratory test is Proposal 3 with script kiddie Keep-dead.</p>
+<p>The next issue that I would like to focus is to the network speed,
+tested with other tool bmon2 which manifests that the speed limit of the
+bandwidth did not go over the 2 Mbit/s.</p>
+<p>In conclusion, the above proposals are nice and good example to have an
+view of how and with what tools we should perform script kiddie
+techniques. How to shutdown access to a server. On the whole, it show as
+how to use tools and methods of measuring the bandwidth of network and
+how to limit the transfer in comfortable way.</p>
+<h1>APPENDIXES</h1>
+<p>Appendix 1 is connected with the Method 1, which highlighted points are
+illustration on what information we should check, to clarify that the
+virtual environment has limitation of the network interface. Where
+Appendix 2 is for installation process of Ubuntu Server 10.04 LTS and
+wordpress, mysql installation.</p>
+<h1>APPENDIX 1</h1>
+<pre><code>Name: ubuntu-serverGuest OS: UbuntuUUID: fe16451a-f8b1-4ceb-bb90-8650d08c3c0eConfig file: C:\Users\predrag\Documents\Master_CyberSecurity\VirtualBox VMs\ubuntu-server\ubuntu-server.vboxSnapshot folder: C:\Users\predrag\Documents\Master_CyberSecurity\VirtualBox VMs\ubuntu-server\SnapshotsLog folder: C:\Users\predrag\Documents\Master_CyberSecurity\VirtualBox VMs\ubuntu-server\LogsHardware UUID: fe16451a-f8b1-4ceb-bb90-8650d08c3c0eMemory size: 512MBPage Fusion: offVRAM size: 12MBCPU exec cap: 100%HPET: offChipset: piix3Firmware: BIOSNumber of CPUs: 1Synthetic Cpu: offCPUID overrides: NoneBoot menu mode: message and menuBoot Device (1): FloppyBoot Device (2): DVDBoot Device (3): HardDiskBoot Device (4): Not AssignedACPI: onIOAPIC: offPAE: offTime offset: 0 msRTC: UTCHardw. virt.ext: onHardw. virt.ext exclusive: offNested Paging: onLarge Pages: onVT-x VPID: onState: running (since 2011-10-11T11:26:30.089000000)Monitor count: 13D Acceleration: off2D Video Acceleration: offTeleporter Enabled: offTeleporter Port: 0Teleporter Address:Teleporter Password:Storage Controller Name (0): IDE ControllerStorage Controller Type (0): PIIX4Storage Controller Instance Number (0): 0Storage Controller Max Port Count (0): 2Storage Controller Port Count (0): 2Storage Controller Bootable (0): onStorage Controller Name (1): SATA ControllerStorage Controller Type (1): IntelAhciStorage Controller Instance Number (1): 0Storage Controller Max Port Count (1): 30Storage Controller Port Count (1): 1Storage Controller Bootable (1): onSATA Controller (0, 0): C:\Users\predrag\Documents\Master_CyberSecurity\VirtualBox VMs\ubuntu-server\ubuntu-server.vdi (UUID: bf4c167a-ec0a-42fa-915f-2ffbe2fd66fb) NIC 1: MAC: 0800274572ED, Attachment: NAT, Cable connected: on, Trace:off (file: none), Type: 82540EM, Reported speed: 2 Mbps, Boot priority: 0, Promisc Policy: denyNIC 1 Settings: MTU: 0, Socket (send: 64, receive: 64), TCP Window (send:64, receive: 64) NIC 2: MAC: 0800270858EA, Attachment: Host-only Interface 'VirtualBoxHost-Only Ethernet Adapter', Cable connected: on, Trace: off (file: none), Type:82540EM, Reported speed: 2 Mbps , Boot priority: 0, Promisc Policy: denyNIC 3: disabledNIC 4: disabledNIC 5: disabledNIC 6: disabledNIC 7: disabledNIC 8: disabledPointing Device: USB TabletKeyboard Device: PS/2 KeyboardUART 1: disabledUART 2: disabledAudio: enabled (Driver: DSOUND, Controller: AC97)Clipboard Mode: BidirectionalVideo mode: 640x480x0VRDE: disabledUSB: enabledUSB Device Filters: &amp;lt;none&amp;gt;Available remote USB devices: &amp;lt;none&amp;gt;Currently Attached USB Devices: &amp;lt;none&amp;gt;Shared folders: &amp;lt;none&amp;gt;VRDE Connection: not activeClients so far: 0Guest: Configured memory balloon size: 0 MBOS type: UbuntuAdditions run level: 0Guest Facilities: No active facilities.
+</code></pre>
+<h2>APPENDIX 2</h2>
+<ul>
+<li>Installation media: Ubuntu 10.04 LTS 32bit iso image;</li>
+<li>HW: Virtualbox, 1CPU 32bit, 512MB RAM, 8GB HD (dynamic allocation);</li>
+<li>NIC1 NAT;</li>
+<li>NIC2 host only (for ssh and http access from host);</li>
+<li>Language used in installation process: English and country Estonia;</li>
+<li>Keyboard Layout English;</li>
+<li>Hostname: pece</li>
+<li>Partition methods: Guided, use entire disk</li>
+<li>Username: pece</li>
+<li>no http proxy</li>
+<li>Default applications</li>
+<li>sudo apt-get install lamp phpmyadmin</li>
+<li>wget -c https://wordpress.org/latest.tar.gz</li>
+<li>tar xvjf latest.tar.gz</li>
+<li>sudo cp wordpress /var/www/wordpress</li>
+<li>sudo nano /var/www/wordpress/wp-config.php Change the settings to
+your needs</li>
+</ul>
+<h1>Bibliography</h1>
+<p>Script kiddie: Wikipedia, Script Kiddie, October 2011, <a href="https://en.wikipedia.org/wiki/Script_kiddie">link</a></p>
+<p>User Manual: Oracle Corporation, User Manual, 2004-2011, <a href="https://www.virtualbox.org/manual/ch08.html">link</a></p>
+<h1>Footnotes:</h1>
+<p>[1] <a href="https://humdi.net/vnstat/">vnstat</a></p>
+<p>[2] <a href="https://www.infradead.org/~tgr/bmon/">Bmon</a></p>
+
+            </div>
+            
+            <!-- Related Posts -->
+            
+            
+            
+            
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                        
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+                
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                
+            
+            
+            
+            
+            <section aria-label="Content section" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Related Posts</h2>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/podcasts-for-security-startup-learning-german-and-whatever/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Podcasts for: Security, Startup, learning German and whatever
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2023-01-25">
+                                    January 25, 2023
+                                </time>
+                                <span>2 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/vision-of-security-in-canonical-products/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                Vision of security in Canonical products
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2021-07-09">
+                                    July 9, 2021
+                                </time>
+                                <span>4 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="group">
+                        <a href="/posts/isoc-fundamentals-isoc-serbia-belgrade-chapter-webinar/" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                ISOC Fundamentals - ISOC Serbia Belgrade Chapter Webinar
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="2021-06-30">
+                                    June 30, 2021
+                                </time>
+                                <span>1 min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            
+            <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <a href="/posts/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to all posts
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://predragtasevski.com%2Fposts%2Fscript-kiddie%2F" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#0077b5] dark:hover:text-[#0077b5] transition-colors duration-200"
+                           aria-label="Share on LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Hacker News -->
+                        <a href="https://news.ycombinator.com/submitlink?u=https://predragtasevski.com%2Fposts%2Fscript-kiddie%2F&t=Script%20Kiddie" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff6600] dark:hover:text-[#ff6600] transition-colors duration-200"
+                           aria-label="Share on Hacker News">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M0 0v24h24v-24h-24zm12.8 8.7l2.3-4.3h1.4l-3.1 5.5v3.5h-1.2v-3.5l-3-5.5h1.4l2.2 4.3z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Reddit -->
+                        <a href="https://reddit.com/submit?url=https://predragtasevski.com%2Fposts%2Fscript-kiddie%2F&title=Script%20Kiddie" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-[#ff4500] dark:hover:text-[#ff4500] transition-colors duration-200"
+                           aria-label="Share on Reddit">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- Copy Link -->
+                        <button onclick="copyToClipboard('https://predragtasevski.com/posts/script-kiddie/')" 
+                                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                                aria-label="Copy link to clipboard">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</article>
+
+<!-- Blog JavaScript Bundle (reading-progress, table-of-contents) -->
+<script src="/assets/js/blog.min.js"></script>
+
+<!-- Collapsible Code Blocks - loaded in base.njk -->
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of Predrag Tasevski, — insights on cybersecurity, open‑source, AI and technology. All views are my own and do not reflect any employer.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2"><li><a href="/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Home</a></li>
+<li><a href="/posts/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Blog</a></li>
+<li><a href="/projects/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Projects</a></li>
+<li><a href="/publications/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Publications</a></li>
+<li><a href="/talks/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Talks</a></li>
+<li><a href="/teaching/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Teach</a></li>
+<li><a href="/photography/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Photography</a></li>
+<li><a href="/about/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">About</a></li>
+<li><a href="/resume/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">CV</a></li>
+<li><a href="/stats/" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200">Stats</a></li></ul>
+                </div>
+                
+                <!-- Connect -->
+                <div> 
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3> 
+                    <div class="flex space-x-4"> 
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="mailto:pece@predragtasevski.com">
+                        <span class="sr-only">Mail</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://github.com/stepcellwolf/">
+                        <span class="sr-only">GitHub</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tpredrag">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://twitter.com/stepcellwolf">
+                        <span class="sr-only">Twitter</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M23.954 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417A9.867 9.867 0 010 19.54a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
+                        </svg>
+                        </a>
+                        <a class="text-sm text-gray-500 transition hover:text-gray-600 dark:hover:text-gray-400" target="_blank" rel="noopener noreferrer" href="https://mastodon.social/@stepcellwolf">
+                        <span class="sr-only">Mastodon</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-gray-700 dark:text-gray-200 h-6 w-6">
+                            <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753v-1.809l-.02-.041a20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422z"></path>
+                        </svg>
+                        </a>
+                    </div> 
+                 </div> 
+                </div> 
+
+                <!-- Copyright & License -->
+                <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700"> 
+                    <p class="text-center text-sm text-gray-600 dark:text-gray-400"> &copy; 2026 Predrag Tasevski. Content licensed under <a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                    CC BY-NC 4.0</a>. Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a> and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>. <span></p> 
+                </div>
+
+                <!-- Privacy Statement -->
+                <div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
+                    <strong>Privacy statement:</strong> I use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> analytics to collect and report on how my site is used; no advertising or tracking cookies are stored. Data collected does not personally identify visitors.
+                </div>
+            </div>
+                
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success message
+                showToast('Link copied to clipboard!');
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link copied to clipboard!');
+                } catch (err) {
+                    showToast('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-y-full';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+    
+    <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
+    <script src="/assets/js/core.min.js"></script>
+    
+    <!-- Mermaid Diagram Support -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
+        // Initialize mermaid with proper settings
+        mermaid.initialize({ 
+            startOnLoad: false, // We'll manually init after DOM manipulation
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4f46e5',
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Process Mermaid diagrams and THEN initialize code-collapse
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Step 1: Find and process all mermaid code blocks
+            const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+            
+            if (mermaidBlocks.length > 0) {
+                // Processing Mermaid diagrams
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
+                // Diagrams are now styled via CSS, no need for inline styles
+            }
+            
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
+        });
+    </script>
+</body>
+</html>
