@@ -16,7 +16,7 @@ tags:
 - presentation
 - conference
 - national cyber security strategy
-- digital transformation
+- digital-transformation
 - migration
 ---
 
