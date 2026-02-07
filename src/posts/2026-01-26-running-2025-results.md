@@ -32,7 +32,8 @@ The results from the previous year are accessible in this [blog post](/tags/runn
 ![Bangkok Marathon 2025 ](https://dgtzuqphqg23d.cloudfront.net/49YJctlQN5zhxuay1ZJbPszlH7Hqbqno7V78UYSLHM4-1536x2048.jpg 'Bangkok Marathon 2025 ')
 
 # 2026 Challenge
-- May 23-24, 2026 Sanlam Cape Town Marathon (with charity)
+
+- March 22, 2026 Rome Marathon, Italy
 - Oct 4, 2026 Generali Köln Marathon
 
 "Running 🏃🏻‍♂️ is my drug 💊, cooking 👨🏻‍🍳 is my yoga 🧘🏻‍♂️"
