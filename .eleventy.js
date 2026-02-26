@@ -50,6 +50,8 @@ module.exports = function(eleventyConfig) {
 
   // Copy static files
   eleventyConfig.addPassthroughCopy("src/assets/js");
+  // Passthrough for sveltiacms taken from https://github.com/aloxe/huwindty/blob/main/.eleventy.js
+  eleventyConfig.addPassthroughCopy("src/cms"); // don't process the CMS folder
   // Copy only specific CSS files that aren't processed by PostCSS
   // main.css is built by PostCSS, tailwind.css is imported by main.css
   eleventyConfig.addPassthroughCopy("src/assets/css/theme-tokens.css");

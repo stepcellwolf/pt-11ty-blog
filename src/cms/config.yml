@@ -1,0 +1,269 @@
+# Sveltia CMS configuration
+
+# This is where we configure the CMS repo and its collections and fields
+# Sveltia CMS generally follows the Decap CMS configuration spec
+# Decap CMS docs: https://decapcms.org/docs/intro/
+# Sveltia CMS docs: https://github.com/sveltia/sveltia-cms#features
+
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: stepcellwolf/pt-11ty-blog
+  branch: main
+
+media_folder: "src/assets/images"
+
+collections:
+  # ─────────────────────────────────────────
+  # BLOG POSTS
+  # ─────────────────────────────────────────
+  - name: "blog"
+    label: "Posts"
+    label_singular: "Post"
+    folder: "src/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "6-12 words with primary keywords"
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        default: ""
+        date_format: "YYYY-MM-DD"
+        time_format: false
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "150-160 characters for SEO and social sharing"
+        pattern: [".{150,160}", "Must be 150-160 characters"]
+
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        min: 1
+        max: 4
+        hint: "Add 1-4 tags (primary, secondary, tertiary, optional)"
+
+      - label: "Images"
+        name: "images"
+        widget: "object"
+        fields:
+          - label: "Hero Image"
+            name: "hero"
+            widget: "object"
+            fields:
+              - label: "Source"
+                name: "src"
+                widget: "image"
+                hint: "Recommended size: 1200x630px. Name as YYYY-MM-DD-slug-hero.jpg"
+                media_folder: "/src/assets/images/blog/hero"
+                public_folder: "/assets/images/blog/hero"
+              - label: "Alt Text"
+                name: "alt"
+                widget: "string"
+                hint: "Descriptive alt text explaining what the image shows"
+              - label: "Caption"
+                name: "caption"
+                widget: "string"
+                required: false
+                hint: "Optional caption providing additional context"
+              - label: "Width"
+                name: "width"
+                widget: "number"
+                default: 1200
+                value_type: "int"
+              - label: "Height"
+                name: "height"
+                widget: "number"
+                default: 630
+                value_type: "int"
+
+          - label: "OG Image"
+            name: "og"
+            widget: "object"
+            fields:
+              - label: "Source"
+                name: "src"
+                widget: "image"
+                hint: "Social sharing image. Name as YYYY-MM-DD-slug-og.jpg"
+                media_folder: "/src/assets/images/blog/hero"
+                public_folder: "/assets/images/blog/hero"
+              - label: "Alt Text"
+                name: "alt"
+                widget: "string"
+                hint: "Concise and engaging social media preview description"
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+
+  # ─────────────────────────────────────────
+  # PROJECTS
+  # ─────────────────────────────────────────
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    files:
+      - name: "projects"
+        label: "Projects"
+        file: "src/_data/projects.json"
+        format: json
+        fields:
+          - label: "Projects"
+            name: "projects"
+            widget: "list"
+            root: true
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", hint: "e.g. July 2025" }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Image"
+                name: "imgSrc"
+                widget: "image"
+                media_folder: "/src/assets/images/projects"
+                public_folder: "/assets/images/projects"
+                required: false
+              - { label: "URL", name: "href", widget: "string", required: false }
+
+  # ─────────────────────────────────────────
+  # PUBLICATIONS
+  # ─────────────────────────────────────────
+  - name: "publications"
+    label: "Publications"
+    label_singular: "Publication"
+    files:
+      - name: "publications"
+        label: "Publications"
+        file: "src/_data/publications.json"
+        format: json
+        fields:
+          - label: "Publications"
+            name: "publications"
+            widget: "list"
+            root: true
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", required: false, hint: "e.g. 4 August 2010" }
+              - label: "Cover Image"
+                name: "imgSrc"
+                widget: "image"
+                media_folder: "/src/assets/images/books"
+                public_folder: "/assets/images/books"
+                required: false
+              - { label: "Type", name: "type", widget: "string", required: false, hint: "e.g. Paperback Book, Journal Article, Conference paper, Research Report" }
+              - { label: "ISBN / ISSN", name: "isbn", widget: "string", required: false }
+              - { label: "Publisher", name: "publisher", widget: "string", required: false }
+              - { label: "URL", name: "href", widget: "string", required: false }
+
+  # ─────────────────────────────────────────
+  # RESUME
+  # ─────────────────────────────────────────
+  - name: "resume"
+    label: "Resume"
+    files:
+      - name: "resume"
+        label: "Resume"
+        file: "src/_data/resume.json"
+        format: json
+        fields:
+          - label: "Sections"
+            name: "sections"
+            widget: "list"
+            root: true
+            fields:
+              - { label: "Section Title", name: "title", widget: "string" }
+              - label: "Items"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Sub Title", name: "subTitle", widget: "string", required: false }
+                  - { label: "Date", name: "date", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Awards", name: "awards", widget: "string", required: false }
+                  - { label: "URL", name: "href", widget: "string", required: false }
+
+  # ─────────────────────────────────────────
+  # SITE SETTINGS
+  # ─────────────────────────────────────────
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "Site Settings"
+        file: "src/_data/site.json"
+        format: json
+        fields:
+          - { label: "Site Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Resume / Bio", name: "resume", widget: "text" }
+          - { label: "Site URL", name: "url", widget: "string" }
+          - { label: "Author", name: "author", widget: "string" }
+          - { label: "Current Year", name: "currentYear", widget: "number", value_type: "int" }
+          - label: "Default Avatar"
+            name: "defaultImage"
+            widget: "image"
+            media_folder: "/src/assets/images"
+            public_folder: "/assets/images"
+          - label: "Social Links"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+              - { label: "GitHub", name: "github", widget: "string", required: false }
+              - { label: "Twitter / X", name: "twitter", widget: "string", required: false }
+              - { label: "Mastodon", name: "mastodon", widget: "string", required: false }
+          - { label: "Job Title", name: "jobTitle", widget: "string" }
+          - { label: "SEO Keywords", name: "keywords", widget: "text", hint: "Comma-separated keywords" }
+
+  # ─────────────────────────────────────────
+  # TALKS
+  # ─────────────────────────────────────────
+  - name: "talks"
+    label: "Talks"
+    label_singular: "Talk"
+    files:
+      - name: "talks"
+        label: "Talks"
+        file: "src/_data/talks.json"
+        format: json
+        fields:
+          - label: "Talks"
+            name: "talks"
+            widget: "list"
+            root: true
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", hint: "e.g. 14 - 17 November 2012", required: false }
+              - { label: "Location", name: "location", widget: "string", required: false, default: "" }
+              - { label: "Description", name: "description", widget: "string", required: false, default: "" }
+              - { label: "URL", name: "href", widget: "string", required: false }
+
+  # ─────────────────────────────────────────
+  # TEACHING
+  # ─────────────────────────────────────────
+  - name: "teaching"
+    label: "Teaching"
+    label_singular: "Teaching Entry"
+    files:
+      - name: "teaching"
+        label: "Teaching"
+        file: "src/_data/teaching.json"
+        format: json
+        fields:
+          - label: "Teaching"
+            name: "teaching"
+            widget: "list"
+            root: true
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", hint: "e.g. February 2021" }
+              - { label: "Location", name: "location", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "URL", name: "href", widget: "string", required: false }
