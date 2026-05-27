@@ -1,12 +1,5 @@
 [
   {
-    "title": "CRA Standards Unlocked EU Tour - Malta",
-    "date": "21 May 2026",
-    "location": "DiHubMT, Malta",
-    "description": "Predrag talked on the CRA Compliance tools & funding opportunities panel about the OSCRAT EU funded project.",
-    "href": "https://cyberstand.eu/events/cra-standards-unlocked-eu-tour-malta"
-  },
-  {
     "title": "Hate Speech on Internet",
     "date": "14 - 17 November 2012",
     "location": "",
@@ -45,7 +38,8 @@
     "title": "NATO ARW: Strengthening Cyber Defense for Critical Infrastructure",
     "date": "30 - 31 October 2014",
     "location": "Kiev, Ukraine",
-    "description": "Standards for Information Security are inappropriate fashion to assess the risk in private companies and elsewhere"
+    "description": "Standards for Information Security are inappropriate fashion to assess the risk in private companies and elsewhere",
+    "href": ""
   },
   {
     "title": "DCAF Young Faces Network 2014: Young Faces Network Cybersecurity Winter School for the Western Balkans",
@@ -263,5 +257,12 @@
     "location": "Lisbon, Portugal",
     "description": "VIC Conference 2025 - Unlocking the Power of XR Across Sectors",
     "href": ""
+  },
+  {
+    "title": "CRA Standards Unlocked EU Tour - Malta",
+    "date": "21 May 2026",
+    "location": "DiHubMT, Malta",
+    "description": "Predrag talked on the CRA Compliance tools & funding opportunities panel about the OSCRAT EU funded project.",
+    "href": "https://cyberstand.eu/events/cra-standards-unlocked-eu-tour-malta"
   }
 ]
