@@ -17,7 +17,7 @@ In 2025 I finished two marathon, and a company race.
 | ---------- | -------------------- | -------: | ------------------------------ | ---------- | --------- |
 | 21.05.2024 | Berlin, Germany      |     5.5k | 23. IKK BB BERLINER FIRMENLAUF | 22m 31s    | 4:15 / km |
 | 06.04.2025 | Brighton, UK    |      42.1k | Brighton Marathon Weekend 2025 | 3h 35m 54s | 5:00 / km |
-| 16.11.2025 | Bangkok, Thailand | 1   42.1k | Bangkok Marathon 2025   | 3h 40m 24s | 5:2 / km |
+| 16.11.2025 | Bangkok, Thailand |    42.1k | Bangkok Marathon 2025   | 3h 40m 24s | 5:2 / km |
 
 ![Brighton Marathon Weekend 2025](https://dgtzuqphqg23d.cloudfront.net/SFoVbAwWZbps_Zv2pCKz50EYacSicSHDhnrBhObhrIM-1153x2048.jpg 'Brighton Marathon Weekend 2025')
 
