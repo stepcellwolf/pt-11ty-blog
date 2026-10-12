@@ -7,6 +7,13 @@ module.exports = function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
+  // Drafts: `draft: true` in front matter is skipped on build, but shown under `eleventy --serve`
+  eleventyConfig.addPreprocessor("drafts", "*", (data) => {
+    if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") {
+      return false;
+    }
+  });
+
   // Image optimization shortcode with optional class parameter
   async function imageShortcode(src, alt, sizes = "(max-width: 768px) 100vw, 800px", className = "") {
     let metadata = await Image(src, {

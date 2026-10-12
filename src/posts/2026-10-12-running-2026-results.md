@@ -2,6 +2,7 @@
 title: Running 2026 results
 date: 2026-10-12
 author: Predrag Tasevski
+draft: true
 tags:
   - running
   - challenge
@@ -16,15 +17,15 @@ In 2026 I finished two marathon, and a company race.
 | Date       | Location             | Distance | Title                          | Time       | Pace      |
 | ---------- | -------------------- | -------: | ------------------------------ | ---------- | --------- |
 | 22.03.2026 | Rome, Italy    |      42.1k | ACEA Run Rome The Marathon 2026 | 3h 32m 50s | 5:02 / km |
-| 04.20.2026 | Cologne, Germany |    42.1k | Generali Köln marathon 2026   | 3h 43m 37s | 5:17 / km |
+| 04.10.2026 | Cologne, Germany |    42.1k | Generali Köln marathon 2026   | 3h 43m 37s | 5:17 / km |
 
 ![Brighton Marathon Weekend 2025](https://dgtzuqphqg23d.cloudfront.net/SFoVbAwWZbps_Zv2pCKz50EYacSicSHDhnrBhObhrIM-1153x2048.jpg 'Brighton Marathon Weekend 2025')
 
-## Running 2025 statistic
+## Running 2026 statistic
 
 | Year | Hours |      Km | Runs |
 | ---- | ----: | ------: | ---: |
-| 2025 |   169 | 1,928.0 |  169 |
+| 2026 |   TBD |     TBD |  TBD |
 
 The results from the previous year are accessible in this [blog post](/tags/running/).
 
