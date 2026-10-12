@@ -37,13 +37,23 @@ eleventyComputed:
       </button>
       <button
         class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-        data-year="2022"
+        data-year="2019"
         onclick="switchYear('2019')"
         aria-label="Show statistics for 2019"
         aria-pressed="false"
         role="button"
       >
         2019
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2020"
+        onclick="switchYear('2020')"
+        aria-label="Show statistics for 2020"
+        aria-pressed="false"
+        role="button"
+      >
+        2020
       </button>
       <button
         class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
@@ -54,6 +64,16 @@ eleventyComputed:
         role="button"
       >
         2021
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2022"
+        onclick="switchYear('2022')"
+        aria-label="Show statistics for 2022"
+        aria-pressed="false"
+        role="button"
+      >
+        2022
       </button>
       <button
         class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
@@ -185,7 +205,7 @@ eleventyComputed:
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
           </svg>
         </div>
-        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter">{{ running.totals.marathons }}</p>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" id="run-marathons">{{ running.totals.marathons }}</p>
       </div>
       <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 500ms">
         <div class="flex items-center justify-between mb-2">
@@ -194,7 +214,7 @@ eleventyComputed:
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
           </svg>
         </div>
-        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter">{{ running.totals.halfMarathons }}</p>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" id="run-halves">{{ running.totals.halfMarathons }}</p>
       </div>
       <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 600ms">
         <div class="flex items-center justify-between mb-2">
@@ -203,8 +223,8 @@ eleventyComputed:
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
-        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100">{{ running.pbs.marathon.time if running.pbs.marathon else '-' }}</p>
-        {% if running.pbs.marathon %}<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ running.pbs.marathon.pace }} /km, {{ running.pbs.marathon.title }} ({{ running.pbs.marathon.year }})</p>{% endif %}
+        <p id="run-pb-marathon" class="text-4xl font-bold text-gray-900 dark:text-gray-100">{{ running.pbs.marathon.time if running.pbs.marathon else '-' }}</p>
+        <p id="run-pb-marathon-sub" class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ running.pbs.marathon.pace }} /km, {{ running.pbs.marathon.title }} ({{ running.pbs.marathon.year }})</p>
       </div>
       <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 700ms">
         <div class="flex items-center justify-between mb-2">
@@ -213,8 +233,8 @@ eleventyComputed:
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
-        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100">{{ running.pbs.half.time if running.pbs.half else '-' }}</p>
-        {% if running.pbs.half %}<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ running.pbs.half.pace }} /km, {{ running.pbs.half.title }} ({{ running.pbs.half.year }})</p>{% endif %}
+        <p id="run-pb-half" class="text-4xl font-bold text-gray-900 dark:text-gray-100">{{ running.pbs.half.time if running.pbs.half else '-' }}</p>
+        <p id="run-pb-half-sub" class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ running.pbs.half.pace }} /km, {{ running.pbs.half.title }} ({{ running.pbs.half.year }})</p>
       </div>
     </div>
     {% endif %}
@@ -248,11 +268,10 @@ eleventyComputed:
     <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 id="running-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Running Statistics</h2>
       <p class="text-gray-600 dark:text-gray-400 mb-6">
-        Compiled from my <a href="/tags/running/" class="text-primary-600 dark:text-primary-400 underline">yearly running results posts</a>:
-        {{ running.totals.km | round }} km, {{ running.totals.runs }} runs,
-        {{ running.totals.marathons }} marathons and {{ running.totals.halfMarathons }} half marathons.
+        Compiled from my <a href="/tags/running/" class="text-primary-600 dark:text-primary-400 underline">yearly running results posts</a>: <span id="run-summary">{{ running.totals.km | round }} km, {{ running.totals.runs }} runs, {{ running.totals.marathons }} marathons and {{ running.totals.halfMarathons }} half marathons.</span>
       </p>
 
+      <p id="run-empty" class="hidden text-gray-600 dark:text-gray-400 mb-6">No running results recorded for this year.</p>
       <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Per year</h3>
       <div class="overflow-x-auto mb-8">
         <table class="w-full text-sm text-left">
@@ -270,7 +289,7 @@ eleventyComputed:
           </thead>
           <tbody class="text-gray-800 dark:text-gray-200">
             {% for y in running.byYear %}
-            <tr class="border-b border-gray-200 dark:border-gray-700">
+            <tr class="border-b border-gray-200 dark:border-gray-700" data-run-year="{{ y.year }}" data-km="{{ y.km or 0 }}" data-runs="{{ y.runs or 0 }}" data-marathons="{{ y.marathons }}" data-halves="{{ y.halfMarathons }}">
               <th scope="row" class="py-2 pr-4 font-semibold">{{ y.year }}</th>
               <td class="py-2 pr-4 text-right">{{ y.hours if y.hours else "-" }}</td>
               <td class="py-2 pr-4 text-right">{{ y.km | toLocaleString if y.km else "-" }}</td>
@@ -288,7 +307,7 @@ eleventyComputed:
       <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Kilometres per year</h3>
       <div class="space-y-2 mb-8" role="list" aria-label="Kilometres run per year">
         {% for y in running.byYear | reverse %}{% if y.km %}
-        <div class="flex items-center gap-3" role="listitem">
+        <div class="flex items-center gap-3" role="listitem" data-run-year="{{ y.year }}">
           <span class="w-12 text-sm font-medium text-gray-700 dark:text-gray-300">{{ y.year }}</span>
           <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded h-5">
             <div class="bg-indigo-600 dark:bg-indigo-400 h-5 rounded" style="width: {{ (y.km / running.maxKm * 100) | round }}%"></div>
@@ -313,7 +332,7 @@ eleventyComputed:
           </thead>
           <tbody class="text-gray-800 dark:text-gray-200">
             {% for r in running.races %}
-            <tr class="border-b border-gray-200 dark:border-gray-700">
+            <tr class="border-b border-gray-200 dark:border-gray-700" data-run-year="{{ r.year }}" data-type="{{ r.type }}" data-seconds="{{ r.seconds }}" data-time="{{ r.time }}" data-pace="{{ r.pace }}" data-title="{{ r.title }}" data-race-year="{{ r.year }}">
               <td class="py-2 pr-4 whitespace-nowrap">{{ r.date }}</td>
               <td class="py-2 pr-4">{{ r.title }}, {{ r.location }}</td>
               <td class="py-2 pr-4 whitespace-nowrap">{{ r.type }}</td>
@@ -561,6 +580,31 @@ function getFilteredPosts() {
 }
 
 // Switch year filter
+// Running statistics: follow the year selector
+function updateRunning() {
+  const all = currentYear === 'all';
+  document.querySelectorAll('[data-run-year]').forEach(el => {
+    el.classList.toggle('hidden', !all && el.dataset.runYear !== currentYear);
+  });
+  const years = [...document.querySelectorAll('tr[data-km]')].filter(r => all || r.dataset.runYear === currentYear);
+  const sum = key => years.reduce((a, r) => a + (+r.dataset[key] || 0), 0);
+  const races = [...document.querySelectorAll('tr[data-seconds]')].filter(r => all || r.dataset.runYear === currentYear);
+  const count = type => races.filter(r => r.dataset.type === type).length;
+  const best = type => races.filter(r => r.dataset.type === type).sort((a, b) => a.dataset.seconds - b.dataset.seconds)[0];
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+
+  set('run-marathons', count('Marathon'));
+  set('run-halves', count('Half marathon'));
+  [['Marathon', 'marathon'], ['Half marathon', 'half']].forEach(([type, key]) => {
+    const b = best(type);
+    set('run-pb-' + key, b ? b.dataset.time : '-');
+    set('run-pb-' + key + '-sub', b ? `${b.dataset.pace} /km, ${b.dataset.title} (${b.dataset.raceYear})` : '');
+  });
+  set('run-summary', `${Math.round(sum('km')).toLocaleString()} km, ${sum('runs')} run${sum('runs') === 1 ? '' : 's'}, ${count('Marathon')} marathon${count('Marathon') === 1 ? '' : 's'} and ${count('Half marathon')} half marathon${count('Half marathon') === 1 ? '' : 's'}${all ? '' : ' in ' + currentYear}.`);
+
+  const empty = document.getElementById('run-empty');
+  if (empty) empty.classList.toggle('hidden', all || years.length || races.length);
+}
 function switchYear(year) {
   currentYear = year;
 
@@ -582,6 +626,7 @@ function switchYear(year) {
   updateTagCloud();
   updateStreaks();
   updateReadingTimeInsights();
+  updateRunning();
 }
 
 // Calculate writing streaks
