@@ -4,7 +4,7 @@
     "date": "May 2026",
     "description": "Consolidated report prepared under the EU CyberNet Call for Action CFA-215. It highlights the alignment with various international standards and guidelines, including NIS2, EU CRA, ENISA Good Practices, and others, ensuring comprehensive cybersecurity measures for supply chains in the LAC region.",
     "imgSrc": "/assets/images/projects/logo-primary-desktop.svg",
-    "href": ""
+    "href": "https://www.lac4.eu/lac4-members-only-seminar-introducing-standardised-secure-procurement-practices-and-cybersecure-supply-chain-guidelines-for-the-lac-region/"
   },
   {
     "title": "SAFE SPORT",
@@ -52,7 +52,8 @@
     "title": "NATO: Fundamental readiness in Cyber Defence in the Balkans",
     "date": "17-19 October 2018",
     "description": "Co-director of Advanced Research Workshop (ISEG.EAP.ARW.G5515). Write and design the project, and collect and gather a scientists and well-known Subject-matter experts from: government, military, NGOs, research and development, education and public and private sector from NATO members and partner countries.",
-    "imgSrc": "/assets/images/projects/NATOhor_RGB.jpg"
+    "imgSrc": "/assets/images/projects/NATOhor_RGB.jpg",
+    "href": ""
   },
   {
     "title": "NATO: Benchmarking Telemedicine: Improving Health Security in the Balkans",
@@ -72,7 +73,8 @@
     "title": "NATO: Encouraging Cyber Security Awareness in the Balkans",
     "date": "17-19 March 2015",
     "description": "Co-director of Advanced Research Workshop (ISEG.EAP.ARW.984799), supported by NATO Science for Peace and Security programme. The main purpose of this workshop was to boost awareness in cyber security, cyber defence, strategy, frameworks and agencies.",
-    "imgSrc": "/assets/images/projects/NATOhor_RGB.jpg"
+    "imgSrc": "/assets/images/projects/NATOhor_RGB.jpg",
+    "href": ""
   },
   {
     "title": "Study and Improvement of Risk Assessment Techniques",
@@ -92,12 +94,14 @@
     "title": "Interactive Cyber Security Program",
     "date": "2012",
     "description": "CMS/LMS prototype for training program management built with CodeIgniter and MySQL.",
-    "imgSrc": ""
+    "imgSrc": "",
+    "href": ""
   },
   {
     "title": "Messenger-Pigeon",
     "date": "2009",
     "description": "Java-based LAN chat application with easy setup and cross-platform support.",
-    "imgSrc": ""
+    "imgSrc": "",
+    "href": ""
   }
 ]
